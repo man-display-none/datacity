@@ -1,0 +1,36 @@
+{
+  "name": "Datacity",
+  "short_name": "Datacity",
+  "description": "get information about building energy data",
+  "display": "standalone",
+  "scope": "/app/",
+  "icons": [
+    {
+      "src": "public/images/touch/homescreen1.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "public/images/touch/homescreen2.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "public/images/touch/homescreen3.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "public/images/touch/homescreen4.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "public/images/touch/homescreen5.jpg",
+      "sizes": "48x48",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#2196f3",
+  "background_color": "#2196f3"
+}
