@@ -60,8 +60,6 @@ const mapState = state => {
   }
 }
 
-const mapDispatch = dispatch => {
-  
-}
+const mapDispatch = dispatch => {}
 
 export default connect(mapState, mapDispatch)(BuildingInfo)
