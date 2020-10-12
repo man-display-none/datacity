@@ -14,7 +14,7 @@ export class BuildingEnergy {
     this.ghgEmissions = Number(ghgEmissions)
     //assuming commercial rates and fuelUse is just natural gas for now; will need to expand to other fuels as applicable
     //also need to convert kbtu to mcf for fuel use
-    this.totalEnergyCost = Number(electricityUse * 0.14) + Number(fuelUse * 7)
+    this.totalEnergyCost = Number(electricityUse) * 0.14 + Number(fuelUse) * 7
   }
   lightingImprovement() {
     this.totalEnergyCost = this.totalEnergyCost * 0.98
