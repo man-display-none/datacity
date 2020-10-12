@@ -2,9 +2,6 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const Building = db.define('buildings', {
-  geometry: {
-    type: Sequelize.GEOMETRY('multipolygon')
-  },
   order: Sequelize.STRING,
   property_id: Sequelize.STRING,
   property_name: Sequelize.STRING,
@@ -12,7 +9,7 @@ const Building = db.define('buildings', {
   parent_property_name: Sequelize.STRING,
   city_building: Sequelize.STRING,
   email: Sequelize.STRING,
-  bbl_10_digits: Sequelize.STRING,
+  bbl_10_digits: Sequelize.TEXT,
   nyc_borough_block_and_lot: Sequelize.STRING,
   nyc_building_identification: Sequelize.STRING,
   address_1_self_reported: Sequelize.STRING,
@@ -72,21 +69,7 @@ const Building = db.define('buildings', {
   community_board: Sequelize.STRING,
   council_district: Sequelize.STRING,
   census_tract: Sequelize.STRING,
-  nta: Sequelize.STRING,
-  bin: Sequelize.STRING,
-  the_geom: Sequelize.GEOMETRY('multipolygon'),
-  lstmoddate: Sequelize.STRING,
-  cnstrct_yr: Sequelize.STRING,
-  lststatype: Sequelize.STRING,
-  doitt_id: Sequelize.STRING,
-  heightroof: Sequelize.STRING,
-  feat_code: Sequelize.STRING,
-  groundelev: Sequelize.STRING,
-  shape_area: Sequelize.STRING,
-  shape_len: Sequelize.STRING,
-  base_bbl: Sequelize.STRING,
-  mpluto_bbl: Sequelize.STRING,
-  geomsource: Sequelize.STRING
+  nta: Sequelize.STRING
 })
 
 module.exports = Building

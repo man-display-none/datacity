@@ -1,9 +1,10 @@
+/* eslint-disable camelcase */
 const Sequelize = require('sequelize')
 const db = require('../db')
 
 const Footprint = db.define('footprints', {
   bin: Sequelize.STRING,
-  the_geom: Sequelize.GEOMETRY('multipolygon'),
+  the_geom: Sequelize.GEOMETRY('multipolygon', 4326),
   lstmoddate: Sequelize.STRING,
   cnstrct_yr: Sequelize.STRING,
   lststatype: Sequelize.STRING,
@@ -15,7 +16,8 @@ const Footprint = db.define('footprints', {
   shape_len: Sequelize.STRING,
   base_bbl: Sequelize.STRING,
   mpluto_bbl: Sequelize.STRING,
-  geomsource: Sequelize.STRING
+  geomsource: Sequelize.STRING,
+  energy_star_score: {type: Sequelize.STRING, defaultValue: '0'}
 })
 
 module.exports = Footprint
