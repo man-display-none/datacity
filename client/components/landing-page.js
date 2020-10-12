@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-const mapboxgl = require('mapbox-gl')
+import mapboxgl from 'mapbox-gl'
 
 //hide access token
 mapboxgl.accessToken =
