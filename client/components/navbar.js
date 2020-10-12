@@ -25,6 +25,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
         {isLoggedIn ? (
           <div>
             {/* The navbar will show these links after you log in */}
+            <h1>Datacity</h1>
             <ul className="navbar-nav mr-auto">
               <li className="nav-item active">
                 <Link to="/" className="nav-link">
