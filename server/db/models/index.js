@@ -1,4 +1,6 @@
 const User = require('./user')
+const Building = require('./building')
+const Footprint = require('./footprint')
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -13,6 +15,9 @@ const User = require('./user')
  * for example, we can say: const {User} = require('../db/models')
  * instead of: const User = require('../db/models/user')
  */
+
 module.exports = {
-  User
+  User,
+  Building,
+  Footprint
 }

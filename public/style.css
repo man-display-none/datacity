@@ -1,5 +1,7 @@
 body {
   font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
 }
 
 a {
@@ -19,6 +21,11 @@ form div {
   margin: 1em;
   display: inline-block;
 }
-button-form {
-  padding-left: 50px !important;
+
+.mapContainer {
+  position: absolute;
+  top: 150px;
+  right: 0;
+  height: 80%;
+  width: 100%;
 }
