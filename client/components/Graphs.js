@@ -18,20 +18,45 @@ export default class Graphs extends React.Component {
   render() {
     return (
       <div>
-        <Line
-          data={state}
-          options={{
-            title: {
-              display: true,
-              text: 'Energy Values of Building Id: 12345',
-              fontSize: 20
-            },
-            legend: {
-              display: true,
-              position: 'right'
-            }
-          }}
-        />
+        <div>
+          <div className="form-check">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              value=""
+              id="defaultCheck1"
+            />
+            <label className="form-check-label" htmlFor="defaultCheck1">
+              Default checkbox
+            </label>
+          </div>
+          <div className="form-check">
+            <input
+              className="form-check-input"
+              type="checkbox"
+              value=""
+              id="defaultCheck2"
+              disabled
+            />
+            <label className="form-check-label" htmlFor="defaultCheck2">
+              Disabled checkbox
+            </label>
+          </div>
+          <Line
+            data={state}
+            options={{
+              title: {
+                display: true,
+                text: 'Energy Values of Building Id: 12345',
+                fontSize: 20
+              },
+              legend: {
+                display: true,
+                position: 'right'
+              }
+            }}
+          />
+        </div>
       </div>
     )
   }
