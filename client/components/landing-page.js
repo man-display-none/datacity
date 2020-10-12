@@ -19,10 +19,6 @@ export default class LandingPage extends Component {
     })
   }
 
-  componentWillUnmount() {
-    this.map.remove()
-  }
-
   render() {
     return (
       <div>
@@ -31,21 +27,3 @@ export default class LandingPage extends Component {
     )
   }
 }
-
-/**
- * CONTAINER
- */
-// const mapState = (state) => {
-//   return {
-//     email: state.user.email,
-//   }
-// }
-
-// export default connect(mapState)(UserHome)
-
-// /**
-//  * PROP TYPES
-//  */
-// UserHome.propTypes = {
-//   email: PropTypes.string,
-// }
