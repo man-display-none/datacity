@@ -26,13 +26,14 @@ const LandingPage = () => {
         const long = e.features[0].geometry.coordinates[0][1]
         //use e.features[0].properties.base_bbl for axios calls
         const popupNode = document.createElement('div')
-        ReactDOM.render(
+        const showInfo = ReactDOM.render(
           <BuildingInfo info={e.features[0].properties} />,
           popupNode
         )
+
         popUpRef.current
           .setLngLat(lat, long)
-          .setDOMContent(popupNode)
+          .setDOMContent(showInfo)
           .addTo(map)
       })
     })
