@@ -23,7 +23,7 @@ export default class SingleBuildingDisplay extends Component {
     console.log(this.state, 'this.state')
     this.setState = {
       ...this.state,
-      datasets: [{...this.state.datasets, data: [43, 42, 56, 78]}]
+      datasets: [{...this.state.datasets, data: [43, 42, 56, 78, 54]}]
     }
     console.log(this.state)
   }
