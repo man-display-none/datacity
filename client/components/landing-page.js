@@ -6,7 +6,7 @@ import mapboxgl from 'mapbox-gl'
 //hide access token
 mapboxgl.accessToken =
   'pk.eyJ1IjoiamVmZi0wMjI4IiwiYSI6ImNrZzZ4ZW5kbzAxc2cydG16a2syZWh5eW4ifQ.AFSJlXJOrlrnjsLHBCfpbw'
-
+const style = {color: '#1d3de2'}
 const LandingPage = () => {
   const mapContainerRef = useRef(null)
   const popUpRef = useRef(new mapboxgl.Popup({offset: 15}))
@@ -26,14 +26,15 @@ const LandingPage = () => {
         const long = e.features[0].geometry.coordinates[0][1]
         //use e.features[0].properties.base_bbl for axios calls
         const popupNode = document.createElement('div')
-        const showInfo = ReactDOM.render(
+        popupNode.style = style
+        ReactDOM.render(
           <BuildingInfo info={e.features[0].properties} />,
           popupNode
         )
 
         popUpRef.current
           .setLngLat(lat, long)
-          .setDOMContent(showInfo)
+          .setDOMContent(popupNode)
           .addTo(map)
       })
     })
