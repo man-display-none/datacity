@@ -94,7 +94,7 @@ const LandingPage = () => {
 
         popUpRef.current
           .setLngLat(lat, long)
-          .setDOMContent(showInfo)
+          .setDOMContent(popupNode)
           .addTo(map)
       })
     })
