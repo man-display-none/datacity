@@ -4,11 +4,13 @@ import axios from 'axios'
 import mapboxgl from 'mapbox-gl'
 import BuildingInfo from './BuildingInfo'
 import Building from '../calculator'
+import {Router} from 'react-router-dom'
+import {SingleBuildingDisplay} from './SingleBuildingDisplay'
 
 //hide access token
 mapboxgl.accessToken =
   'pk.eyJ1IjoiamVmZi0wMjI4IiwiYSI6ImNrZzZ4ZW5kbzAxc2cydG16a2syZWh5eW4ifQ.AFSJlXJOrlrnjsLHBCfpbw'
-const LandingPage = () => {
+const LandingPage = props => {
   const mapContainerRef = useRef(null)
   const popUpRef = useRef(new mapboxgl.Popup({offset: 15}))
   useEffect(() => {
@@ -88,7 +90,9 @@ const LandingPage = () => {
         //use e.features[0].properties.base_bbl for axios calls
         const popupNode = document.createElement('div')
         const showInfo = ReactDOM.render(
-          <BuildingInfo info={building} />,
+          <Router>
+            <BuildingInfo info={building} />,
+          </Router>,
           popupNode
         )
 
@@ -98,6 +102,7 @@ const LandingPage = () => {
           .addTo(map)
       })
     })
+    console.log('this.props', props)
   })
   return (
     <div>
@@ -105,5 +110,4 @@ const LandingPage = () => {
     </div>
   )
 }
-
 export default LandingPage

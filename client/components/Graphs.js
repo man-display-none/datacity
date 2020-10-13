@@ -3,6 +3,7 @@ import {Line} from 'react-chartjs-2'
 
 export default class Graphs extends React.Component {
   render() {
+    console.log(this.props.data)
     return (
       <Line
         data={this.props.data}
