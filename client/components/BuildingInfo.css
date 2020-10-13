@@ -1,0 +1,5 @@
+.modal-dialog {
+  position: absolute;
+  right: 1.2%;
+  z-index: 10040;
+}
