@@ -9,7 +9,7 @@ mapboxgl.accessToken =
 const style = {color: '#1d3de2'}
 const LandingPage = () => {
   const mapContainerRef = useRef(null)
-  const popUpRef = useRef(new mapboxgl.Popup({offset: 15}))
+  const markerRef = useRef(new mapboxgl.Marker({scale: 0.8}))
   useEffect(() => {
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
@@ -24,18 +24,15 @@ const LandingPage = () => {
         // console.log('e geo--->', e.features[0].geometry.coordinates[0][0,1])
         const lat = e.features[0].geometry.coordinates[0][0]
         const long = e.features[0].geometry.coordinates[0][1]
+        console.log('otherLat', typeof otherLat)
         //use e.features[0].properties.base_bbl for axios calls
-        const popupNode = document.createElement('div')
-        popupNode.style = style
+        let popupNode = document.createElement('div')
         ReactDOM.render(
           <BuildingInfo info={e.features[0].properties} />,
           popupNode
         )
 
-        popUpRef.current
-          .setLngLat(lat, long)
-          .setDOMContent(popupNode)
-          .addTo(map)
+        markerRef.current.setLngLat(lat, long).addTo(map)
       })
     })
   })
