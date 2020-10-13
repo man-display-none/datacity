@@ -8,14 +8,13 @@ import Building from '../calculator'
 //hide access token
 mapboxgl.accessToken =
   'pk.eyJ1IjoiamVmZi0wMjI4IiwiYSI6ImNrZzZ4ZW5kbzAxc2cydG16a2syZWh5eW4ifQ.AFSJlXJOrlrnjsLHBCfpbw'
-
 const LandingPage = () => {
   const mapContainerRef = useRef(null)
   const popUpRef = useRef(new mapboxgl.Popup({offset: 15}))
   useEffect(() => {
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
-      style: 'mapbox://styles/jeff-0228/ckg34hbar1c8i19s5gth69huy',
+      style: 'mapbox://styles/jeff-0228/ckg744a7n171519noe3lc32jf',
       center: [-74.0066, 40.7135],
       zoom: 13
     })
