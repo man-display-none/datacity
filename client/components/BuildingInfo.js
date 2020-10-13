@@ -1,9 +1,8 @@
 import React from 'react'
-import {connect} from 'react-redux'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
 
-export class BuildingInfo extends React.Component {
+export default class BuildingInfo extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -12,7 +11,7 @@ export class BuildingInfo extends React.Component {
     this.handleClose = this.handleClose.bind(this)
   }
   componentDidMount() {
-    this.props.moreInfo()
+    // this.props.moreInfo()
   }
   handleClose() {
     this.setState({showModal: !this.state.showModal})
@@ -22,25 +21,12 @@ export class BuildingInfo extends React.Component {
       <div>
         <Modal show={this.state.showModal} onHide={this.handleClose}>
           <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>Building Information</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <div className="buildingData">
-              <p>
-                {/*building information
-            property Type
-            property Size
-            year built
-
-          Energy usage:
-            energy star score
-            fuel type
-            energy usage
-            normalized usage
-            greenhouse gas emissions
-
-       */}
-              </p>
+              <p>Building id: {this.props.info.base_bbl}</p>
+              <p>Energy star score: {this.props.info.energy_star_score}</p>
             </div>
           </Modal.Body>
           <Modal.Footer>
@@ -53,13 +39,3 @@ export class BuildingInfo extends React.Component {
     )
   }
 }
-
-const mapState = state => {
-  return {
-    moreInfo: state.buildData
-  }
-}
-
-const mapDispatch = dispatch => {}
-
-export default connect(mapState, mapDispatch)(BuildingInfo)
