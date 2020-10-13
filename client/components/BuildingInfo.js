@@ -11,7 +11,6 @@ export default class BuildingInfo extends React.Component {
       calculatedECost: 0
     }
     this.handleClose = this.handleClose.bind(this)
-    this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this)
     this.handleClick = this.handleClick.bind(this)
   }
   componentDidMount() {
@@ -19,9 +18,6 @@ export default class BuildingInfo extends React.Component {
     this.setState({
       calculatedECost: this.props.info.totalEnergyCost
     })
-  }
-  onSetSidebarOpen(open) {
-    this.setState({sidebarOpen: open})
   }
   handleClose() {
     this.setState({showModal: !this.state.showModal})
@@ -32,7 +28,6 @@ export default class BuildingInfo extends React.Component {
     })
   }
   render() {
-    console.log(this.props.info)
     const {
       bbl,
       electricityUse,

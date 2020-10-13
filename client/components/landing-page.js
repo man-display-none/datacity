@@ -29,7 +29,7 @@ const LandingPage = () => {
         const {data: bldg} = await axios.get(
           `https://data.cityofnewyork.us/resource/28fi-3us3.json?bbl_10_digits=${bbl}`
         )
-        //some multiple bbl results
+        //some multiple bbl results need to be accounted for
         // console.log(bldg)
         const {
           electricity_use_grid_purchase,
