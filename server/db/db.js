@@ -7,7 +7,7 @@ const db = new Sequelize(
   process.env.DATABASE_URL || `postgres://localhost:5432/${databaseName}`,
   {
     logging: false,
-    pool: {idle: 300000, acquire: 600000}
+    pool: {idle: 300000, acquire: 1200000}
   }
 )
 module.exports = db
