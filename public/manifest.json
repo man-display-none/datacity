@@ -1,0 +1,26 @@
+{
+  "name": "data-city",
+  "short_name": "datacity",
+  "theme_color": "#192026",
+  "background_color": "#111111",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "favIcon.jpg",
+      "sizes": "64x64 32x32 16x16",
+      "type": "images/x-icon"
+    },
+    {
+      "src": "favIcon-192.jpg",
+      "type": "image/jpg",
+      "sizes": "192x192"
+    },
+    {
+      "src": "favIcon-512.jpg",
+      "type": "image/jpg",
+      "sizes": "512x512"
+    }
+  ]
+}
