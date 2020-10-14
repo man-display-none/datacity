@@ -9,6 +9,21 @@ body {
   align-items: stretch;
 }
 
+.key {
+  position: absolute;
+  background-color: whitesmoke;
+  justify-content: flex-start;
+  width: 15%;
+  margin-top: 5px;
+  margin-left: 5px;
+  font-family: Helvetica;
+}
+
+.key-text {
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
 a {
   text-decoration: none;
 }
