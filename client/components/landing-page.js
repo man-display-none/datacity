@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import axios from 'axios'
 import mapboxgl from 'mapbox-gl'
 import BuildingInfo from './BuildingInfo'
+import ColorKey from './ColorKey'
 import Building from '../calculator'
 
 //hide access token
@@ -101,7 +102,11 @@ const LandingPage = () => {
   })
   return (
     <div>
-      <div id="map" className="mapContainer" />
+
+      <div ref={mapContainerRef} className="mapContainer" />
+      <div className="color-key">
+        <ColorKey />
+      </div>
     </div>
   )
 }
