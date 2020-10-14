@@ -4,8 +4,6 @@ import axios from 'axios'
 import mapboxgl from 'mapbox-gl'
 import BuildingInfo from './BuildingInfo'
 import Building from '../calculator'
-import {Router} from 'react-router-dom'
-import {SingleBuildingDisplay} from './SingleBuildingDisplay'
 
 //hide access token
 mapboxgl.accessToken =
