@@ -10,12 +10,12 @@ import Building from '../calculator'
 mapboxgl.accessToken =
   'pk.eyJ1IjoiamVmZi0wMjI4IiwiYSI6ImNrZzZ4ZW5kbzAxc2cydG16a2syZWh5eW4ifQ.AFSJlXJOrlrnjsLHBCfpbw'
 const LandingPage = () => {
-  // const mapContainerRef = useRef(null)
+  const mapContainerRef = useRef(null)
   const markerRef = useRef(new mapboxgl.Marker({scale: 0.8}))
   useEffect(() => {
     const map = new mapboxgl.Map({
-      // container: mapContainerRef.current,
-      container: 'map',
+      container: mapContainerRef.current,
+      // container: 'map',
       style: 'mapbox://styles/jeff-0228/ckg744a7n171519noe3lc32jf',
       center: [-73.967516, 40.751108],
       zoom: 12
@@ -102,7 +102,6 @@ const LandingPage = () => {
   })
   return (
     <div>
-
       <div ref={mapContainerRef} className="mapContainer" />
       <div className="color-key">
         <ColorKey />
