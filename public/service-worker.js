@@ -17,9 +17,15 @@ self.addEventListener('install', event => {
 })
 
 self.addEventListener('activate', event => {
-  console.log('Service worker activating...')
+  console.log('Service worker activating...', event)
 })
 
 self.addEventListener('fetch', event => {
-  console.log('Fetching:', event.request.url)
+  fetch(event.request.url)
+    .then(cache => {
+      console.log(cache)
+    })
+    .catch(error => {
+      console.log(error)
+    })
 })
