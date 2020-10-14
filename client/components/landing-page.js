@@ -90,9 +90,8 @@ const LandingPage = props => {
         //use e.features[0].properties.base_bbl for axios calls
         const popupNode = document.createElement('div')
         const showInfo = ReactDOM.render(
-          <Router>
-            <BuildingInfo info={building} />,
-          </Router>,
+          <BuildingInfo info={building} />,
+
           popupNode
         )
 

@@ -1,14 +1,7 @@
 import React from 'react'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
-import {
-  Router,
-  Route,
-  Link,
-  withRouter,
-  browserRouter,
-  BrowserRouter
-} from 'react-router-dom'
+import {Link, BrowserRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 
 class BuildingInfo extends React.Component {
@@ -37,9 +30,9 @@ class BuildingInfo extends React.Component {
     })
   }
   onDetails(e) {
+    e.preventDefault()
     this.handleClose()
     console.log('this.props.history', this.props.history)
-    this.props.history.push(`/building/${this.props.info.bbl}`)
   }
   render() {
     const {
@@ -78,11 +71,16 @@ class BuildingInfo extends React.Component {
             <Button variant="secondary" onClick={this.handleClose}>
               Close
             </Button>
-            <Button onClick={this.onDetails}>
+            {/* <Button variant="secondary" onClick={this.onDetails}>
               <BrowserRouter>
                 <Link to={`/building/${bbl}`}>Building Details</Link>
               </BrowserRouter>
-            </Button>
+            </Button> */}
+            <button type="button" className="btn btn-primary">
+              <a variant="primary" href={`/building/${bbl}`}>
+                Building Details
+              </a>
+            </button>
           </Modal.Footer>
         </Modal>
       </div>
@@ -90,4 +88,4 @@ class BuildingInfo extends React.Component {
   }
 }
 
-export default withRouter(BuildingInfo)
+export default BuildingInfo

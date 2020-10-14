@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import Graph from './Graphs'
+import {updatedInfo} from '../store/buildingInfo'
 
 class SingleBuildingDisplay extends Component {
   constructor() {
@@ -13,7 +14,7 @@ class SingleBuildingDisplay extends Component {
           backgroundColor: 'rgba(75,192,192,1)',
           borderColor: 'rgba(0,0,0,1)',
           borderWidth: 2,
-          data: [40, 50, 60, 70, 80]
+          data: []
         }
       ]
     }
@@ -32,27 +33,33 @@ class SingleBuildingDisplay extends Component {
     this.state = {chartData: this.chart1}
     this.handleChange = this.handleChange.bind(this)
   }
+  componentDidMount() {
+    const buildingId = this.props.match.params.id
+    this.props.updateInfo(buildingId)
+  }
   handleChange(e) {
     //blocker: no change in state
     e.preventDefault()
     let chartTwo = this.chart2
-    //const {chartData}= {...this.state}
-    //chartData.datasets[0].data = [34,56,45,23,7]
+    console.log('event values', e)
+    //thunk creator pull data
     this.setState({chartData: chartTwo})
   }
 
   render() {
     console.log('this.props', this.props)
     console.log('this.state', this.state)
+
     return (
       <div className="card-group">
         <div className="card" style={{height: '30rem'}}>
-          <form onChange={this.handleChange}>
+          <form>
             <div className="form-check form-inline">
               <input
                 name="form-check-input"
                 type="checkbox"
                 value={this.state.data}
+                onChange={this.handleChange}
                 id="Energy"
               />
               <label className="form-check-label" htmlFor="defaultCheck1">
@@ -64,6 +71,7 @@ class SingleBuildingDisplay extends Component {
                 name="form-check-input"
                 type="checkbox"
                 value=""
+                onChange={this.handleChange}
                 id="Electricy"
               />
               <label className="form-check-label" htmlFor="defaultCheck2">
@@ -115,4 +123,14 @@ class SingleBuildingDisplay extends Component {
   }
 }
 
-export default connect(null, null)(SingleBuildingDisplay)
+const mapState = state => {
+  return {
+    data: state.buildInfoReducer
+  }
+}
+const mapDispatch = dispatch => {
+  return {
+    updateInfo: buildingId => dispatch(updatedInfo(buildingId))
+  }
+}
+export default connect(mapState, mapDispatch)(SingleBuildingDisplay)
