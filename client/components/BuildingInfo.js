@@ -1,6 +1,7 @@
 import React from 'react'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
+import './BuildingInfo.css'
 
 export default class BuildingInfo extends React.Component {
   constructor() {

@@ -10,7 +10,7 @@ mapboxgl.accessToken =
   'pk.eyJ1IjoiamVmZi0wMjI4IiwiYSI6ImNrZzZ4ZW5kbzAxc2cydG16a2syZWh5eW4ifQ.AFSJlXJOrlrnjsLHBCfpbw'
 const LandingPage = () => {
   const mapContainerRef = useRef(null)
-  const popUpRef = useRef(new mapboxgl.Popup({offset: 30}))
+  const markerRef = useRef(new mapboxgl.Marker({scale: 0.8}))
   useEffect(() => {
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
@@ -21,10 +21,10 @@ const LandingPage = () => {
 
     map.on('load', function() {
       map.on('click', 'footprint', async function(e) {
+        console.log(e.features[0].properties)
         const bbl = e.features[0].properties.base_bbl
         const lat = e.features[0].geometry.coordinates[0][0]
         const long = e.features[0].geometry.coordinates[0][1]
-
         const {data: bldg} = await axios.get(
           `https://data.cityofnewyork.us/resource/28fi-3us3.json?bbl_10_digits=${bbl}`
         )
@@ -92,10 +92,7 @@ const LandingPage = () => {
           popupNode
         )
 
-        popUpRef.current
-          .setLngLat(lat, long)
-          .setDOMContent(showInfo)
-          .addTo(map)
+        markerRef.current.setLngLat(lat, long).addTo(map)
       })
     })
   })
