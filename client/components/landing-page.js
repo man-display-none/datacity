@@ -102,6 +102,7 @@ const LandingPage = () => {
   })
   return (
     <div>
+
       <div ref={mapContainerRef} className="mapContainer" />
       <div className="color-key">
         <ColorKey />
