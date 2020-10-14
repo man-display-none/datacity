@@ -21,6 +21,7 @@ const LandingPage = () => {
 
     map.on('load', function() {
       map.on('click', 'footprint', async function(e) {
+        console.log(e.features[0].properties)
         const bbl = e.features[0].properties.base_bbl
         const lat = e.features[0].geometry.coordinates[0][0]
         const long = e.features[0].geometry.coordinates[0][1]
