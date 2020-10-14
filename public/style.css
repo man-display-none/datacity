@@ -2,6 +2,13 @@ body {
   font-family: sans-serif;
 }
 
+#app {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start + safe;
+  align-items: stretch;
+}
+
 a {
   text-decoration: none;
 }
@@ -11,19 +18,25 @@ label {
 }
 
 nav a {
-  display: inline-block;
-  margin: 1em;
+  /* display: inline; */
+  flex-grow: 4;
+  margin: 0em;
+}
+
+.navdiv {
+  flex-grow: 0;
 }
 
 form div {
-  margin: 1em;
+  margin: 0em;
   display: inline-block;
 }
 
 .mapContainer {
   position: absolute;
-  top: 150px;
+  flex-basis: auto;
+  top: 76px;
   right: 0;
-  height: 80%;
+  height: 90%;
   width: 100%;
 }

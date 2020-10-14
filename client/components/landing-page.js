@@ -15,8 +15,8 @@ const LandingPage = () => {
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
       style: 'mapbox://styles/jeff-0228/ckg744a7n171519noe3lc32jf',
-      center: [-74.0066, 40.7135],
-      zoom: 13
+      center: [-73.967516, 40.751108],
+      zoom: 12
     })
 
     map.on('load', function() {
