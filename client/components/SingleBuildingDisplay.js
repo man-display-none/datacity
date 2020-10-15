@@ -93,7 +93,6 @@ class SingleBuildingDisplay extends Component {
     let placeholder = []
     // if(e.target.checked){
     //     placeholder.push(this[formId])
-
     // }
     console.log(e.target)
     this.inputConditions[formId] = !this.inputConditions[formId]
