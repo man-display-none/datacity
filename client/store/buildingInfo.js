@@ -19,7 +19,7 @@ export const updatedInfo = baseBbl => {
   return async dispatch => {
     try {
       const {data: buildData} = await axios.get(
-        `https://data.cityofnewyork.us/resource/s75a-ei9u.json?$where=base_bbl=${baseBbl}`
+        `https://data.cityofnewyork.us/resource/28fi-3us3.json?bbl_10_digits=${baseBbl}`
       )
       dispatch(getBuildingInfo(buildData))
     } catch (error) {

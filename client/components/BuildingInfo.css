@@ -1,0 +1,11 @@
+.custom-modal {
+  position: absolute;
+  top: calc(1.2% + 76px);
+  bottom: 1.2%;
+  right: 1.2%;
+  z-index: 2;
+}
+
+.modal-content {
+  height: 100%;
+}

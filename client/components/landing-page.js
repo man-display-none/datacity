@@ -3,28 +3,32 @@ import ReactDOM from 'react-dom'
 import axios from 'axios'
 import mapboxgl from 'mapbox-gl'
 import BuildingInfo from './BuildingInfo'
+import ColorKey from './ColorKey'
 import Building from '../calculator'
 
 //hide access token
 mapboxgl.accessToken =
   'pk.eyJ1IjoiamVmZi0wMjI4IiwiYSI6ImNrZzZ4ZW5kbzAxc2cydG16a2syZWh5eW4ifQ.AFSJlXJOrlrnjsLHBCfpbw'
-const LandingPage = () => {
+const LandingPage = props => {
   const mapContainerRef = useRef(null)
-  const popUpRef = useRef(new mapboxgl.Popup({offset: 15}))
+  const markerRef = useRef(new mapboxgl.Marker({scale: 0.8}))
   useEffect(() => {
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
+      // container: 'map',
       style: 'mapbox://styles/jeff-0228/ckg744a7n171519noe3lc32jf',
-      center: [-74.0066, 40.7135],
-      zoom: 13
+      center: [-73.967516, 40.751108],
+      zoom: 12
     })
 
     map.on('load', function() {
       map.on('click', 'footprint', async function(e) {
+        console.log(e.features[0].properties)
+        console.log(e.lngLat)
         const bbl = e.features[0].properties.base_bbl
-        const lat = e.features[0].geometry.coordinates[0][0]
-        const long = e.features[0].geometry.coordinates[0][1]
-
+        // const lat = e.features[0].geometry.coordinates[0][0]
+        // const long = e.features[0].geometry.coordinates[0][1]
+        const lngLat = e.lngLat
         const {data: bldg} = await axios.get(
           `https://data.cityofnewyork.us/resource/28fi-3us3.json?bbl_10_digits=${bbl}`
         )
@@ -89,21 +93,22 @@ const LandingPage = () => {
         const popupNode = document.createElement('div')
         const showInfo = ReactDOM.render(
           <BuildingInfo info={building} />,
+
           popupNode
         )
 
-        popUpRef.current
-          .setLngLat(lat, long)
-          .setDOMContent(popupNode)
-          .addTo(map)
+        markerRef.current.setLngLat([lngLat.lng, lngLat.lat]).addTo(map)
       })
     })
+    console.log('this.props', props)
   })
   return (
     <div>
       <div ref={mapContainerRef} className="mapContainer" />
+      <div className="color-key">
+        <ColorKey />
+      </div>
     </div>
   )
 }
-
 export default LandingPage

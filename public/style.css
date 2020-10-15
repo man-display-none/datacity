@@ -2,6 +2,28 @@ body {
   font-family: sans-serif;
 }
 
+/* #app {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start + safe;
+  align-items: stretch;
+} */
+
+.key {
+  position: absolute;
+  background-color: whitesmoke;
+  justify-content: flex-start;
+  width: 15%;
+  margin-top: 5px;
+  margin-left: 5px;
+  font-family: Helvetica;
+}
+
+.key-text {
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
 a {
   text-decoration: none;
 }
@@ -11,19 +33,32 @@ label {
 }
 
 nav a {
-  display: inline-block;
-  margin: 1em;
+  /* display: inline; */
+  flex-grow: 4;
+  margin: 0em;
 }
 
+/* .navdiv {
+  flex-grow: 0;
+} */
+
 form div {
-  margin: 1em;
+  margin: 0em;
   display: inline-block;
 }
 
 .mapContainer {
   position: absolute;
-  top: 150px;
+  /* flex-basis: auto; */
+  top: 76px;
+  bottom: 0px;
   right: 0;
-  height: 80%;
   width: 100%;
+}
+a {
+  color: white;
+}
+a:hover {
+  text-decoration: none;
+  color: white;
 }

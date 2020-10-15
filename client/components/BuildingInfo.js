@@ -1,9 +1,9 @@
 import React from 'react'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
-import Sidebar from 'react-sidebar'
+import './BuildingInfo.css'
 
-export default class BuildingInfo extends React.Component {
+class BuildingInfo extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -12,6 +12,7 @@ export default class BuildingInfo extends React.Component {
     }
     this.handleClose = this.handleClose.bind(this)
     this.handleClick = this.handleClick.bind(this)
+    this.onDetails = this.onDetails.bind(this)
   }
   componentDidMount() {
     // this.props.moreInfo()
@@ -27,6 +28,11 @@ export default class BuildingInfo extends React.Component {
       calculatedECost: this.props.info.lightingImprovement()
     })
   }
+  onDetails(e) {
+    e.preventDefault()
+    this.handleClose()
+    console.log('this.props.history', this.props.history)
+  }
   render() {
     const {
       bbl,
@@ -37,9 +43,14 @@ export default class BuildingInfo extends React.Component {
       totalEnergyCost,
       waterUse
     } = this.props.info
+
     return (
       <div>
-        <Modal show={this.state.showModal} onHide={this.handleClose}>
+        <Modal
+          show={this.state.showModal}
+          onHide={this.handleClose}
+          dialogClassName="custom-modal"
+        >
           <Modal.Header closeButton>
             <Modal.Title>Building Information</Modal.Title>
           </Modal.Header>
@@ -63,9 +74,21 @@ export default class BuildingInfo extends React.Component {
             <Button variant="secondary" onClick={this.handleClose}>
               Close
             </Button>
+            {/* <Button variant="secondary" onClick={this.onDetails}>
+              <BrowserRouter>
+                <Link to={`/building/${bbl}`}>Building Details</Link>
+              </BrowserRouter>
+            </Button> */}
+            <button type="button" className="btn btn-primary">
+              <a variant="primary" href={`/building/${bbl}`}>
+                Building Details
+              </a>
+            </button>
           </Modal.Footer>
         </Modal>
       </div>
     )
   }
 }
+
+export default BuildingInfo
