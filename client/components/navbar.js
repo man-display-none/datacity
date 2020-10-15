@@ -25,11 +25,15 @@ const Navbar = ({handleClick, isLoggedIn}) => (
         {isLoggedIn ? (
           <div>
             {/* The navbar will show these links after you log in */}
-            <h1>Datacity</h1>
             <ul className="navbar-nav mr-auto">
               <li className="nav-item active">
                 <Link to="/" className="nav-link">
                   <span className="sr-only">(current)</span>
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to="/home" className="nav-link">
+                  Home
                 </Link>
               </li>
               <li className="nav-item">

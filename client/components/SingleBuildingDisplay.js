@@ -6,31 +6,79 @@ import {updatedInfo} from '../store/buildingInfo'
 class SingleBuildingDisplay extends Component {
   constructor() {
     super()
-    this.chart1 = {
-      labels: ['Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5'],
-      datasets: [
-        {
-          label: 'Energy',
-          backgroundColor: 'rgba(75,192,192,1)',
-          borderColor: 'rgba(0,0,0,1)',
-          borderWidth: 2,
-          data: []
-        }
-      ]
+    // this.chart1 = {
+    //   labels: ['Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5'],
+    //   datasets: [
+    //     {
+    //       label: 'Energy',
+    //       backgroundColor: 'rgba(75,192,192,1)',
+    //       borderColor: 'rgba(0,0,0,1)',
+    //       borderWidth: 2,
+    //       data: []
+    //     }
+    //   ]
+    // }
+    // this.chart2 = {
+    //   labels: ['Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5'],
+    //   datasets: [
+    //     {
+    //       label: 'Energy',
+    //       backgroundColor: 'rgba(75,192,192,1)',
+    //       borderColor: 'rgba(0,0,0,1)',
+    //       borderWidth: 2,
+    //       data: [40, 20, 34, 45, 60]
+    //     }
+    //   ]
+    // }
+    //this.state = {chartData: this.chart1}
+    this.energy = {
+      label: 'Energy Star Rating',
+      // backgroundColor: 'rgba(75,192,192,1)',
+      borderColor: 'rgba(75,192,192,1)',
+      borderWidth: 2,
+      data: [70, 80, 90, 100, 110]
     }
-    this.chart2 = {
-      labels: ['Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5'],
-      datasets: [
-        {
-          label: 'Energy',
-          backgroundColor: 'rgba(75,192,192,1)',
-          borderColor: 'rgba(0,0,0,1)',
-          borderWidth: 2,
-          data: [40, 20, 34, 45, 60]
-        }
-      ]
+    this.fuel = {
+      label: 'Fuel',
+      // backgroundColor: 'rgba(60,100,100,1)',
+      borderColor: 'rgba(60,100,100,1)',
+      borderWidth: 2,
+      data: [20, 30, 40, 50, 10]
     }
-    this.state = {chartData: this.chart1}
+    this.electricity = {
+      label: 'Electricity Usage',
+      // backgroundColor: 'rgba(20,40,109,1)',
+      borderColor: 'rgba(20,40,109,1)',
+      borderWidth: 2,
+      data: [10, 5, 80, 3, 17]
+    }
+    this.emmisions = {
+      label: 'Electricity Usage',
+      // backgroundColor: 'rgba(20,40,109,1)',
+      borderColor: 'rgba(20,40,109,1)',
+      borderWidth: 2,
+      data: [4, 5, 8, 3, 1]
+    }
+    this.normalized = {
+      label: 'Electricity Usage',
+      // backgroundColor: 'rgba(20,40,109,1)',
+      borderColor: 'rgba(20,40,109,1)',
+      borderWidth: 2,
+      data: [80, 5, 80, 3, 1]
+    }
+    this.inputConditions = {
+      energy: false,
+      fuel: false,
+      normalized: false,
+      electricity: false,
+      emissions: false
+    }
+    this.state = {
+      chartData: {
+        labels: ['Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5'],
+        datasets: []
+      }
+    }
     this.handleChange = this.handleChange.bind(this)
   }
   componentDidMount() {
@@ -40,10 +88,18 @@ class SingleBuildingDisplay extends Component {
   handleChange(e) {
     //blocker: no change in state
     e.preventDefault()
-    let chartTwo = this.chart2
-    console.log('event values', e)
-    //thunk creator pull data
-    this.setState({chartData: chartTwo})
+    const currentState = this.state.chartData
+    const formId = e.target.id
+    this.inputConditions[formId] = !this.inputConditions[formId]
+
+    let inputConditionalsArray = Object.keys(this.inputConditions)
+    let placeholder = []
+    for (let i = 0; i < inputConditionalsArray.length; i++) {
+      if (this.inputConditions[inputConditionalsArray[i]] == true) {
+        placeholder.push(this[inputConditionalsArray[i]])
+      }
+    }
+    this.setState({chartData: {...currentState, datasets: placeholder}})
   }
 
   render() {
@@ -58,11 +114,11 @@ class SingleBuildingDisplay extends Component {
               <input
                 name="form-check-input"
                 type="checkbox"
-                value={this.state.data}
+                value={this.energy}
                 onChange={this.handleChange}
-                id="Energy"
+                id="energy"
               />
-              <label className="form-check-label" htmlFor="defaultCheck1">
+              <label className="form-check-label" htmlFor="Energy Rating">
                 <h2>Energy Rating</h2>
               </label>
             </div>
@@ -70,11 +126,11 @@ class SingleBuildingDisplay extends Component {
               <input
                 name="form-check-input"
                 type="checkbox"
-                value=""
+                value={this.fuel}
                 onChange={this.handleChange}
-                id="Electricy"
+                id="electricity"
               />
-              <label className="form-check-label" htmlFor="defaultCheck2">
+              <label className="form-check-label" htmlFor="Electricity Usage">
                 <h2>Electricity Usage</h2>
               </label>
             </div>
@@ -83,9 +139,9 @@ class SingleBuildingDisplay extends Component {
                 name="form-check-input"
                 type="checkbox"
                 value=""
-                id="defaultCheck2"
+                id="fuel"
               />
-              <label className="form-check-label" htmlFor="defaultCheck2">
+              <label className="form-check-label" htmlFor="Fuel Usage">
                 <h2>Fuel Usage</h2>
               </label>
             </div>
@@ -93,10 +149,10 @@ class SingleBuildingDisplay extends Component {
               <input
                 name="form-check-input"
                 type="checkbox"
-                value=""
-                id="defaultCheck2"
+                value={this.normalized}
+                id="normalized"
               />
-              <label className="form-check-label" htmlFor="defaultCheck2">
+              <label className="form-check-label" htmlFor="Normalized Usage">
                 <h2>Normalized Usage</h2>
               </label>
             </div>
@@ -104,10 +160,10 @@ class SingleBuildingDisplay extends Component {
               <input
                 name="form-check-input"
                 type="checkbox"
-                value=""
-                id="defaultCheck2"
+                value={this.emissions}
+                id="emmissions"
               />
-              <label className="form-check-label" htmlFor="defaultCheck2">
+              <label className="form-check-label" htmlFor="ghg emissions">
                 <h2>ghg emissions</h2>
               </label>
             </div>
