@@ -7,7 +7,8 @@ import {
   Signup,
   UserHome,
   LandingPage,
-  SingleBuildingDisplay
+  SingleBuildingDisplay,
+  BuildingInfo
 } from './components'
 import {me} from './store'
 
@@ -26,7 +27,8 @@ class Routes extends Component {
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route exact path="/" component={LandingPage} />
-        <Route path="/:id" component={SingleBuildingDisplay} />
+        <Route path="/building/:id" component={SingleBuildingDisplay} />
+
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
 
@@ -38,6 +40,7 @@ class Routes extends Component {
         )}
         {/* Displays our Login component as a fallback */}
         <Route component={Login} />
+        <Route component={BuildingInfo} />
       </Switch>
     )
   }

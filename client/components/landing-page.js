@@ -9,7 +9,7 @@ import Building from '../calculator'
 //hide access token
 mapboxgl.accessToken =
   'pk.eyJ1IjoiamVmZi0wMjI4IiwiYSI6ImNrZzZ4ZW5kbzAxc2cydG16a2syZWh5eW4ifQ.AFSJlXJOrlrnjsLHBCfpbw'
-const LandingPage = () => {
+const LandingPage = props => {
   const mapContainerRef = useRef(null)
   const markerRef = useRef(new mapboxgl.Marker({scale: 0.8}))
   useEffect(() => {
@@ -93,12 +93,14 @@ const LandingPage = () => {
         const popupNode = document.createElement('div')
         const showInfo = ReactDOM.render(
           <BuildingInfo info={building} />,
+
           popupNode
         )
 
         markerRef.current.setLngLat([lngLat.lng, lngLat.lat]).addTo(map)
       })
     })
+    console.log('this.props', props)
   })
   return (
     <div>
@@ -109,5 +111,4 @@ const LandingPage = () => {
     </div>
   )
 }
-
 export default LandingPage
