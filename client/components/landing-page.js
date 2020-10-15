@@ -1,10 +1,12 @@
 import React, {useRef, useEffect} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
 import ReactDOM from 'react-dom'
 import axios from 'axios'
 import mapboxgl from 'mapbox-gl'
 import BuildingInfo from './BuildingInfo'
 import ColorKey from './ColorKey'
 import Building from '../calculator'
+import {updatedInfo} from '../store/buildingInfo'
 
 //hide access token
 mapboxgl.accessToken =
@@ -12,6 +14,7 @@ mapboxgl.accessToken =
 const LandingPage = props => {
   const mapContainerRef = useRef(null)
   const markerRef = useRef(new mapboxgl.Marker({scale: 0.8}))
+  const dispatch = useDispatch()
   useEffect(() => {
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
@@ -23,8 +26,8 @@ const LandingPage = props => {
 
     map.on('load', function() {
       map.on('click', 'footprint', async function(e) {
-        console.log(e.features[0].properties)
-        console.log(e.lngLat)
+        // console.log(e.features[0].properties)
+        // console.log(e.lngLat)
         const bbl = e.features[0].properties.base_bbl
         // const lat = e.features[0].geometry.coordinates[0][0]
         // const long = e.features[0].geometry.coordinates[0][1]
@@ -34,6 +37,7 @@ const LandingPage = props => {
         )
         //some multiple bbl results need to be accounted for
         // console.log(bldg)
+
         const {
           electricity_use_grid_purchase,
           electricity_use_grid_purchase_1,
@@ -50,6 +54,9 @@ const LandingPage = props => {
           bbl_10_digits
         } = bldg[0]
 
+        console.log(dispatch(updatedInfo(bbl)))
+
+        //dispatch(updatedInfo())
         //check if values are 'number strings' or not and then add
         const totalUse = arr => {
           let total = 0

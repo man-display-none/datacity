@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 //initial state
-const initialState = []
+const initialState = {}
 
 //action type
 const GET_BUILDING_INFO = 'GET_BUILDING_INFO'
@@ -21,7 +21,8 @@ export const updatedInfo = baseBbl => {
       const {data: buildData} = await axios.get(
         `https://data.cityofnewyork.us/resource/28fi-3us3.json?bbl_10_digits=${baseBbl}`
       )
-      dispatch(getBuildingInfo(buildData))
+      console.log('this is from redux ---> ', buildData[0])
+      return dispatch(getBuildingInfo(buildData[0]))
     } catch (error) {
       console.log(error)
     }
