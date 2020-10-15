@@ -52,15 +52,15 @@ class SingleBuildingDisplay extends Component {
       borderWidth: 2,
       data: [10, 5, 80, 3, 17]
     }
-    this.emmisions = {
-      label: 'Electricity Usage',
+    this.emmissions = {
+      label: 'Emmissions GHG',
       // backgroundColor: 'rgba(20,40,109,1)',
       borderColor: 'rgba(20,40,109,1)',
       borderWidth: 2,
       data: [4, 5, 8, 3, 1]
     }
     this.normalized = {
-      label: 'Electricity Usage',
+      label: 'Normalized Data',
       // backgroundColor: 'rgba(20,40,109,1)',
       borderColor: 'rgba(20,40,109,1)',
       borderWidth: 2,
@@ -71,7 +71,7 @@ class SingleBuildingDisplay extends Component {
       fuel: false,
       normalized: false,
       electricity: false,
-      emissions: false
+      emmissions: false
     }
     this.state = {
       chartData: {
@@ -90,10 +90,16 @@ class SingleBuildingDisplay extends Component {
     e.preventDefault()
     const currentState = this.state.chartData
     const formId = e.target.id
+    let placeholder = []
+    // if(e.target.checked){
+    //     placeholder.push(this[formId])
+
+    // }
+    console.log(e.target)
     this.inputConditions[formId] = !this.inputConditions[formId]
 
     let inputConditionalsArray = Object.keys(this.inputConditions)
-    let placeholder = []
+
     for (let i = 0; i < inputConditionalsArray.length; i++) {
       if (this.inputConditions[inputConditionalsArray[i]] == true) {
         placeholder.push(this[inputConditionalsArray[i]])
@@ -126,7 +132,7 @@ class SingleBuildingDisplay extends Component {
               <input
                 name="form-check-input"
                 type="checkbox"
-                value={this.fuel}
+                value={this.electricity}
                 onChange={this.handleChange}
                 id="electricity"
               />
@@ -139,6 +145,7 @@ class SingleBuildingDisplay extends Component {
                 name="form-check-input"
                 type="checkbox"
                 value=""
+                onChange={this.handleChange}
                 id="fuel"
               />
               <label className="form-check-label" htmlFor="Fuel Usage">
@@ -150,6 +157,7 @@ class SingleBuildingDisplay extends Component {
                 name="form-check-input"
                 type="checkbox"
                 value={this.normalized}
+                onChange={this.handleChange}
                 id="normalized"
               />
               <label className="form-check-label" htmlFor="Normalized Usage">
@@ -160,7 +168,8 @@ class SingleBuildingDisplay extends Component {
               <input
                 name="form-check-input"
                 type="checkbox"
-                value={this.emissions}
+                value={this.emmissions}
+                onChange={this.handleChange}
                 id="emmissions"
               />
               <label className="form-check-label" htmlFor="ghg emissions">
