@@ -22,6 +22,7 @@ export const updatedInfo = baseBbl => {
         `https://data.cityofnewyork.us/resource/28fi-3us3.json?bbl_10_digits=${baseBbl}`
       )
       console.log('this is from redux ---> ', buildData[0])
+      //for using hooks it has to be returned.
       return dispatch(getBuildingInfo(buildData[0]))
     } catch (error) {
       console.log(error)
