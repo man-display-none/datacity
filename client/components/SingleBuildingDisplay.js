@@ -87,7 +87,7 @@ class SingleBuildingDisplay extends Component {
   }
   handleChange(e) {
     //blocker: no change in state
-    e.preventDefault()
+    //e.preventDefault()
     const currentState = this.state.chartData
     const formId = e.target.id
     let placeholder = []
