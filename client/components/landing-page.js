@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import axios from 'axios'
 import mapboxgl from 'mapbox-gl'
 import BuildingInfo from './BuildingInfo'
+import ColorKey from './ColorKey'
 import Building from '../calculator'
 
 //hide access token
@@ -14,6 +15,7 @@ const LandingPage = props => {
   useEffect(() => {
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
+      // container: 'map',
       style: 'mapbox://styles/jeff-0228/ckg744a7n171519noe3lc32jf',
       center: [-73.967516, 40.751108],
       zoom: 12
@@ -22,9 +24,11 @@ const LandingPage = props => {
     map.on('load', function() {
       map.on('click', 'footprint', async function(e) {
         console.log(e.features[0].properties)
+        console.log(e.lngLat)
         const bbl = e.features[0].properties.base_bbl
-        const lat = e.features[0].geometry.coordinates[0][0]
-        const long = e.features[0].geometry.coordinates[0][1]
+        // const lat = e.features[0].geometry.coordinates[0][0]
+        // const long = e.features[0].geometry.coordinates[0][1]
+        const lngLat = e.lngLat
         const {data: bldg} = await axios.get(
           `https://data.cityofnewyork.us/resource/28fi-3us3.json?bbl_10_digits=${bbl}`
         )
@@ -93,7 +97,7 @@ const LandingPage = props => {
           popupNode
         )
 
-        markerRef.current.setLngLat(lat, long).addTo(map)
+        markerRef.current.setLngLat([lngLat.lng, lngLat.lat]).addTo(map)
       })
     })
     console.log('this.props', props)
@@ -101,6 +105,9 @@ const LandingPage = props => {
   return (
     <div>
       <div ref={mapContainerRef} className="mapContainer" />
+      <div className="color-key">
+        <ColorKey />
+      </div>
     </div>
   )
 }

@@ -2,11 +2,26 @@ body {
   font-family: sans-serif;
 }
 
-#app {
+/* #app {
   display: flex;
   flex-direction: column;
   justify-content: flex-start + safe;
   align-items: stretch;
+} */
+
+.key {
+  position: absolute;
+  background-color: whitesmoke;
+  justify-content: flex-start;
+  width: 15%;
+  margin-top: 5px;
+  margin-left: 5px;
+  font-family: Helvetica;
+}
+
+.key-text {
+  margin-left: 3px;
+  margin-right: 3px;
 }
 
 a {
@@ -23,9 +38,9 @@ nav a {
   margin: 0em;
 }
 
-.navdiv {
+/* .navdiv {
   flex-grow: 0;
-}
+} */
 
 form div {
   margin: 0em;
@@ -34,10 +49,10 @@ form div {
 
 .mapContainer {
   position: absolute;
-  flex-basis: auto;
+  /* flex-basis: auto; */
   top: 76px;
+  bottom: 0px;
   right: 0;
-  height: 90%;
   width: 100%;
 }
 a {

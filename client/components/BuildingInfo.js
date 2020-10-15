@@ -46,7 +46,11 @@ class BuildingInfo extends React.Component {
 
     return (
       <div>
-        <Modal show={this.state.showModal} onHide={this.handleClose}>
+        <Modal
+          show={this.state.showModal}
+          onHide={this.handleClose}
+          dialogClassName="custom-modal"
+        >
           <Modal.Header closeButton>
             <Modal.Title>Building Information</Modal.Title>
           </Modal.Header>
