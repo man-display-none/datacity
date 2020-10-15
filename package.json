@@ -42,6 +42,7 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^0.19.2",
+    "bluebird": "^3.7.2",
     "bootstrap": "^4.5.2",
     "chart.js": "^2.9.3",
     "compression": "^1.7.3",
@@ -89,6 +90,7 @@
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "chai": "^4.2.0",
+    "css-loader": "^5.0.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.5",
     "eslint": "^5.16.0",
@@ -106,6 +108,7 @@
     "redux-devtools-extension": "^2.13.5",
     "redux-mock-store": "^1.5.4",
     "simple-git": "^1.132.0",
+    "style-loader": "^2.0.0",
     "supertest": "^4.0.2",
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12",

@@ -1,8 +1,7 @@
 import React from 'react'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
-import {Link, BrowserRouter} from 'react-router-dom'
-import {connect} from 'react-redux'
+import './BuildingInfo.css'
 
 class BuildingInfo extends React.Component {
   constructor() {
