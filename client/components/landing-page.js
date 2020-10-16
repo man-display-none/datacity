@@ -3,8 +3,6 @@ import ReactDOM from 'react-dom'
 import axios from 'axios'
 import mapboxgl from 'mapbox-gl'
 import BuildingInfo from './BuildingInfo'
-import ColorKey from './ColorKey'
-import Building from '../calculator'
 
 //hide access token
 mapboxgl.accessToken =
@@ -21,6 +19,7 @@ const LandingPage = () => {
     })
 
     map.on('load', function() {
+      map.setFilter('footprint', ['>', ['get', 'cnstrct_yr'], 2000])
       map.on('click', 'footprint', async function(e) {
         const {
           base_bbl,
@@ -64,6 +63,9 @@ const LandingPage = () => {
             <li className="legend">
               <div className="graph">
                 <div className="continuous"></div>
+                <div className="prompt">
+                  Click on a building for more information
+                </div>
               </div>
             </li>
           </ul>

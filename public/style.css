@@ -14,9 +14,10 @@ body {
   background-color: whitesmoke;
   justify-content: flex-start;
   width: 15%;
-  margin: 10px;
+  margin: 15px;
   font-family: Helvetica;
   border-radius: 4px;
+  overflow: hidden;
 }
 
 .key-text {
@@ -95,8 +96,15 @@ a:hover {
 }
 
 .continuous {
-  height: 18px;
+  height: 15px;
   background: linear-gradient(to right, red, yellow, green);
   margin: 0 10px 5px 10px;
   border-radius: 3px;
+}
+
+.prompt {
+  font-size: 12px;
+  text-align: center;
+  margin: 5px;
+  color: navy;
 }
