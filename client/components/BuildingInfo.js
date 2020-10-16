@@ -1,6 +1,5 @@
 import React from 'react'
-import Modal from 'react-bootstrap/Modal'
-import Button from 'react-bootstrap/Button'
+import {Modal, Button, Card, Accordion} from 'react-bootstrap'
 import './BuildingInfo.css'
 
 class BuildingInfo extends React.Component {
@@ -37,41 +36,81 @@ class BuildingInfo extends React.Component {
           onHide={this.handleClose}
           dialogClassName="custom-modal"
         >
-          <Modal.Header closeButton>
+          <Modal.Header>
             <Modal.Title>Building Information</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <div className="buildingData">
-              <p>Building id: {base_bbl}</p>
-              <p>Address: {address_1_self_reported}</p>
-              <p>Property Type: {largest_property_use_type}</p>
-              <p>Property Size: {dof_gross_floor_area_ft} sqft</p>
-              <p>Year Built: {cnstrct_yr}</p>
-              <p>
-                EnergyStar score:{' '}
-                {energy_star_score === 0 ? 'Not Available' : energy_star_score}
-              </p>
-              <p>
-                Annual electricity usage:
-                {isNaN(totalElectricity)
-                  ? totalElectricity
-                  : totalElectricity.toFixed(0) + ' kWh'}
-              </p>
-              <p>
-                Annual fuel usage:{' '}
-                {isNaN(totalFuel) ? totalFuel : totalFuel.toFixed(0) + ' MCF'}
-              </p>
-              <p>
-                Annual water usage:{' '}
-                {isNaN(totalWater)
-                  ? totalWater
-                  : totalWater.toFixed(0) + ' Gallons'}
-              </p>
-              <p>
-                Annual GHG emissions:{' '}
-                {isNaN(ghg) ? ghg : ghg.toFixed(0) + ' MTCO2e'}
-              </p>
-            </div>
+            <Accordion defaultActiveKey="0">
+              <Card>
+                <Accordion.Toggle as={Card.Header} eventKey="0">
+                  About this building
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="0">
+                  <Card.Body>
+                    <p>
+                      Building id : <b>{base_bbl}</b>
+                    </p>
+                    <p>
+                      Address : <b>{address_1_self_reported}</b>
+                    </p>
+                    <p>
+                      Property Type : <b>{largest_property_use_type}</b>
+                    </p>
+                    <p>
+                      Property Size : <b>{dof_gross_floor_area_ft} sqft</b>
+                    </p>
+                    <p>
+                      Year Built : <b>{cnstrct_yr}</b>
+                    </p>
+                  </Card.Body>
+                </Accordion.Collapse>
+              </Card>
+              <Card>
+                <Accordion.Toggle as={Card.Header} eventKey="1">
+                  Energy usage
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="1">
+                  <Card.Body>
+                    <p>
+                      EnergyStar score :{' '}
+                      <b>
+                        {energy_star_score === 0
+                          ? 'Not Available'
+                          : energy_star_score}
+                      </b>
+                    </p>
+                    <p>
+                      Annual electricity usage :{' '}
+                      <b>
+                        {isNaN(totalElectricity)
+                          ? totalElectricity
+                          : totalElectricity.toFixed(0) + 'kWh'}
+                      </b>
+                    </p>
+                    <p>
+                      Annual fuel usage :{' '}
+                      <b>
+                        {isNaN(totalFuel)
+                          ? totalFuel
+                          : totalFuel.toFixed(0) + 'MCF'}
+                      </b>
+                    </p>
+                    <p>
+                      Annual water usage :{' '}
+                      <b>
+                        {isNaN(totalWater)
+                          ? totalWater
+                          : totalWater.toFixed(0) + 'Gallons'}
+                      </b>
+                    </p>
+                    <p>
+                      Annual GHG emissions:{' '}
+                      <b>{isNaN(ghg) ? ghg : ghg.toFixed(0) + 'MTCO2e'}</b>
+                    </p>
+                  </Card.Body>
+                </Accordion.Collapse>
+              </Card>
+            </Accordion>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="primary" href={`/building/${base_bbl}`}>

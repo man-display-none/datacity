@@ -55,7 +55,18 @@ const LandingPage = () => {
     <div>
       <div ref={mapContainerRef} className="mapContainer" />
       <div className="color-key">
-        <ColorKey />
+        <div className="key">
+          <div className="key-text"> Energy Star Score</div>
+          <ul className="score">
+            <li className="min"> 0 </li>
+            <li className="max"> 100 </li>
+            <li className="legend">
+              <div className="graph">
+                <div className="continuous"></div>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   )
