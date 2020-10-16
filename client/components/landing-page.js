@@ -4,7 +4,6 @@ import axios from 'axios'
 import mapboxgl from 'mapbox-gl'
 import BuildingInfo from './BuildingInfo'
 import ColorKey from './ColorKey'
-import Building from '../calculator'
 
 //hide access token
 mapboxgl.accessToken =
