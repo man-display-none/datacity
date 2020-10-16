@@ -111,6 +111,7 @@
     "simple-git": "^1.132.0",
     "style-loader": "^2.0.0",
     "supertest": "^4.0.2",
+    "ts-loader": "^8.0.5",
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12",
     "yaml": "^1.10.0"
