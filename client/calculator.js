@@ -1,30 +1,55 @@
 export default class Building {
-  constructor(electricityUse, fuelUse, waterUse, ghgEmissions, score, bbl) {
+  constructor(electricityUse, fuelUse, waterUse, ghgEmissions, score) {
     this.electricityUse = Number(electricityUse)
+    this.improvedElectricity = 0
     this.fuelUse = Number(fuelUse)
+    this.improvedFuel = 0
     this.waterUse = Number(waterUse)
+    this.improvedWater = 0
     this.ghgEmissions = Number(ghgEmissions)
+    this.improvedEmissions = 0
     this.score = Number(score)
-    this.bbl = Number(bbl)
-
     this.totalEnergyCost =
       Number(electricityUse) * 0.14 + Number(fuelUse) * 0.007
+    this.improvedCost = 0
+    this.airSealed = false
   }
   lightingImprovement() {
-    this.totalEnergyCost = this.totalEnergyCost * 0.98
-    return this.totalEnergyCost
+    this.improvedCost = this.totalEnergyCost * 0.98
+    this.improvedEmissions = this.ghgEmissions * 0.98
+    this.improvedElectricity = this.electricityUse * 0.98
+    return [this.improvedCost, this.improvedEmissions, this.improvedElectricity]
+  }
+  removeLightingImprovement() {
+    return [this.totalEnergyCost, this.ghgEmissions]
   }
   airSealing() {
-    this.totalEnergyCost = this.totalEnergyCost * 0.96
-    return this.totalEnergyCost
+    this.improvedCost = this.totalEnergyCost * 0.96
+    this.improvedEmissions = this.ghgEmissions * 0.96
+    this.improvedElectricity = this.electricityUse * 0.96
+    return [this.improvedCost, this.improvedEmissions, this.improvedElectricity]
+  }
+  removeAirSealing() {
+    return [this.totalEnergyCost, this.ghgEmissions]
   }
   roofInsulation() {
     this.totalEnergyCost = this.totalEnergyCost * 0.97
-    return this.totalEnergyCost
+    this.ghgEmissions = this.ghgEmissions * 0.97
+    return [this.totalEnergyCost, this.ghgEmissions]
   }
   burnerImprovement() {
     this.totalEnergyCost = this.totalEnergyCost * 0.97
-    return this.totalEnergyCost
+    this.ghgEmissions = this.ghgEmissions * 0.97
+    return [this.totalEnergyCost, this.ghgEmissions]
+  }
+  solarInstall() {
+    this.improvedCost = this.totalEnergyCost * 0.8
+    this.improvedEmissions = this.ghgEmissions * 0.8
+    this.improvedElectricity = this.electricityUse * 0.8
+    return [this.improvedCost, this.improvedEmissions, this.improvedElectricity]
+  }
+  removeSolar() {
+    return [this.totalEnergyCost, this.ghgEmissions, this.electricityUse]
   }
 }
 
@@ -35,4 +60,3 @@ export default class Building {
 //notes:
 //assuming commercial rates and fuelUse is just natural gas for now; will need to expand to other fuels as applicable
 //also need to convert kbtu to mcf for fuel use
-//applying Number constructor because arguments will likely be entered as strings
