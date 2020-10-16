@@ -52,6 +52,9 @@ const Navbar = ({handleClick, isLoggedIn}) => (
                   <span className="sr-only">(current)</span>
                 </Link>
               </li>
+              <Link to="/" className="nav-link">
+                Home
+              </Link>
               <li className="nav-item">
                 <Link to="/login" className="nav-link">
                   Login
