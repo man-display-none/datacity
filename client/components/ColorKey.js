@@ -30,10 +30,10 @@ const ColorKey = () => {
     <div className="key">
       <div className="key-text">
         <h5>Overview:</h5>
+        <p>Buildings are colored from red to yellow to green</p>
+        <Colorscale colorscale={scale} width={150} />
         <p>
-          Buildings are colored from red to yellow to green
-          <Colorscale colorscale={scale} width={150} /> Red indicates high
-          energy use intensity, i.e. a poor EnergyStar score.
+          Red indicates high energy use intensity, i.e. a poor EnergyStar score.
         </p>
         <p>
           Please click on a building to see more information and test the impact
