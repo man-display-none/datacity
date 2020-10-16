@@ -180,7 +180,7 @@ class SingleBuildingDisplay extends Component {
         <div
           style={{width: '60rem', border: '1px solid grey', height: '30rem'}}
         >
-          <Graph data={this.state.chartData} />
+          <Graph data={this.state.chartData} id={this.props.match.params.id} />
         </div>
       </div>
     )
