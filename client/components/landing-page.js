@@ -19,7 +19,7 @@ const LandingPage = () => {
     })
 
     map.on('load', function() {
-      map.setFilter('footprint', ['>', ['get', 'cnstrct_yr'], 2000])
+      // map.setFilter('footprint', ['>', ['get', 'cnstrct_yr'], 2000])
       map.on('click', 'footprint', async function(e) {
         const {
           base_bbl,
