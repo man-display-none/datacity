@@ -149,6 +149,9 @@ const Navbar = ({handleClick, isLoggedIn}) => (
                       <option value="spider">Spider</option>
                       <option value="goldfish">Goldfish</option>
                     </select>
+                    <div className="button-div">
+                      <Button className="nav-button">Apply</Button>
+                    </div>
                   </Card.Body>
                 </Accordion.Collapse>
               </Card>
