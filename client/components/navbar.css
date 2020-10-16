@@ -1,0 +1,38 @@
+.dropdown-menu {
+  width: 350px;
+  overflow: hidden;
+  padding: 0;
+}
+
+.card-body {
+  padding: 10px;
+}
+
+.button-div {
+  display: flex;
+  justify-content: flex-end;
+  margin: 5px;
+}
+
+.form-nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.nav-button {
+  font-size: 12px;
+}
+
+.min-max {
+  display: flex;
+  flex-direction: column;
+}
+
+.min {
+  float: left;
+}
+
+.max {
+  float: right;
+}

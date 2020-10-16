@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
+import {Dropdown, Accordion, Card, Button} from 'react-bootstrap'
+import './navbar.css'
 
 const Navbar = ({handleClick, isLoggedIn}) => (
   <div className="navdiv">
@@ -70,27 +72,116 @@ const Navbar = ({handleClick, isLoggedIn}) => (
         )}
       </div>
       <div className="btn-group">
-        <button
-          type="button"
-          className="btn btn-secondary dropdown-toggle"
-          data-toggle="dropdown"
-          data-display="static"
-          aria-haspopup="true"
-          aria-expanded="false"
-        >
-          filter
-        </button>
-        <div className="dropdown-menu dropdown-menu-right dropdown-menu-lg-left">
-          <button className="dropdown-item" type="button">
-            Action
-          </button>
-          <button className="dropdown-item" type="button">
-            Another action
-          </button>
-          <button className="dropdown-item" type="button">
-            Something else here
-          </button>
-        </div>
+        <Dropdown className="filter-button">
+          <Dropdown.Toggle variant="success" id="dropdown-basic">
+            Filter By
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu>
+            <Accordion>
+              <Card>
+                <Accordion.Toggle as={Card.Header} eventKey="0">
+                  Energy Star Score
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="0">
+                  <Card.Body>
+                    <form className="form-nav">
+                      <div className="min-max">
+                        <input
+                          type="range"
+                          id="energy_star_score"
+                          name="energy_star_score"
+                          min="1"
+                          max="100"
+                        ></input>
+                        <div>
+                          <div className="min">1</div>
+                          <div className="max">100</div>
+                        </div>
+                      </div>
+                      <div className="button-div">
+                        <Button className="nav-button">Apply</Button>
+                      </div>
+                    </form>
+                  </Card.Body>
+                </Accordion.Collapse>
+              </Card>
+              <Card>
+                <Accordion.Toggle as={Card.Header} eventKey="1">
+                  Year of Construction
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="1">
+                  <Card.Body>
+                    <form className="form-nav">
+                      <div className="min-max">
+                        <input
+                          type="range"
+                          id="cnstrct_yr"
+                          name="cnstrct_yr"
+                          min="1900"
+                          max="2020"
+                        ></input>
+                        <div>
+                          <div className="min">1900</div>
+                          <div className="max">2020</div>
+                        </div>
+                      </div>
+                      <div className="button-div">
+                        <Button className="nav-button">Apply</Button>
+                      </div>
+                    </form>
+                  </Card.Body>
+                </Accordion.Collapse>
+              </Card>
+              <Card>
+                <Accordion.Toggle as={Card.Header} eventKey="2">
+                  Property Type
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="2">
+                  <Card.Body>
+                    <label htmlFor="pet-select">Choose a property type:</label>
+                    <select id="pet-select">
+                      <option value="">--Please choose an option--</option>
+                      <option value="dog">Dog</option>
+                      <option value="cat">Cat</option>
+                      <option value="hamster">Hamster</option>
+                      <option value="parrot">Parrot</option>
+                      <option value="spider">Spider</option>
+                      <option value="goldfish">Goldfish</option>
+                    </select>
+                  </Card.Body>
+                </Accordion.Collapse>
+              </Card>
+              <Card>
+                <Accordion.Toggle as={Card.Header} eventKey="3">
+                  Property Size
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="3">
+                  <Card.Body>
+                    <form className="form-nav">
+                      <div className="min-max">
+                        <input
+                          type="range"
+                          id="property_size"
+                          name="property_size"
+                          min="1"
+                          max="1000000"
+                        ></input>
+                        <div>
+                          <div className="min">Min</div>
+                          <div className="max">Max</div>
+                        </div>
+                      </div>
+                      <div className="button-div">
+                        <Button className="nav-button">Apply</Button>
+                      </div>
+                    </form>
+                  </Card.Body>
+                </Accordion.Collapse>
+              </Card>
+            </Accordion>
+          </Dropdown.Menu>
+        </Dropdown>
       </div>
 
       <form className="form-inline">
