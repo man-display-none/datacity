@@ -2,67 +2,44 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import Graph from './Graphs'
 import {updatedInfo} from '../store/buildingInfo'
+import {getGraphInfo} from '../store/graphData'
 
 class SingleBuildingDisplay extends Component {
   constructor() {
     super()
-    // this.chart1 = {
-    //   labels: ['Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5'],
-    //   datasets: [
-    //     {
-    //       label: 'Energy',
-    //       backgroundColor: 'rgba(75,192,192,1)',
-    //       borderColor: 'rgba(0,0,0,1)',
-    //       borderWidth: 2,
-    //       data: []
-    //     }
-    //   ]
-    // }
-    // this.chart2 = {
-    //   labels: ['Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5'],
-    //   datasets: [
-    //     {
-    //       label: 'Energy',
-    //       backgroundColor: 'rgba(75,192,192,1)',
-    //       borderColor: 'rgba(0,0,0,1)',
-    //       borderWidth: 2,
-    //       data: [40, 20, 34, 45, 60]
-    //     }
-    //   ]
-    // }
-    //this.state = {chartData: this.chart1}
+
     this.energy = {
       label: 'Energy Star Rating',
-      // backgroundColor: 'rgba(75,192,192,1)',
-      borderColor: 'rgba(75,192,192,1)',
+      backgroundColor: 'rgba(0,100,0,.2)', //dark green
+      borderColor: 'rgba(0,100,0,1)',
       borderWidth: 2,
-      data: [70, 80, 90, 100, 110]
+      data: []
     }
     this.fuel = {
       label: 'Fuel',
-      // backgroundColor: 'rgba(60,100,100,1)',
-      borderColor: 'rgba(60,100,100,1)',
+      backgroundColor: 'rgba(100,0,0,.2)',
+      borderColor: 'rgba(100,0,0,1)',
       borderWidth: 2,
       data: [20, 30, 40, 50, 10]
     }
     this.electricity = {
       label: 'Electricity Usage',
-      // backgroundColor: 'rgba(20,40,109,1)',
-      borderColor: 'rgba(20,40,109,1)',
+      backgroundColor: 'rgba(0,0,100,.2)',
+      borderColor: 'rgba(0,0,100,1)',
       borderWidth: 2,
       data: [10, 5, 80, 3, 17]
     }
-    this.emmissions = {
-      label: 'Emmissions GHG',
-      // backgroundColor: 'rgba(20,40,109,1)',
-      borderColor: 'rgba(20,40,109,1)',
+    this.emissions = {
+      label: 'emissions GHG',
+      backgroundColor: 'rgba(100,100,100,.2)',
+      borderColor: 'rgba(100,100,100,1)',
       borderWidth: 2,
       data: [4, 5, 8, 3, 1]
     }
     this.normalized = {
       label: 'Normalized Data',
-      // backgroundColor: 'rgba(20,40,109,1)',
-      borderColor: 'rgba(20,40,109,1)',
+      backgroundColor: 'rgba(30,30,30,.2)',
+      borderColor: 'rgba(30,30,30,1)',
       borderWidth: 2,
       data: [80, 5, 80, 3, 1]
     }
@@ -71,11 +48,11 @@ class SingleBuildingDisplay extends Component {
       fuel: false,
       normalized: false,
       electricity: false,
-      emmissions: false
+      emissions: false
     }
     this.state = {
       chartData: {
-        labels: ['Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5'],
+        labels: ['2016', '2017', '2018', '2019'],
         datasets: []
       }
     }
@@ -84,21 +61,18 @@ class SingleBuildingDisplay extends Component {
   componentDidMount() {
     const buildingId = this.props.match.params.id
     this.props.updateInfo(buildingId)
+    this.props.graphInfo(buildingId)
   }
   handleChange(e) {
-    //blocker: no change in state
-    //e.preventDefault()
     const currentState = this.state.chartData
     const formId = e.target.id
     let placeholder = []
-    // if(e.target.checked){
-    //     placeholder.push(this[formId])
-    // }
-    console.log(e.target)
     this.inputConditions[formId] = !this.inputConditions[formId]
-
     let inputConditionalsArray = Object.keys(this.inputConditions)
-
+    if (this.props.graphData !== undefined) {
+      this.energy.data = this.props.graphData.energyRating
+      //this.emissions.data = this.props.graphData.ghgEmissions
+    }
     for (let i = 0; i < inputConditionalsArray.length; i++) {
       if (this.inputConditions[inputConditionalsArray[i]] == true) {
         placeholder.push(this[inputConditionalsArray[i]])
@@ -167,9 +141,9 @@ class SingleBuildingDisplay extends Component {
               <input
                 name="form-check-input"
                 type="checkbox"
-                value={this.emmissions}
+                value={this.emissions}
                 onChange={this.handleChange}
-                id="emmissions"
+                id="emissions"
               />
               <label className="form-check-label" htmlFor="ghg emissions">
                 <h2>ghg emissions</h2>
@@ -189,12 +163,14 @@ class SingleBuildingDisplay extends Component {
 
 const mapState = state => {
   return {
-    data: state.buildInfoReducer
+    data: state.currentBuildingInfo,
+    graphData: state.graphInfo
   }
 }
 const mapDispatch = dispatch => {
   return {
-    updateInfo: buildingId => dispatch(updatedInfo(buildingId))
+    updateInfo: buildingId => dispatch(updatedInfo(buildingId)),
+    graphInfo: buildingId => dispatch(getGraphInfo(buildingId))
   }
 }
 export default connect(mapState, mapDispatch)(SingleBuildingDisplay)
