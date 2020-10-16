@@ -55,21 +55,21 @@ class BuildingInfo extends React.Component {
                 Annual electricity usage:
                 {isNaN(totalElectricity)
                   ? totalElectricity
-                  : totalElectricity.toFixed(0) + 'kWh'}
+                  : totalElectricity.toFixed(0) + ' kWh'}
               </p>
               <p>
                 Annual fuel usage:{' '}
-                {isNaN(totalFuel) ? totalFuel : totalFuel.toFixed(0) + 'MCF'}
+                {isNaN(totalFuel) ? totalFuel : totalFuel.toFixed(0) + ' MCF'}
               </p>
               <p>
                 Annual water usage:{' '}
                 {isNaN(totalWater)
                   ? totalWater
-                  : totalWater.toFixed(0) + 'Gallons'}
+                  : totalWater.toFixed(0) + ' Gallons'}
               </p>
               <p>
                 Annual GHG emissions:{' '}
-                {isNaN(ghg) ? ghg : ghg.toFixed(0) + 'MTCO2e'}
+                {isNaN(ghg) ? ghg : ghg.toFixed(0) + ' MTCO2e'}
               </p>
             </div>
           </Modal.Body>

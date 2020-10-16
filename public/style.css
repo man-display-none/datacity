@@ -62,3 +62,9 @@ a:hover {
   text-decoration: none;
   color: white;
 }
+
+.card-group {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
