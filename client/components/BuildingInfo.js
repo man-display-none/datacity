@@ -1,5 +1,8 @@
 import React from 'react'
-import {Modal, Button, Card, Accordion} from 'react-bootstrap'
+import Modal from 'react-bootstrap/Modal'
+import Button from 'react-bootstrap/Button'
+import Card from 'react-bootstrap/Card'
+import Accordion from 'react-bootstrap/Accordion'
 import './BuildingInfo.css'
 
 class BuildingInfo extends React.Component {
@@ -34,7 +37,7 @@ class BuildingInfo extends React.Component {
         <Modal
           show={this.state.showModal}
           onHide={this.handleClose}
-          dialogClassName="custom-modal"
+          className="custom-modal"
         >
           <Modal.Header>
             <Modal.Title>Building Information</Modal.Title>
