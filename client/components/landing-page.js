@@ -3,21 +3,30 @@ import ReactDOM from 'react-dom'
 import axios from 'axios'
 import mapboxgl from 'mapbox-gl'
 import BuildingInfo from './BuildingInfo'
-
+//$$c(W 74°15'32"--W 73°42'00"/N 40°54'58"--N 40°28'38")
 //hide access token
 mapboxgl.accessToken =
   'pk.eyJ1IjoiamVmZi0wMjI4IiwiYSI6ImNrZzZ4ZW5kbzAxc2cydG16a2syZWh5eW4ifQ.AFSJlXJOrlrnjsLHBCfpbw'
 const LandingPage = () => {
   const mapContainerRef = useRef(null)
   const markerRef = useRef(new mapboxgl.Marker({scale: 0.8}))
+  const bounds = [
+    [-74.2911533975789, 40.494789727940045], //SW
+    [-73.6231598800014, 41.055125778277535] //NE
+  ]
+  // -73.74825446387773 40.99700217739027 -73.6231598800014,41.055125778277535
+  //zoom higher the number the more zoomed in you are
   useEffect(() => {
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
       style: 'mapbox://styles/jeff-0228/ckg744a7n171519noe3lc32jf',
       center: [-73.967516, 40.751108],
-      zoom: 12
+      zoom: 12,
+      minZoom: 12,
+      maxZoom: 14,
+      maxBounds: bounds
     })
-
+    //[-73.967516, 40.751108]
     map.on('load', function() {
       // map.setFilter('footprint', ['>', ['get', 'cnstrct_yr'], 2000])
       map.on('click', 'footprint', async function(e) {
