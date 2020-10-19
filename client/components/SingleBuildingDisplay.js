@@ -77,22 +77,17 @@ class SingleBuildingDisplay extends Component {
       cost
     } = this.state
     if (this.state.lightingChecked === false) {
-      this.setState(prev => {
-        return {
-          electricity: electricity * 0.98,
-          prevElectricity: prev.electricity,
-          emissions: emissions * 0.98,
-          prevEmissions: prev.emissions,
-          cost: cost * 0.98,
-          prevCost: prev.cost,
-          lightingChecked: true
-        }
+      this.setState({
+        electricity: electricity * 0.98,
+        emissions: emissions * 0.98,
+        cost: cost * 0.98,
+        lightingChecked: true
       })
     } else {
       this.setState({
-        electricity: prevElectricity,
-        emissions: prevEmissions,
-        cost: prevCost,
+        electricity: electricity / 0.98,
+        emissions: emissions / 0.98,
+        cost: cost / 0.98,
         lightingChecked: false
       })
     }
@@ -109,25 +104,19 @@ class SingleBuildingDisplay extends Component {
       cost
     } = this.state
     if (this.state.solarInstalled === false) {
-      this.setState(prev => {
-        return {
-          electricity: electricity * 0.8,
-          prevElectricity: prev.electricity,
-          fuel: fuel * 0.8,
-          prevFuel: prev.fuel,
-          emissions: emissions * 0.8,
-          prevEmissions: prev.emissions,
-          cost: cost * 0.8,
-          prevCost: prev.cost,
-          solarInstalled: true
-        }
+      this.setState({
+        electricity: electricity * 0.8,
+        fuel: fuel * 0.8,
+        emissions: emissions * 0.8,
+        cost: cost * 0.8,
+        solarInstalled: true
       })
     } else {
       this.setState({
-        electricity: prevElectricity,
-        fuel: prevFuel,
-        emissions: prevEmissions,
-        cost: prevCost,
+        electricity: electricity / 0.8,
+        fuel: fuel / 0.8,
+        emissions: emissions / 0.8,
+        cost: cost / 0.8,
         solarInstalled: false
       })
     }
@@ -144,25 +133,19 @@ class SingleBuildingDisplay extends Component {
       cost
     } = this.state
     if (this.state.airSealed === false) {
-      this.setState(prev => {
-        return {
-          electricity: electricity * 0.96,
-          prevElectricity: prev.electricity,
-          fuel: fuel * 0.96,
-          prevFuel: prev.fuel,
-          emissions: emissions * 0.96,
-          prevEmissions: prev.emissions,
-          cost: cost * 0.96,
-          prevCost: prev.cost,
-          airSealed: true
-        }
+      this.setState({
+        electricity: electricity * 0.96,
+        fuel: fuel * 0.96,
+        emissions: emissions * 0.96,
+        cost: cost * 0.96,
+        airSealed: true
       })
     } else {
       this.setState({
-        electricity: prevElectricity,
-        fuel: prevFuel,
-        emissions: prevEmissions,
-        cost: prevCost,
+        electricity: electricity / 0.96,
+        fuel: fuel / 0.96,
+        emissions: emissions / 0.96,
+        cost: cost / 0.96,
         airSealed: false
       })
     }
