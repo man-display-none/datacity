@@ -45,7 +45,7 @@ router.post('/footprints', async (req, res, next) => {
     console.error(err)
   }
 })
-
+//make this a class / middleware
 //makeReq function utilizes bluebird and makes axios calls with concurrency of 25 promises at a time
 async function makeReq(bblArray) {
   await bluebird.map(

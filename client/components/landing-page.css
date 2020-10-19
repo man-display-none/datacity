@@ -1,0 +1,23 @@
+.mapContainer {
+  position: absolute;
+  /* flex-basis: auto; */
+  top: 76px;
+  bottom: 0px;
+  right: 0;
+  width: 100%;
+  visibility: hidden;
+}
+
+.testing {
+  position: absolute;
+  /* flex-basis: auto; */
+  top: 76px;
+  bottom: 0px;
+  right: 0;
+  width: 100%;
+  background-image: url('https://api.mapbox.com/styles/v1/mapbox/dark-v10/static/-73.9711,40.7471,12.13,0/750x600?access_token=pk.eyJ1IjoiZGh1YW5nNjEyIiwiYSI6ImNrMHNqZDBlMzAxbGczcHNra2U1ZGEzY2oifQ.qpDA_dt5OqeoLkQquzWD_A');
+}
+
+.dontShow {
+  visibility: hidden;
+}

@@ -49,14 +49,6 @@ form div {
   display: inline-block;
 }
 
-.mapContainer {
-  position: absolute;
-  /* flex-basis: auto; */
-  top: 76px;
-  bottom: 0px;
-  right: 0;
-  width: 100%;
-}
 a {
   color: white;
 }
