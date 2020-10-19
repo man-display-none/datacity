@@ -8,7 +8,8 @@ import {
   UserHome,
   LandingPage,
   SingleBuildingDisplay,
-  BuildingInfo
+  BuildingInfo,
+  BuildingModel
 } from './components'
 import {me} from './store'
 
@@ -41,6 +42,7 @@ class Routes extends Component {
         {/* Displays our Login component as a fallback */}
         <Route component={Login} />
         <Route component={BuildingInfo} />
+        <Route component={BuildingModel} />
       </Switch>
     )
   }

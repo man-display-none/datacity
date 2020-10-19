@@ -7,6 +7,7 @@ export {default as Navbar} from './navbar'
 export {default as UserHome} from './user-home'
 export {default as SingleBuildingDisplay} from './SingleBuildingDisplay'
 export {default as BuildingInfo} from './BuildingInfo'
+export {default as BuildingModel} from './BuildingModel'
 export {Login, Signup} from './auth-form'
 
 export {default as LandingPage} from './landing-page'
