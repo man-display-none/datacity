@@ -4,7 +4,11 @@ node_js:
 services:
   - postgresql # starts up postgres
 addons:
-  postgresql: '10' # recent postgres version on Travis
+  postgresql: '9.6' # recent postgres version on Travis
+  sudo: true
+  apt:
+    packages:
+    - postgresql-9.6-postgis-2.3
 dist: xenial # uses xenial environment
 notifications:
   email:
@@ -13,15 +17,21 @@ notifications:
 install:
   - npm ci # faster, goes only from package-lock
 before_script:
-  - psql -c 'create database "boilermaker-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
+  - sudo apt-get install postgresql-9.6-postgis-2.4 postgis -y -q
+  - psql -c 'create database "datacity-test";' -U postgres
+  - psql datacity-test -c "CREATE EXTENSION postgis"
+  # remember to change this name if you change it elsewhere (e.g. package.json)
 script:
   - npm test # test the code
   - npm run build-client # make the bundle
-# before_deploy:
-#   - rm -rf node_modules # omit from the tarball, since we skip cleanup
-# deploy:
-#   skip_cleanup: true # prevents travis from deleting the build
-#   provider: heroku
-#   app: YOUR-HEROKU-APP-NAME-HERE # see README
-#   api_key:
-#     secure: YOUR-***ENCRYPTED***-API-KEY-HERE # see README
+before_deploy: # omit node_modules, since we set skip_cleanup below
+  - rm -rf node_modules
+deploy: # see README for details on these keys
+  # prevents travis from deleting the build
+  skip_cleanup: true
+  provider: heroku
+  # app should be your heroku app name; see README
+  app: data-city
+  # the secure key indicates an encrypted value; see README
+  api_key:
+    secure: FSZJySlacWiEEGVVVZCW6Kv+tt7fG8ru8IfTl5esNp1XizIssfoq79414fI/5JhPBsnI2fxnz6QI+PW+6KTYLISBel1zlB0ABhetImHsTxzXrHUsdrilw4ID79+GBbyPYJXUg2TsVJuacXfuKPXxhXPMXRYTkpkaOBzxXq4c9eme1bGDZMQvCtxKu+Pkb5NepHnFAj1uQEAoeTAryqNhBH58K71jkKO2bYcU8OERvT9Vz2/xXmGfWNHE3RTE1st2TLIrQO0zZ3D/2oE6kXqHot/QFn6c+ATbZjqZ4S+8i+7bzEqhNhzwXNx7AyR5Z6R/chw8G5NmDHSNXBNx5Y3D9sRRWTzM+xPEHY5wE9YeUJs2NYeLSNHqd8tY7mejOQjX5BrgN1wpBI6+1b0r7i9WHDZLMYa3T9Ri4rWhAW8sUkvxEIi70Td3b798wVrYw1igmr/KYS/3qq8Jt0hlR0/cw2yEoz5ZkmGwgCkmYM3ZVUfc9XJ0wAFWsVkBTkX7LN808SUdEpCM+rpgPYjwK/eeHmC9IiraqMN33C3V3mPVn0jeXf0V/P1ji7wOM7F54Juq8VfnqD42RUnIsfxOXYhTIfOMKI+5RYUSZNVvEz6bLX8fW96psWsH6SmCNZUGiuSDoAminHezWvjXR90mx0RJFxSM8aYqs/cSWRyvYVkbT3s=

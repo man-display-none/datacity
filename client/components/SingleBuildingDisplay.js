@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import Graph from './Graphs'
-import {updatedInfo} from '../store/buildingInfo'
+import {updatedInfo, updatedModel} from '../store/buildingInfo'
 
 class SingleBuildingDisplay extends Component {
   constructor() {
@@ -69,6 +69,7 @@ class SingleBuildingDisplay extends Component {
   componentDidMount() {
     const buildingId = this.props.match.params.id
     this.props.updateInfo(buildingId)
+    this.props.updateModel(buildingId)
   }
   renderModel() {
     const {
@@ -291,7 +292,8 @@ const mapState = state => {
 }
 const mapDispatch = dispatch => {
   return {
-    updateInfo: buildingId => dispatch(updatedInfo(buildingId))
+    updateInfo: buildingId => dispatch(updatedInfo(buildingId)),
+    updateModel: buildingId => dispatch(updatedModel(buildingId))
   }
 }
 export default connect(mapState, mapDispatch)(SingleBuildingDisplay)
