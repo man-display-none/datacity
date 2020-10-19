@@ -34,11 +34,11 @@ const totalUse = arr => {
   return total
 }
 
-export const updatedModel = buildId => {
+export const updatedModel = bbl => {
   return async dispatch => {
     try {
       const {data: buildData} = await axios.get(
-        `https://data.cityofnewyork.us/resource/28fi-3us3.json?bbl_10_digits=${buildId}`
+        `https://data.cityofnewyork.us/resource/28fi-3us3.json?bbl_10_digits=${bbl}`
       )
       const {
         electricity_use_grid_purchase,
@@ -51,7 +51,8 @@ export const updatedModel = buildId => {
         kerosene_use_kbtu,
         diesel_2_use_kbtu,
         total_ghg_emissions_metric,
-        water_use_all_water_sources
+        water_use_all_water_sources,
+        district_steam_use_kbtu
       } = buildData[0]
       const totalElectricity =
         totalUse([
@@ -67,7 +68,8 @@ export const updatedModel = buildId => {
           fuel_oil_5_6_use_kbtu,
           natural_gas_use_kbtu,
           kerosene_use_kbtu,
-          diesel_2_use_kbtu
+          diesel_2_use_kbtu,
+          district_steam_use_kbtu
         ]) || 'Not Available'
 
       const totalWater = Number(water_use_all_water_sources) || 'Not Available'
@@ -88,13 +90,12 @@ export const updatedModel = buildId => {
 }
 
 //thunk
-export const updatedInfo = baseBbl => {
+export const updatedInfo = bbl => {
   return async dispatch => {
     try {
       const {data: buildData} = await axios.get(
-        `https://data.cityofnewyork.us/resource/28fi-3us3.json?bbl_10_digits=${baseBbl}`
+        `https://data.cityofnewyork.us/resource/28fi-3us3.json?bbl_10_digits=${bbl}`
       )
-
       dispatch(getBuildingInfo(buildData))
     } catch (error) {
       console.log(error)

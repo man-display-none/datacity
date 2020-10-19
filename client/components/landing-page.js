@@ -42,7 +42,6 @@ const LandingPage = () => {
             dof_gross_floor_area_ft
           }
         }
-        console.log(newBuilding)
         //use e.features[0].properties.base_bbl for axios calls
         const popupNode = document.createElement('div')
         ReactDOM.render(<BuildingInfo info={newBuilding} />, popupNode)
