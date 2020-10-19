@@ -13,15 +13,10 @@ class SingleBuildingDisplay extends Component {
         datasets: []
       },
       emissions: 0,
-      prevEmissions: 0,
       electricity: 0,
-      prevElectricity: 0,
       fuel: 0,
-      prevFuel: 0,
       water: 0,
-      prevWater: 0,
       cost: 0,
-      prevCost: 0,
       lightingChecked: false,
       airSealed: false,
       solarInstalled: false,
@@ -31,6 +26,7 @@ class SingleBuildingDisplay extends Component {
     this.lightingImprovement = this.lightingImprovement.bind(this)
     this.solarInstall = this.solarInstall.bind(this)
     this.airSealing = this.airSealing.bind(this)
+    this.reset = this.reset.bind(this)
   }
   componentDidMount() {
     const buildingId = this.props.match.params.id
@@ -48,11 +44,6 @@ class SingleBuildingDisplay extends Component {
     if (this.state.unRendered === true) {
       console.log('rendermodel')
       this.setState({
-        prevEmissions: ghgEmissions,
-        prevElectricity: electricityUse,
-        prevFuel: fuelUse,
-        prevWater: waterUse,
-        prevCost: totalEnergyCost,
         electricity: electricityUse,
         fuel: fuelUse,
         water: waterUse,
@@ -68,14 +59,7 @@ class SingleBuildingDisplay extends Component {
     )
   }
   lightingImprovement() {
-    const {
-      prevElectricity,
-      prevEmissions,
-      prevCost,
-      electricity,
-      emissions,
-      cost
-    } = this.state
+    const {electricity, emissions, cost} = this.state
     if (this.state.lightingChecked === false) {
       this.setState({
         electricity: electricity * 0.98,
@@ -93,16 +77,7 @@ class SingleBuildingDisplay extends Component {
     }
   }
   solarInstall() {
-    const {
-      prevElectricity,
-      prevFuel,
-      prevEmissions,
-      prevCost,
-      electricity,
-      fuel,
-      emissions,
-      cost
-    } = this.state
+    const {electricity, fuel, emissions, cost} = this.state
     if (this.state.solarInstalled === false) {
       this.setState({
         electricity: electricity * 0.8,
@@ -122,16 +97,7 @@ class SingleBuildingDisplay extends Component {
     }
   }
   airSealing() {
-    const {
-      prevElectricity,
-      prevFuel,
-      prevEmissions,
-      prevCost,
-      electricity,
-      fuel,
-      emissions,
-      cost
-    } = this.state
+    const {electricity, fuel, emissions, cost} = this.state
     if (this.state.airSealed === false) {
       this.setState({
         electricity: electricity * 0.96,
@@ -165,7 +131,14 @@ class SingleBuildingDisplay extends Component {
       chartData: {...currentState, datasets: placeholder}
     })
   }
-
+  reset() {
+    document.getElementById('lighting').checked = false
+    document.getElementById('airsealing').checked = false
+    document.getElementById('solar').checked = false
+    this.setState({
+      unRendered: true
+    })
+  }
   render() {
     return (
       <div className="card-group">
@@ -240,17 +213,27 @@ class SingleBuildingDisplay extends Component {
             <input
               name="lighting"
               type="checkbox"
+              id="lighting"
               onChange={this.lightingImprovement}
             />
             <label>Lighting improvement</label>
             <input
               name="airsealing"
               type="checkbox"
+              id="airsealing"
               onChange={this.airSealing}
             />
             <label>Insulation improvement</label>
-            <input name="solar" type="checkbox" onChange={this.solarInstall} />
+            <input
+              name="solar"
+              type="checkbox"
+              id="solar"
+              onChange={this.solarInstall}
+            />
             <label>Install solar</label>
+            <button type="button" onClick={this.reset}>
+              Reset
+            </button>
           </form>
         </div>
         <div className="model-info">
