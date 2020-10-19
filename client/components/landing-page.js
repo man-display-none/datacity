@@ -3,11 +3,12 @@ import ReactDOM from 'react-dom'
 import axios from 'axios'
 import mapboxgl from 'mapbox-gl'
 import BuildingInfo from './BuildingInfo'
+import {connect} from 'react-redux'
 
 //hide access token
 mapboxgl.accessToken =
   'pk.eyJ1IjoiamVmZi0wMjI4IiwiYSI6ImNrZzZ4ZW5kbzAxc2cydG16a2syZWh5eW4ifQ.AFSJlXJOrlrnjsLHBCfpbw'
-const LandingPage = () => {
+const LandingPage = props => {
   const mapContainerRef = useRef(null)
   const markerRef = useRef(new mapboxgl.Marker({scale: 0.8}))
   useEffect(() => {
@@ -15,11 +16,36 @@ const LandingPage = () => {
       container: mapContainerRef.current,
       style: 'mapbox://styles/jeff-0228/ckg744a7n171519noe3lc32jf',
       center: [-73.967516, 40.751108],
-      zoom: 12
+      zoom: 12.5
     })
 
     map.on('load', function() {
-      // map.setFilter('footprint', ['>', ['get', 'cnstrct_yr'], 2000])
+      console.log('prop', props.filter)
+      if (props.filter.id) {
+        if (props.filter.id === 'largest_property_use_type') {
+          if (props.filter.value === 'Other') {
+            map.setFilter('footprint', [
+              'all',
+              ['!=', ['get', props.filter.id], 'Multifamily Housing'],
+              ['!=', ['get', props.filter.id], 'Office'],
+              ['!=', ['get', props.filter.id], 'K-12 School'],
+              ['!=', ['get', props.filter.id], 'Hotel']
+            ])
+          } else {
+            map.setFilter('footprint', [
+              '==',
+              ['get', props.filter.id],
+              props.filter.value
+            ])
+          }
+        } else {
+          map.setFilter('footprint', [
+            '<',
+            ['get', props.filter.id],
+            Number(props.filter.value)
+          ])
+        }
+      }
       map.on('click', 'footprint', async function(e) {
         const {
           base_bbl,
@@ -137,4 +163,9 @@ async function fetchData(base_bbl) {
   return building
 }
 
-export default LandingPage
+const mapState = state => {
+  return {
+    filter: state.filter
+  }
+}
+export default connect(mapState, null)(LandingPage)
