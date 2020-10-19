@@ -6,23 +6,23 @@ const initialState = []
 
 //action type
 const GET_BUILDING_INFO = 'GET_BUILDING_INFO'
-// const MAKE_BUILDING_MODEL = 'MAKE_BUILDING_MODEL'
+
+const GET_BUILDING_MODEL = 'GET_BUILDING_MODEL'
 
 //action creator
-export const getBuildingInfo = (buildData, modelData) => {
+export const getBuildingInfo = buildData => {
   return {
     type: GET_BUILDING_INFO,
-    buildData,
-    modelData
+    buildData
   }
 }
 
-// export const makeBuildingModel = data => {
-//   return {
-//     type: GET_BUILDING_INFO,
-//     data
-//   }
-// }
+export const getBuildingModel = modelData => {
+  return {
+    type: GET_BUILDING_MODEL,
+    modelData
+  }
+}
 
 const totalUse = arr => {
   let total = 0
@@ -34,12 +34,11 @@ const totalUse = arr => {
   return total
 }
 
-//thunk
-export const updatedInfo = baseBbl => {
+export const updatedModel = buildId => {
   return async dispatch => {
     try {
       const {data: buildData} = await axios.get(
-        `https://data.cityofnewyork.us/resource/28fi-3us3.json?bbl_10_digits=${baseBbl}`
+        `https://data.cityofnewyork.us/resource/28fi-3us3.json?bbl_10_digits=${buildId}`
       )
       const {
         electricity_use_grid_purchase,
@@ -81,7 +80,22 @@ export const updatedInfo = baseBbl => {
         totalWater,
         ghg
       )
-      dispatch(getBuildingInfo(buildData, buildingModel))
+      dispatch(getBuildingModel(buildingModel))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+//thunk
+export const updatedInfo = baseBbl => {
+  return async dispatch => {
+    try {
+      const {data: buildData} = await axios.get(
+        `https://data.cityofnewyork.us/resource/28fi-3us3.json?bbl_10_digits=${baseBbl}`
+      )
+
+      dispatch(getBuildingInfo(buildData))
     } catch (error) {
       console.log(error)
     }
@@ -92,9 +106,10 @@ const buildingInfoReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_BUILDING_INFO:
       return {
-        buildingData: action.buildData[0],
-        buildingModel: action.modelData
+        buildingData: action.buildData[0]
       }
+    case GET_BUILDING_MODEL:
+      return {buildingModel: action.modelData}
     default:
       return state
   }
