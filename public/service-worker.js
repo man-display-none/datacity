@@ -23,7 +23,7 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   fetch(event.request.url)
     .then(cache => {
-      // console.log(cache)
+      console.log(cache)
     })
     .catch(error => {
       console.log(error)
