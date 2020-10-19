@@ -19,9 +19,6 @@ const LandingPage = props => {
   ]
 
   useEffect(() => {
-    // staticContainerRef.current.className = 'testing';
-    // mapContainerRef.current.className = "testing"
-    // console.log(mapContainerRef)
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
       style: 'mapbox://styles/jeff-0228/ckg744a7n171519noe3lc32jf',
@@ -100,7 +97,7 @@ const LandingPage = props => {
   return (
     <div>
       <div ref={mapContainerRef} className="mapContainer" />
-      <div ref={staticContainerRef} className="testing" />
+      <div ref={staticContainerRef} className="staticImg" />
       <div className="color-key">
         <div className="key">
           <div className="key-text"> Energy Star Score</div>
