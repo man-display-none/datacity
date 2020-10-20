@@ -32,12 +32,10 @@ export const getNormalizedUsage = normalizedData => {
     normalizedData
   }
 }
-export const getEmissionsUsage = emissionsData => {
-  return {
-    type: GOT_EMISSIONS_USAGE,
-    emissionsData
-  }
-}
+export const getEmissionsUsage = emissionsData => ({
+  type: GOT_EMISSIONS_USAGE,
+  emissionsData
+})
 //thunk
 export const getGraphInfo = baseBbl => {
   return async dispatch => {
@@ -63,7 +61,7 @@ export const getGraphInfo = baseBbl => {
       const dispatchData = (data, key) => {
         // let x = Object.from(...args)
         // console.log(x)
-        data.map(value => {
+        return data.map(value => {
           let result = 0
           if (
             value === undefined ||
