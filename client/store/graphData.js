@@ -16,7 +16,7 @@ export const getEnergyRating = energyData => {
 }
 export const getElectricyUsage = electricityData => {
   return {
-    type: GOT_ENERGY_RATING,
+    type: GOT_ELECTRICITY_USAGE,
     electricityData
   }
 }
@@ -42,7 +42,7 @@ export const getEmissionsUsage = emissionsData => {
 export const getGraphInfo = baseBbl => {
   return async dispatch => {
     try {
-      //promise.all
+      //Promise.all()
       const {data: data2019} = await axios.get(
         `https://data.cityofnewyork.us/resource/28fi-3us3.json?bbl_10_digits=${baseBbl}`
       )
@@ -60,23 +60,34 @@ export const getGraphInfo = baseBbl => {
       // )
 
       const allData = [data2016[0], data2017[0], data2018[0], data2019[0]]
-      const dispatchData = (key, data) =>
+      const dispatchData = (data, key) => {
+        // let x = Object.from(...args)
+        // console.log(x)
         data.map(value => {
-          if (x === undefined || data === 'Not Available' || value == null) {
-            return 0
+          let result = 0
+          if (
+            value === undefined ||
+            value === 'Not Available' ||
+            value == null
+          ) {
+            return result
           } else {
             return +value[key]
           }
         })
-
-      dispatch(getEnergyRating(dispatchData('energy_star_score', allData)))
+      }
+      dispatch(getEnergyRating(dispatchData(allData, 'energy_star_score')))
       dispatch(
-        getEmissionsUsage(dispatchData('total_ghg_emissions_metric', allData))
+        getEmissionsUsage(dispatchData(allData, 'total_ghg_emissions_metric'))
+      )
+      dispatch(
+        getElectricyUsage(
+          dispatchData(allData, 'electricity_use_grid_purchase')
+        )
       )
 
       //   dispatch(getFuelUsage())
       //   dispatch(getNormalizedUsage())
-      //   dispatch(getEmissionsUsage())
     } catch (error) {
       console.log(error)
     }
@@ -98,13 +109,13 @@ const graphInfoReducer = (
       return {...state, energyRating: action.energyData}
     }
     case GOT_ELECTRICITY_USAGE: {
-      return {...state, electricityUsage: action.payload}
+      return {...state, electricityUsage: action.electricityData}
     }
     case GOT_FUEL_USAGE: {
-      return {...state, fuelUsage: action.payload}
+      return {...state, fuelUsage: action.fuelData}
     }
     case GOT_NORMALIZED_USAGE: {
-      return {...state, normalizedUsage: action.payload}
+      return {...state, normalizedUsage: action.normalizedData}
     }
     case GOT_EMISSIONS_USAGE: {
       return {...state, ghgEmissions: action.emissionsData}

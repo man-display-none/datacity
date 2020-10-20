@@ -8,26 +8,14 @@ import BuildingModel from './BuildingModel'
 class SingleBuildingDisplay extends Component {
   constructor() {
     super()
-    this.state = {
-      chartData: {
-        labels: ['2016', '2017', '2018', '2019'],
-        datasets: []
-      },
-      emissions: 0,
-      electricity: 0,
-      fuel: 0,
-      water: 0,
-      cost: 0,
-      lightingChecked: false,
-      airSealed: false,
-      solarInstalled: false
-    }
+
     this.energy = {
       label: 'Energy Star Rating',
       backgroundColor: 'rgba(0,100,0,.2)', //dark green
       borderColor: 'rgba(0,100,0,1)',
       borderWidth: 2,
-      data: []
+      data: [],
+      yAxisID: 'energy'
     }
     this.fuel = {
       label: 'Fuel',
@@ -48,7 +36,8 @@ class SingleBuildingDisplay extends Component {
       backgroundColor: 'rgba(100,100,100,.2)',
       borderColor: 'rgba(100,100,100,1)',
       borderWidth: 2,
-      data: []
+      data: [],
+      yAxisID: 'emissions'
     }
     this.normalized = {
       label: 'Normalized Data',
@@ -63,104 +52,23 @@ class SingleBuildingDisplay extends Component {
       normalized: false,
       electricity: false,
       emissions: false
-      //   solarInstalled: false,
-      //   unRendered: true
     }
     this.handleChange = this.handleChange.bind(this)
-    this.lightingImprovement = this.lightingImprovement.bind(this)
-    this.solarInstall = this.solarInstall.bind(this)
-    this.airSealing = this.airSealing.bind(this)
-    this.reset = this.reset.bind(this)
+    this.state = {
+      chartData: {
+        labels: ['2016', '2017', '2018', '2019'],
+        datasets: []
+      }
+    }
   }
+
   componentDidMount() {
     const buildingId = this.props.match.params.id
     this.props.updateInfo(buildingId)
     this.props.updateModel(buildingId)
     this.props.graphInfo(buildingId)
   }
-  renderModel() {
-    const {
-      electricityUse,
-      fuelUse,
-      waterUse,
-      ghgEmissions,
-      totalEnergyCost
-    } = this.props.buildingModel
-    if (this.state.unRendered === true) {
-      console.log('rendermodel')
-      this.setState({
-        electricity: electricityUse,
-        fuel: fuelUse,
-        water: waterUse,
-        emissions: ghgEmissions,
-        cost: totalEnergyCost,
-        unRendered: false
-      })
-    }
-    return (
-      <div>
-        <BuildingModel />
-      </div>
-    )
-  }
-  lightingImprovement() {
-    const {electricity, emissions, cost} = this.state
-    if (this.state.lightingChecked === false) {
-      this.setState({
-        electricity: electricity * 0.98,
-        emissions: emissions * 0.98,
-        cost: cost * 0.98,
-        lightingChecked: true
-      })
-    } else {
-      this.setState({
-        electricity: electricity / 0.98,
-        emissions: emissions / 0.98,
-        cost: cost / 0.98,
-        lightingChecked: false
-      })
-    }
-  }
-  solarInstall() {
-    const {electricity, fuel, emissions, cost} = this.state
-    if (this.state.solarInstalled === false) {
-      this.setState({
-        electricity: electricity * 0.8,
-        fuel: fuel * 0.8,
-        emissions: emissions * 0.8,
-        cost: cost * 0.8,
-        solarInstalled: true
-      })
-    } else {
-      this.setState({
-        electricity: electricity / 0.8,
-        fuel: fuel / 0.8,
-        emissions: emissions / 0.8,
-        cost: cost / 0.8,
-        solarInstalled: false
-      })
-    }
-  }
-  airSealing() {
-    const {electricity, fuel, emissions, cost} = this.state
-    if (this.state.airSealed === false) {
-      this.setState({
-        electricity: electricity * 0.96,
-        fuel: fuel * 0.96,
-        emissions: emissions * 0.96,
-        cost: cost * 0.96,
-        airSealed: true
-      })
-    } else {
-      this.setState({
-        electricity: electricity / 0.96,
-        fuel: fuel / 0.96,
-        emissions: emissions / 0.96,
-        cost: cost / 0.96,
-        airSealed: false
-      })
-    }
-  }
+
   handleChange(e) {
     const currentState = this.state.chartData
     const formId = e.target.id
@@ -171,6 +79,7 @@ class SingleBuildingDisplay extends Component {
     if (this.props.graphData !== undefined) {
       this.energy.data = this.props.graphData.energyRating
       this.emissions.data = this.props.graphData.ghgEmissions
+      this.electricity.data = this.props.graphData.electrictyUsage
     }
     for (let i = 0; i < inputConditionalsArray.length; i++) {
       if (this.inputConditions[inputConditionalsArray[i]] == true) {
@@ -179,14 +88,6 @@ class SingleBuildingDisplay extends Component {
     }
     this.setState({
       chartData: {...currentState, datasets: placeholder}
-    })
-  }
-  reset() {
-    document.getElementById('lighting').checked = false
-    document.getElementById('airsealing').checked = false
-    document.getElementById('solar').checked = false
-    this.setState({
-      unRendered: true
     })
   }
   render() {
@@ -286,19 +187,9 @@ class SingleBuildingDisplay extends Component {
             </button>
           </form>
         </div>
-        <div className="model-info">
-          {this.props.buildingModel && this.renderModel()}
-        </div>
+        <div className="model-info">{this.props.buildingModel}</div>
         <div id="experiment">
-          <div>
-            {/* <BuildingModel /> */}
-            <h3>Projected annual consumption</h3>
-            <h5>Electricity: {this.state.electricity} kWh</h5>
-            <h5>Fuel: {this.state.fuel} Kbtu</h5>
-            <h5>Water: {this.state.water} Gallons</h5>
-            <h5>GHG Emissions: {this.state.emissions} Tons</h5>
-            <h5>Total cost: ${this.state.cost}</h5>
-          </div>
+          <div>{/* <BuildingModel /> */}</div>
         </div>
         <div
           style={{width: '60rem', border: '1px solid grey', height: '30rem'}}
