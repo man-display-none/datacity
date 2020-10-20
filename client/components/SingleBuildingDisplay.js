@@ -69,14 +69,14 @@ class SingleBuildingDisplay extends Component {
     this.props.updateModel(buildingId)
     this.props.graphInfo(buildingId)
   }
-  renderModel() {
-    return (
-      <section className="building-info">
-        <BuildingModel />
-        {/* <ImprovementSimulator /> */}
-      </section>
-    )
-  }
+  // renderModel() {
+  //   return (
+  //     <section className="building-info">
+  //       <BuildingModel />
+  //       <ImprovementSimulator />
+  //     </section>
+  //   )
+  // }
   handleChange(e) {
     const currentState = this.state.chartData
     const formId = e.target.id
@@ -102,7 +102,12 @@ class SingleBuildingDisplay extends Component {
     return (
       <div className="card-group">
         <div className="model-info">
-          {this.props.buildingModel && this.renderModel()}
+          {this.props.buildingModel && (
+            <section className="building-info">
+              <BuildingModel buildingModel={this.props.buildingModel} />
+              <ImprovementSimulator buildingModel={this.props.buildingModel} />
+            </section>
+          )}
         </div>
         <div className="card">
           <form>

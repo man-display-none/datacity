@@ -9,8 +9,7 @@ import {
   LandingPage,
   SingleBuildingDisplay,
   BuildingInfo,
-  BuildingModel,
-  ImprovementSimulator
+  BuildingModel
 } from './components'
 import {me} from './store'
 
