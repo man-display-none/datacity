@@ -1,9 +1,10 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import Graph from './Graphs'
+import BuildingModel from './BuildingModel'
+import ImprovementSimulator from './ImprovementSimulator'
 import {updatedInfo, updatedModel} from '../store/buildingInfo'
 import {getGraphInfo} from '../store/graphData'
-import BuildingModel from './BuildingModel'
 
 class SingleBuildingDisplay extends Component {
   constructor() {
@@ -68,12 +69,19 @@ class SingleBuildingDisplay extends Component {
     this.props.updateModel(buildingId)
     this.props.graphInfo(buildingId)
   }
-
+  renderModel() {
+    return (
+      <section className="building-info">
+        <BuildingModel />
+        {/* <ImprovementSimulator /> */}
+      </section>
+    )
+  }
   handleChange(e) {
     const currentState = this.state.chartData
     const formId = e.target.id
     let placeholder = []
-
+    console.log('onChange')
     this.inputConditions[formId] = !this.inputConditions[formId]
     let inputConditionalsArray = Object.keys(this.inputConditions)
     if (this.props.graphData !== undefined) {
@@ -93,6 +101,9 @@ class SingleBuildingDisplay extends Component {
   render() {
     return (
       <div className="card-group">
+        <div className="model-info">
+          {this.props.buildingModel && this.renderModel()}
+        </div>
         <div className="card">
           <form>
             <h3>Graph Options</h3>
@@ -157,39 +168,6 @@ class SingleBuildingDisplay extends Component {
               </label>
             </div>
           </form>
-        </div>
-        <div className="calculator">
-          <form>
-            <h3>Improvement Options</h3>
-            <input
-              name="lighting"
-              type="checkbox"
-              id="lighting"
-              onChange={this.lightingImprovement}
-            />
-            <label>Lighting improvement</label>
-            <input
-              name="airsealing"
-              type="checkbox"
-              id="airsealing"
-              onChange={this.airSealing}
-            />
-            <label>Insulation improvement</label>
-            <input
-              name="solar"
-              type="checkbox"
-              id="solar"
-              onChange={this.solarInstall}
-            />
-            <label>Install solar</label>
-            <button type="button" onClick={this.reset}>
-              Reset
-            </button>
-          </form>
-        </div>
-        <div className="model-info">{this.props.buildingModel}</div>
-        <div id="experiment">
-          <div>{/* <BuildingModel /> */}</div>
         </div>
         <div
           style={{width: '60rem', border: '1px solid grey', height: '30rem'}}

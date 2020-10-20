@@ -2,6 +2,8 @@ import React, {useRef, useEffect} from 'react'
 import ReactDOM from 'react-dom'
 import axios from 'axios'
 import mapboxgl from 'mapbox-gl'
+import Spinner from 'react-bootstrap/Spinner'
+import './landing-page.css'
 import BuildingInfo from './BuildingInfo'
 import {connect} from 'react-redux'
 
@@ -10,13 +12,14 @@ mapboxgl.accessToken =
   'pk.eyJ1IjoiamVmZi0wMjI4IiwiYSI6ImNrZzZ4ZW5kbzAxc2cydG16a2syZWh5eW4ifQ.AFSJlXJOrlrnjsLHBCfpbw'
 const LandingPage = props => {
   const mapContainerRef = useRef(null)
+  const staticContainerRef = useRef(null)
+  const spinnerContainerRef = useRef(null)
   const markerRef = useRef(new mapboxgl.Marker({scale: 0.8}))
   const bounds = [
     [-74.2911533975789, 40.494789727940045], //SW
     [-73.6231598800014, 41.055125778277535] //NE
   ]
-  // -73.74825446387773 40.99700217739027 -73.6231598800014,41.055125778277535
-  //zoom higher the number the more zoomed in you are
+
   useEffect(() => {
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
@@ -27,34 +30,46 @@ const LandingPage = props => {
       maxZoom: 14,
       maxBounds: bounds
     })
+
+    mapContainerRef.current.className = 'mapContainer'
+    mapContainerRef.current.style.visibility = 'visible'
+
     //[-73.967516, 40.751108]
     map.on('load', function() {
+      staticContainerRef.current.className = 'dontShow'
+      spinnerContainerRef.current.className = 'dontShow'
+      console.log('A load event occurred.')
       console.log('prop', props.filter)
       if (props.filter.id) {
-        if (props.filter.id === 'largest_property_use_type') {
-          if (props.filter.value === 'Other') {
-            map.setFilter('footprint', [
-              'all',
-              ['!=', ['get', props.filter.id], 'Multifamily Housing'],
-              ['!=', ['get', props.filter.id], 'Office'],
-              ['!=', ['get', props.filter.id], 'K-12 School'],
-              ['!=', ['get', props.filter.id], 'Hotel']
-            ])
-          } else {
-            map.setFilter('footprint', [
-              '==',
-              ['get', props.filter.id],
-              props.filter.value
-            ])
-          }
+        if (props.filter.value[2] === '') {
+          map.setFilter('footprint', [
+            'all',
+            ['<', ['get', props.filter.id[0]], Number(props.filter.value[0])],
+            ['<', ['get', props.filter.id[1]], Number(props.filter.value[1])],
+            ['<', ['get', props.filter.id[3]], Number(props.filter.value[3])]
+          ])
+        } else if (props.filter.value[2] === 'Other') {
+          map.setFilter('footprint', [
+            'all',
+            ['<', ['get', props.filter.id[0]], Number(props.filter.value[0])],
+            ['<', ['get', props.filter.id[1]], Number(props.filter.value[1])],
+            ['!=', ['get', props.filter.id[2]], 'Multifamily Housing'],
+            ['!=', ['get', props.filter.id[2]], 'Office'],
+            ['!=', ['get', props.filter.id[2]], 'K-12 School'],
+            ['!=', ['get', props.filter.id[2]], 'Hotel'],
+            ['<', ['get', props.filter.id[3]], Number(props.filter.value[3])]
+          ])
         } else {
           map.setFilter('footprint', [
-            '<',
-            ['get', props.filter.id],
-            Number(props.filter.value)
+            'all',
+            ['<', ['get', props.filter.id[0]], Number(props.filter.value[0])],
+            ['<', ['get', props.filter.id[1]], Number(props.filter.value[1])],
+            ['==', ['get', props.filter.id[2]], props.filter.value[2]],
+            ['<', ['get', props.filter.id[3]], Number(props.filter.value[3])]
           ])
         }
       }
+
       map.on('click', 'footprint', async function(e) {
         const {
           base_bbl,
@@ -87,7 +102,9 @@ const LandingPage = props => {
   })
   return (
     <div>
+      <Spinner ref={spinnerContainerRef} animation="border" />
       <div ref={mapContainerRef} className="mapContainer" />
+      <div ref={staticContainerRef} className="staticImg" />
       <div className="color-key">
         <div className="key">
           <div className="key-text"> Energy Star Score</div>

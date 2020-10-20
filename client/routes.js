@@ -9,7 +9,8 @@ import {
   LandingPage,
   SingleBuildingDisplay,
   BuildingInfo,
-  BuildingModel
+  BuildingModel,
+  ImprovementSimulator
 } from './components'
 import {me} from './store'
 
@@ -43,6 +44,7 @@ class Routes extends Component {
         <Route component={Login} />
         <Route component={BuildingInfo} />
         <Route component={BuildingModel} />
+        {/* <Route component={ImprovementSimulator} /> */}
       </Switch>
     )
   }
