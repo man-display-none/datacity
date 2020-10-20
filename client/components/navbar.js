@@ -21,7 +21,9 @@ const Navbar = ({handleClick, isLoggedIn, filterClick}) => {
     <div className="navdiv">
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="navbar-brand">
-          <img src="/datacity.png" height="50rem" width="200rem" />
+          <a href="/">
+            <img src="/testlogo.svg" height="50rem" width="200rem" />
+          </a>
         </div>
         <button
           className="navbar-toggler"
@@ -87,7 +89,6 @@ const Navbar = ({handleClick, isLoggedIn, filterClick}) => {
             <Dropdown.Toggle variant="success" id="dropdown-basic">
               Filter By
             </Dropdown.Toggle>
-
             <Dropdown.Menu>
               <Accordion>
                 <Card>
