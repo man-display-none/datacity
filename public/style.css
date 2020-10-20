@@ -56,11 +56,30 @@ a:hover {
   text-decoration: none;
   color: white;
 }
-.card-group {
+
+.card {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
 }
+.card-group {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.building-info {
+  display: flex;
+  flex-direction: row;
+}
+.simulator {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.improvement-options {
+  display: block;
+}
+
 .score {
   padding: 0;
   margin: 0;

@@ -16,14 +16,14 @@ const BuildingModel = ({buildingModel}) => {
     totalEnergyCost
   } = buildingModel
   return (
-    <div>
+    <section className="current">
       <h3>Current</h3>
       <h5>Electricity: {electricityUse.toFixed(0)} kWh</h5>
       <h5>Fuel: {fuelUse.toFixed(0)} Kbtu</h5>
       <h5>Water: {waterUse.toFixed(0)} Gallons</h5>
       <h5>GHG Emissions: {ghgEmissions.toFixed(0)} Tons</h5>
       <h5>Total cost: {formatter.format(totalEnergyCost).slice(0, -3)}</h5>
-    </div>
+    </section>
   )
 }
 
