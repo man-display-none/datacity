@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import Graph from './Graphs'
 import BuildingModel from './BuildingModel'
+import ImprovementSimulator from './ImprovementSimulator'
 import {updatedInfo, updatedModel} from '../store/buildingInfo'
 
 class SingleBuildingDisplay extends Component {
@@ -11,22 +12,9 @@ class SingleBuildingDisplay extends Component {
       chartData: {
         labels: ['Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5'],
         datasets: []
-      },
-      emissions: 0,
-      electricity: 0,
-      fuel: 0,
-      water: 0,
-      cost: 0,
-      lightingChecked: false,
-      airSealed: false,
-      solarInstalled: false,
-      unRendered: true
+      }
     }
     this.handleChange = this.handleChange.bind(this)
-    this.lightingImprovement = this.lightingImprovement.bind(this)
-    this.solarInstall = this.solarInstall.bind(this)
-    this.airSealing = this.airSealing.bind(this)
-    this.reset = this.reset.bind(this)
   }
   componentDidMount() {
     const buildingId = this.props.match.params.id
@@ -34,87 +22,17 @@ class SingleBuildingDisplay extends Component {
     this.props.updateModel(buildingId)
   }
   renderModel() {
-    const {
-      electricityUse,
-      fuelUse,
-      waterUse,
-      ghgEmissions,
-      totalEnergyCost
-    } = this.props.buildingModel
-    if (this.state.unRendered === true) {
-      console.log('rendermodel')
-      this.setState({
-        electricity: electricityUse,
-        fuel: fuelUse,
-        water: waterUse,
-        emissions: ghgEmissions,
-        cost: totalEnergyCost,
-        unRendered: false
-      })
-    }
+    console.log('singlebldg')
     return (
       <div>
-        <BuildingModel />
+        <div>
+          <BuildingModel />
+        </div>
+        <div>
+          <ImprovementSimulator />
+        </div>
       </div>
     )
-  }
-  lightingImprovement() {
-    const {electricity, emissions, cost} = this.state
-    if (this.state.lightingChecked === false) {
-      this.setState({
-        electricity: electricity * 0.98,
-        emissions: emissions * 0.98,
-        cost: cost * 0.98,
-        lightingChecked: true
-      })
-    } else {
-      this.setState({
-        electricity: electricity / 0.98,
-        emissions: emissions / 0.98,
-        cost: cost / 0.98,
-        lightingChecked: false
-      })
-    }
-  }
-  solarInstall() {
-    const {electricity, fuel, emissions, cost} = this.state
-    if (this.state.solarInstalled === false) {
-      this.setState({
-        electricity: electricity * 0.8,
-        fuel: fuel * 0.8,
-        emissions: emissions * 0.8,
-        cost: cost * 0.8,
-        solarInstalled: true
-      })
-    } else {
-      this.setState({
-        electricity: electricity / 0.8,
-        fuel: fuel / 0.8,
-        emissions: emissions / 0.8,
-        cost: cost / 0.8,
-        solarInstalled: false
-      })
-    }
-  }
-  airSealing() {
-    const {electricity, fuel, emissions, cost} = this.state
-    if (this.state.airSealed === false) {
-      this.setState({
-        electricity: electricity * 0.96,
-        fuel: fuel * 0.96,
-        emissions: emissions * 0.96,
-        cost: cost * 0.96,
-        airSealed: true
-      })
-    } else {
-      this.setState({
-        electricity: electricity / 0.96,
-        fuel: fuel / 0.96,
-        emissions: emissions / 0.96,
-        cost: cost / 0.96,
-        airSealed: false
-      })
-    }
   }
   handleChange(e) {
     const currentState = this.state.chartData
@@ -131,17 +49,12 @@ class SingleBuildingDisplay extends Component {
       chartData: {...currentState, datasets: placeholder}
     })
   }
-  reset() {
-    document.getElementById('lighting').checked = false
-    document.getElementById('airsealing').checked = false
-    document.getElementById('solar').checked = false
-    this.setState({
-      unRendered: true
-    })
-  }
   render() {
     return (
       <div className="card-group">
+        <div className="model-info">
+          {this.props.buildingModel && this.renderModel()}
+        </div>
         <div className="card">
           <form>
             <h3>Graph Options</h3>
@@ -206,49 +119,6 @@ class SingleBuildingDisplay extends Component {
               </label>
             </div>
           </form>
-        </div>
-        <div className="calculator">
-          <form>
-            <h3>Improvement Options</h3>
-            <input
-              name="lighting"
-              type="checkbox"
-              id="lighting"
-              onChange={this.lightingImprovement}
-            />
-            <label>Lighting improvement</label>
-            <input
-              name="airsealing"
-              type="checkbox"
-              id="airsealing"
-              onChange={this.airSealing}
-            />
-            <label>Insulation improvement</label>
-            <input
-              name="solar"
-              type="checkbox"
-              id="solar"
-              onChange={this.solarInstall}
-            />
-            <label>Install solar</label>
-            <button type="button" onClick={this.reset}>
-              Reset
-            </button>
-          </form>
-        </div>
-        <div className="model-info">
-          {this.props.buildingModel && this.renderModel()}
-        </div>
-        <div id="experiment">
-          <div>
-            {/* <BuildingModel /> */}
-            <h3>Projected annual consumption</h3>
-            <h5>Electricity: {this.state.electricity} kWh</h5>
-            <h5>Fuel: {this.state.fuel} Kbtu</h5>
-            <h5>Water: {this.state.water} Gallons</h5>
-            <h5>GHG Emissions: {this.state.emissions} Tons</h5>
-            <h5>Total cost: ${this.state.cost}</h5>
-          </div>
         </div>
         <div
           style={{width: '60rem', border: '1px solid grey', height: '30rem'}}

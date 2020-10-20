@@ -112,3 +112,7 @@ a:hover {
   margin: 5px;
   color: navy;
 }
+
+.navbar-brand {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
