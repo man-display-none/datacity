@@ -170,7 +170,7 @@ class SingleBuildingDisplay extends Component {
     let inputConditionalsArray = Object.keys(this.inputConditions)
     if (this.props.graphData !== undefined) {
       this.energy.data = this.props.graphData.energyRating
-      //this.emissions.data = this.props.graphData.ghgEmissions
+      this.emissions.data = this.props.graphData.ghgEmissions
     }
     for (let i = 0; i < inputConditionalsArray.length; i++) {
       if (this.inputConditions[inputConditionalsArray[i]] == true) {

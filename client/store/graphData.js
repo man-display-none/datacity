@@ -60,25 +60,20 @@ export const getGraphInfo = baseBbl => {
       // )
 
       const allData = [data2016[0], data2017[0], data2018[0], data2019[0]]
-      const energyData = allData.map(data => {
-        if (data === undefined) {
-          return 0
-        } else {
-          return +data.energy_star_score
-        }
-      })
+      const dispatchData = (key, data) =>
+        data.map(value => {
+          if (x === undefined || data === 'Not Available' || value == null) {
+            return 0
+          } else {
+            return +value[key]
+          }
+        })
 
-      //ex:
-      //   const ghgEmissions = allData.map(data => {
-      //     if(data === undefined || data === "Not Available") {
-      //         return 0
-      //     } else {
-      //         return +data.total_ghg_emissions_metric // what keys do you want to add together?
-      //     }
-      //   })
+      dispatch(getEnergyRating(dispatchData('energy_star_score', allData)))
+      dispatch(
+        getEmissionsUsage(dispatchData('total_ghg_emissions_metric', allData))
+      )
 
-      dispatch(getEnergyRating(energyData))
-      //dispatch(getElectricyUsage(ghgEmissions))
       //   dispatch(getFuelUsage())
       //   dispatch(getNormalizedUsage())
       //   dispatch(getEmissionsUsage())
