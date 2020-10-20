@@ -145,7 +145,6 @@ async function fetchData(base_bbl) {
     total_ghg_emissions_metric,
     water_use_all_water_sources
   } = bldg[bldg.length - 1]
-
   //check if values are 'number strings' or not and then add
   const totalUse = arr => {
     let total = 0

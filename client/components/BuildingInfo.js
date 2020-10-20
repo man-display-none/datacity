@@ -12,6 +12,55 @@ class BuildingInfo extends React.Component {
       showModal: true
     }
     this.handleClose = this.handleClose.bind(this)
+    this.formatStreetAddress = this.formatStreetAddress.bind(this)
+    this.toTitleCase = this.toTitleCase.bind(this)
+  }
+  toTitleCase = function(str) {
+    if (typeof str === 'undefined') return
+    return str.toLowerCase().replace(/(?:^|\s|\/|\-)\w/g, function(match) {
+      return match.toUpperCase()
+    })
+  }
+
+  formatStreetAddress(address) {
+    address = address.replace(/[.,]/g, '')
+    var replaceWords = {
+        apartment: '#',
+        apt: '#',
+        expressway: 'Expy',
+        'po box': '#',
+        suite: '#',
+        ste: '#',
+        avenue: 'Ave',
+        boulevard: 'Blvd',
+        circle: 'Cir',
+        court: 'Ct',
+        crt: 'Ct',
+        drive: 'Dr',
+        lane: 'Ln',
+        mount: 'Mt',
+        highway: 'Hwy',
+        parkway: 'Pkwy',
+        place: 'Pl',
+        street: 'St',
+        east: 'E',
+        west: 'W',
+        south: 'S',
+        north: 'N',
+        road: 'Rd'
+      },
+      formatted_address = []
+    address.split(' ').forEach(function(word) {
+      word = word.toLowerCase().trim()
+      if (replaceWords[word]) {
+        formatted_address.push(replaceWords[word])
+        return
+      }
+      formatted_address.push(word)
+    })
+    formatted_address = formatted_address.join(' ')
+    formatted_address = formatted_address.replace(/\# /g, '#')
+    return this.toTitleCase(formatted_address)
   }
 
   handleClose() {
@@ -19,6 +68,7 @@ class BuildingInfo extends React.Component {
   }
 
   render() {
+    console.log(this.props)
     const {
       cnstrct_yr,
       address_1_self_reported,
@@ -53,7 +103,8 @@ class BuildingInfo extends React.Component {
                       Building id : <b>{base_bbl}</b>
                     </p>
                     <p>
-                      Address : <b>{address_1_self_reported}</b>
+                      Address :{' '}
+                      <b>{this.formatStreetAddress(address_1_self_reported)}</b>
                     </p>
                     <p>
                       Property Type : <b>{largest_property_use_type}</b>
