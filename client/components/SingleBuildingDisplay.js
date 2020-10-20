@@ -4,6 +4,7 @@ import Graph from './Graphs'
 import BuildingModel from './BuildingModel'
 import ImprovementSimulator from './ImprovementSimulator'
 import {updatedInfo, updatedModel} from '../store/buildingInfo'
+import './singleBuildingDisplay.css'
 
 class SingleBuildingDisplay extends Component {
   constructor() {
@@ -21,19 +22,6 @@ class SingleBuildingDisplay extends Component {
     this.props.updateInfo(buildingId)
     this.props.updateModel(buildingId)
   }
-  renderModel() {
-    console.log('singlebldg')
-    return (
-      <div>
-        <div>
-          <BuildingModel />
-        </div>
-        <div>
-          <ImprovementSimulator />
-        </div>
-      </div>
-    )
-  }
   handleChange(e) {
     const currentState = this.state.chartData
     const formId = e.target.id
@@ -50,11 +38,15 @@ class SingleBuildingDisplay extends Component {
     })
   }
   render() {
+    console.log(this.props)
     return (
       <div className="card-group">
-        <div className="model-info">
-          {this.props.buildingModel && this.renderModel()}
-        </div>
+        {this.props.buildingModel && (
+          <section className="building-info">
+            <BuildingModel />
+            <ImprovementSimulator />
+          </section>
+        )}
         <div className="card">
           <form>
             <h3>Graph Options</h3>
@@ -119,11 +111,14 @@ class SingleBuildingDisplay extends Component {
               </label>
             </div>
           </form>
-        </div>
-        <div
-          style={{width: '60rem', border: '1px solid grey', height: '30rem'}}
-        >
-          <Graph data={this.state.chartData} id={this.props.match.params.id} />
+          <div
+            style={{width: '60rem', border: '1px solid grey', height: '30rem'}}
+          >
+            <Graph
+              data={this.state.chartData}
+              id={this.props.match.params.id}
+            />
+          </div>
         </div>
       </div>
     )
@@ -144,46 +139,3 @@ const mapDispatch = dispatch => {
   }
 }
 export default connect(mapState, mapDispatch)(SingleBuildingDisplay)
-
-// this.energy = {
-//   label: 'Energy Star Rating',
-//   // backgroundColor: 'rgba(75,192,192,1)',
-//   borderColor: 'rgba(75,192,192,1)',
-//   borderWidth: 2,
-//   data: [70, 80, 90, 100, 110]
-// }
-// this.fuel = {
-//   label: 'Fuel',
-//   // backgroundColor: 'rgba(60,100,100,1)',
-//   borderColor: 'rgba(60,100,100,1)',
-//   borderWidth: 2,
-//   data: [20, 30, 40, 50, 10]
-// }
-// this.electricity = {
-//   label: 'Electricity Usage',
-//   // backgroundColor: 'rgba(20,40,109,1)',
-//   borderColor: 'rgba(20,40,109,1)',
-//   borderWidth: 2,
-//   data: [10, 5, 80, 3, 17]
-// }
-// this.emmissions = {
-//   label: 'Emmissions GHG',
-//   // backgroundColor: 'rgba(20,40,109,1)',
-//   borderColor: 'rgba(20,40,109,1)',
-//   borderWidth: 2,
-//   data: [4, 5, 8, 3, 1]
-// }
-// this.normalized = {
-//   label: 'Normalized Data',
-//   // backgroundColor: 'rgba(20,40,109,1)',
-//   borderColor: 'rgba(20,40,109,1)',
-//   borderWidth: 2,
-//   data: [80, 5, 80, 3, 1]
-// }
-// this.inputConditions = {
-//   energy: false,
-//   fuel: false,
-//   normalized: false,
-//   electricity: false,
-//   emmissions: false
-// }
