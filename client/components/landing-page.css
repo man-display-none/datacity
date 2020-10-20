@@ -8,6 +8,17 @@
   visibility: hidden;
 }
 
+.spinner-border {
+  color: #0000ff;
+  /* position: absolute;
+  top: 150px;
+  left: 350px; */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 15;
+}
+
 .staticImg {
   position: absolute;
   /* flex-basis: auto; */
@@ -18,6 +29,7 @@
   background-image: url('https://api.mapbox.com/styles/v1/mapbox/dark-v10/static/-73.9711,40.7471,12.13,0/1280x600?access_token=pk.eyJ1IjoiZGh1YW5nNjEyIiwiYSI6ImNrMHNqZDBlMzAxbGczcHNra2U1ZGEzY2oifQ.qpDA_dt5OqeoLkQquzWD_A');
   background-repeat: no-repeat;
   background-size: 100% 100%;
+  z-index: -1;
 }
 
 .dontShow {

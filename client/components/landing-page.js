@@ -2,6 +2,7 @@ import React, {useRef, useEffect} from 'react'
 import ReactDOM from 'react-dom'
 import axios from 'axios'
 import mapboxgl from 'mapbox-gl'
+import Spinner from 'react-bootstrap/Spinner'
 import './landing-page.css'
 import BuildingInfo from './BuildingInfo'
 import {connect} from 'react-redux'
@@ -12,6 +13,7 @@ mapboxgl.accessToken =
 const LandingPage = props => {
   const mapContainerRef = useRef(null)
   const staticContainerRef = useRef(null)
+  const spinnerContainerRef = useRef(null)
   const markerRef = useRef(new mapboxgl.Marker({scale: 0.8}))
   const bounds = [
     [-74.2911533975789, 40.494789727940045], //SW
@@ -35,6 +37,7 @@ const LandingPage = props => {
     //[-73.967516, 40.751108]
     map.on('load', function() {
       staticContainerRef.current.className = 'dontShow'
+      spinnerContainerRef.current.className = 'dontShow'
       console.log('A load event occurred.')
       console.log('prop', props.filter)
       if (props.filter.id) {
@@ -96,6 +99,7 @@ const LandingPage = props => {
   })
   return (
     <div>
+      <Spinner ref={spinnerContainerRef} animation="border" />
       <div ref={mapContainerRef} className="mapContainer" />
       <div ref={staticContainerRef} className="staticImg" />
       <div className="color-key">
