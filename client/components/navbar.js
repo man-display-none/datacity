@@ -7,7 +7,7 @@ import {Dropdown, Accordion, Card, Button} from 'react-bootstrap'
 import './navbar.css'
 
 const Navbar = ({handleClick, isLoggedIn, filterClick}) => {
-  const [rangeId, setId] = useState()
+  let [rangeId, setRangeId] = useState()
   let [rangeVal, setRangeVal] = useState()
   const handleFilter = e => {
     e.preventDefault()
@@ -89,180 +89,149 @@ const Navbar = ({handleClick, isLoggedIn, filterClick}) => {
             </Dropdown.Toggle>
 
             <Dropdown.Menu>
-              <Accordion>
+              <Accordion defaultActiveKey="0">
                 <Card>
                   <Accordion.Toggle as={Card.Header} eventKey="0">
                     Energy Star Score
                   </Accordion.Toggle>
                   <Accordion.Collapse eventKey="0">
                     <Card.Body>
-                      <form className="form-nav" onSubmit={handleFilter}>
-                        <div className="min-max">
-                          <input
-                            type="range"
-                            name="energy_star_score"
-                            min="1"
-                            max="100"
-                            defaultValue="50"
-                          />
-                          <div>
-                            <div className="min">1</div>
-                            <div className="max">100</div>
-                          </div>
+                      <div className="min-max">
+                        <input
+                          type="range"
+                          name="energy_star_score"
+                          min="1"
+                          max="100"
+                          defaultValue="50"
+                          id="energy_star_score"
+                        />
+                        <div>
+                          <div className="min">1</div>
+                          <div className="max">100</div>
                         </div>
-                        <div className="button-div">
-                          <Button
-                            type="submit"
-                            className="nav-button"
-                            id="energy_star_score"
-                            onClick={e => {
-                              return (
-                                setId(e.target.id),
-                                setRangeVal(
-                                  document.getElementsByName(e.target.id)[0]
-                                    .value
-                                )
-                              )
-                            }}
-                          >
-                            Apply
-                          </Button>
-                        </div>
-                      </form>
+                      </div>
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
                 <Card>
-                  <Accordion.Toggle as={Card.Header} eventKey="1">
+                  <Accordion.Toggle as={Card.Header} eventKey="0">
                     Year of Construction
                   </Accordion.Toggle>
-                  <Accordion.Collapse eventKey="1">
+                  <Accordion.Collapse eventKey="0">
                     <Card.Body>
-                      <form className="form-nav" onSubmit={handleFilter}>
-                        <div className="min-max">
-                          <input
-                            type="range"
-                            name="cnstrct_yr"
-                            min="1800"
-                            max="2020"
-                            defaultValue="1950"
-                          ></input>
-                          <div>
-                            <div className="min">1800</div>
-                            <div className="max">2020</div>
-                          </div>
+                      <div className="min-max">
+                        <input
+                          type="range"
+                          name="cnstrct_yr"
+                          min="1800"
+                          max="2020"
+                          defaultValue="1950"
+                          id="cnstrct_yr"
+                        ></input>
+                        <div>
+                          <div className="min">1800</div>
+                          <div className="max">2020</div>
                         </div>
-                        <div className="button-div">
-                          <Button
-                            type="submit"
-                            className="nav-button"
-                            id="cnstrct_yr"
-                            onClick={e => {
-                              return (
-                                setId(e.target.id),
-                                setRangeVal(
-                                  document.getElementsByName(e.target.id)[0]
-                                    .value
-                                )
-                              )
-                            }}
-                          >
-                            Apply
-                          </Button>
-                        </div>
-                      </form>
+                      </div>
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
                 <Card>
-                  <Accordion.Toggle as={Card.Header} eventKey="2">
+                  <Accordion.Toggle as={Card.Header} eventKey="0">
                     Property Type
                   </Accordion.Toggle>
-                  <Accordion.Collapse eventKey="2">
+                  <Accordion.Collapse eventKey="0">
                     <Card.Body>
-                      <form className="form-nav" onSubmit={handleFilter}>
-                        <div className="min-max">
-                          <label htmlFor="largest_property_use_type">
-                            Choose a property type:
-                          </label>
-                          <select name="largest_property_use_type">
-                            <option value="">
-                              --Please choose an option--
-                            </option>
-                            <option value="Multifamily Housing">
-                              Multifamily Housing
-                            </option>
-                            <option value="Office">Office</option>
-                            <option value="K-12 School">School</option>
-                            <option value="Hotel">Hotel</option>
-                            <option value="Other">Other</option>
-                          </select>
-                        </div>
-                        <div className="button-div">
-                          <Button
-                            type="submit"
-                            id="largest_property_use_type"
-                            className="nav-button"
-                            onClick={e => {
-                              return (
-                                setId(e.target.id),
-                                setRangeVal(
-                                  document.getElementsByName(e.target.id)[0]
-                                    .value
-                                )
-                              )
-                            }}
-                          >
-                            Apply
-                          </Button>
-                        </div>
-                      </form>
+                      <div className="min-max">
+                        <label htmlFor="largest_property_use_type">
+                          Choose a property type:
+                        </label>
+                        <select
+                          name="largest_property_use_type"
+                          id="largest_property_use_type"
+                        >
+                          <option value="">--Please choose an option--</option>
+                          <option value="Multifamily Housing">
+                            Multifamily Housing
+                          </option>
+                          <option value="Office">Office</option>
+                          <option value="K-12 School">School</option>
+                          <option value="Hotel">Hotel</option>
+                          <option value="Other">Other</option>
+                        </select>
+                      </div>
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
                 <Card>
-                  <Accordion.Toggle as={Card.Header} eventKey="3">
+                  <Accordion.Toggle as={Card.Header} eventKey="0">
                     Property Size
                   </Accordion.Toggle>
-                  <Accordion.Collapse eventKey="3">
+                  <Accordion.Collapse eventKey="0">
                     <Card.Body>
-                      <form className="form-nav" onSubmit={handleFilter}>
-                        <div className="min-max">
-                          <input
-                            type="range"
-                            name="dof_gross_floor_area_ft"
-                            min="100000"
-                            max="1000000"
-                            defaultValue="500000"
-                          ></input>
-                          <div>
-                            <div className="min">Min</div>
-                            <div className="max">Max</div>
-                          </div>
+                      <div className="min-max">
+                        <input
+                          type="range"
+                          name="dof_gross_floor_area_ft"
+                          min="100000"
+                          max="1000000"
+                          defaultValue="500000"
+                          id="dof_gross_floor_area_ft"
+                        ></input>
+                        <div>
+                          <div className="min">Min</div>
+                          <div className="max">Max</div>
                         </div>
-                        <div className="button-div">
-                          <Button
-                            type="submit"
-                            id="dof_gross_floor_area_ft"
-                            className="nav-button"
-                            onClick={e => {
-                              return (
-                                setId(e.target.id),
-                                setRangeVal(
-                                  document.getElementsByName(e.target.id)[0]
-                                    .value
-                                )
-                              )
-                            }}
-                          >
-                            Apply
-                          </Button>
-                        </div>
-                      </form>
+                      </div>
                     </Card.Body>
                   </Accordion.Collapse>
                 </Card>
               </Accordion>
+              <Card>
+                <Card.Body>
+                  <form className="form-nav" onSubmit={handleFilter}>
+                    <div className="button-div">
+                      <Button
+                        type="submit"
+                        className="nav-button"
+                        id="apply"
+                        onClick={() => {
+                          setRangeId([
+                            'energy_star_score',
+                            'cnstrct_yr',
+                            'largest_property_use_type',
+                            'dof_gross_floor_area_ft'
+                          ])
+                          setRangeVal([
+                            document.getElementsByName('energy_star_score')[0]
+                              .value,
+                            document.getElementsByName('cnstrct_yr')[0].value,
+                            document.getElementsByName(
+                              'largest_property_use_type'
+                            )[0].value,
+                            document.getElementsByName(
+                              'dof_gross_floor_area_ft'
+                            )[0].value
+                          ])
+                        }}
+                      >
+                        Apply
+                      </Button>
+                    </div>
+                    <div className="button-div">
+                      <Button
+                        variant="secondary"
+                        type="submit"
+                        className="nav-button"
+                        id="reset"
+                        onClick={() => setRangeId(null)}
+                      >
+                        Reset
+                      </Button>
+                    </div>
+                  </form>
+                </Card.Body>
+              </Card>
             </Dropdown.Menu>
           </Dropdown>
         </div>

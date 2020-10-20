@@ -29,29 +29,32 @@ const LandingPage = props => {
     })
     //[-73.967516, 40.751108]
     map.on('load', function() {
-      console.log('prop', props.filter)
       if (props.filter.id) {
-        if (props.filter.id === 'largest_property_use_type') {
-          if (props.filter.value === 'Other') {
-            map.setFilter('footprint', [
-              'all',
-              ['!=', ['get', props.filter.id], 'Multifamily Housing'],
-              ['!=', ['get', props.filter.id], 'Office'],
-              ['!=', ['get', props.filter.id], 'K-12 School'],
-              ['!=', ['get', props.filter.id], 'Hotel']
-            ])
-          } else {
-            map.setFilter('footprint', [
-              '==',
-              ['get', props.filter.id],
-              props.filter.value
-            ])
-          }
+        if (props.filter.value[2] === '') {
+          map.setFilter('footprint', [
+            'all',
+            ['<', ['get', props.filter.id[0]], Number(props.filter.value[0])],
+            ['<', ['get', props.filter.id[1]], Number(props.filter.value[1])],
+            ['<', ['get', props.filter.id[3]], Number(props.filter.value[3])]
+          ])
+        } else if (props.filter.value[2] === 'Other') {
+          map.setFilter('footprint', [
+            'all',
+            ['<', ['get', props.filter.id[0]], Number(props.filter.value[0])],
+            ['<', ['get', props.filter.id[1]], Number(props.filter.value[1])],
+            ['!=', ['get', props.filter.id[2]], 'Multifamily Housing'],
+            ['!=', ['get', props.filter.id[2]], 'Office'],
+            ['!=', ['get', props.filter.id[2]], 'K-12 School'],
+            ['!=', ['get', props.filter.id[2]], 'Hotel'],
+            ['<', ['get', props.filter.id[3]], Number(props.filter.value[3])]
+          ])
         } else {
           map.setFilter('footprint', [
-            '<',
-            ['get', props.filter.id],
-            Number(props.filter.value)
+            'all',
+            ['<', ['get', props.filter.id[0]], Number(props.filter.value[0])],
+            ['<', ['get', props.filter.id[1]], Number(props.filter.value[1])],
+            ['==', ['get', props.filter.id[2]], props.filter.value[2]],
+            ['<', ['get', props.filter.id[3]], Number(props.filter.value[3])]
           ])
         }
       }
