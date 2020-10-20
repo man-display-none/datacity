@@ -31,7 +31,6 @@ class BuildingInfo extends React.Component {
       largest_property_use_type,
       dof_gross_floor_area_ft
     } = this.props.info
-    console.log(this.props.info)
     return (
       <div>
         <Modal

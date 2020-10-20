@@ -11,14 +11,23 @@ mapboxgl.accessToken =
 const LandingPage = props => {
   const mapContainerRef = useRef(null)
   const markerRef = useRef(new mapboxgl.Marker({scale: 0.8}))
+  const bounds = [
+    [-74.2911533975789, 40.494789727940045], //SW
+    [-73.6231598800014, 41.055125778277535] //NE
+  ]
+  // -73.74825446387773 40.99700217739027 -73.6231598800014,41.055125778277535
+  //zoom higher the number the more zoomed in you are
   useEffect(() => {
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
       style: 'mapbox://styles/jeff-0228/ckg744a7n171519noe3lc32jf',
       center: [-73.967516, 40.751108],
-      zoom: 12.5
+      zoom: 12,
+      minZoom: 12,
+      maxZoom: 14,
+      maxBounds: bounds
     })
-
+    //[-73.967516, 40.751108]
     map.on('load', function() {
       console.log('prop', props.filter)
       if (props.filter.id) {
@@ -68,7 +77,6 @@ const LandingPage = props => {
             dof_gross_floor_area_ft
           }
         }
-        console.log(newBuilding)
         //use e.features[0].properties.base_bbl for axios calls
         const popupNode = document.createElement('div')
         ReactDOM.render(<BuildingInfo info={newBuilding} />, popupNode)
