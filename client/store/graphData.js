@@ -112,7 +112,7 @@ export const getGraphInfo = baseBbl => {
 const graphInfoReducer = (
   state = {
     energyRating: [],
-    electrictyUsage: [],
+    electricityUsage: [],
     fuelUsage: [],
     normalizedUsage: [],
     ghgEmissions: []
