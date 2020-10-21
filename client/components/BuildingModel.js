@@ -8,7 +8,6 @@ const formatter = new Intl.NumberFormat('en-US', {
 })
 
 const BuildingModel = ({buildingModel}) => {
-  console.log('buildingmodel props', buildingModel)
   const {
     electricityUse,
     fuelUse,
