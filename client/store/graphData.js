@@ -32,12 +32,10 @@ export const getNormalizedUsage = normalizedData => {
     normalizedData
   }
 }
-export const getEmissionsUsage = emissionsData => {
-  return {
-    type: GOT_EMISSIONS_USAGE,
-    emissionsData
-  }
-}
+export const getEmissionsUsage = emissionsData => ({
+  type: GOT_EMISSIONS_USAGE,
+  emissionsData
+})
 //thunk
 export const getGraphInfo = baseBbl => {
   return async dispatch => {

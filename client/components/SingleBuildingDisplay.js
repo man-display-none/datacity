@@ -12,14 +12,15 @@ class SingleBuildingDisplay extends Component {
 
     this.energy = {
       label: 'Energy Star Rating',
-      backgroundColor: 'rgba(0,100,0,.2)', //dark green
+      backgroundColor: 'rgba(0,100,0,0)', //dark green
       borderColor: 'rgba(0,100,0,1)',
       borderWidth: 2,
       data: []
+      // yAxisID: 'energy'
     }
     this.fuel = {
       label: 'Fuel',
-      backgroundColor: 'rgba(100,0,0,.2)',
+      backgroundColor: 'rgba(100,0,0,0)',
       borderColor: 'rgba(100,0,0,1)',
       borderWidth: 2,
       data: []
@@ -33,14 +34,14 @@ class SingleBuildingDisplay extends Component {
     }
     this.emissions = {
       label: 'emissions GHG',
-      backgroundColor: 'rgba(100,100,100,.2)',
+      backgroundColor: 'rgba(100,100,100,0)',
       borderColor: 'rgba(100,100,100,1)',
       borderWidth: 2,
       data: []
     }
     this.normalized = {
       label: 'Normalized Data',
-      backgroundColor: 'rgba(20,40,109,1)',
+      backgroundColor: 'rgba(20,40,109,0)',
       borderColor: 'rgba(20,40,109,1)',
       borderWidth: 2,
       data: []
