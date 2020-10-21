@@ -5,6 +5,7 @@ import BuildingModel from './BuildingModel'
 import ImprovementSimulator from './ImprovementSimulator'
 import {updatedInfo, updatedModel} from '../store/buildingInfo'
 import './singleBuildingDisplay.css'
+import ImprovementImpacts from './ImprovementImpacts'
 
 class SingleBuildingDisplay extends Component {
   constructor() {
@@ -43,7 +44,6 @@ class SingleBuildingDisplay extends Component {
       <div className="card-group">
         {this.props.buildingModel && (
           <section className="building-info">
-            <BuildingModel />
             <ImprovementSimulator />
           </section>
         )}

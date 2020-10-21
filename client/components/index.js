@@ -9,6 +9,7 @@ export {default as SingleBuildingDisplay} from './SingleBuildingDisplay'
 export {default as ImprovementSimulator} from './ImprovementSimulator'
 export {default as BuildingInfo} from './BuildingInfo'
 export {default as BuildingModel} from './BuildingModel'
+export {default as ImprovementImpacts} from './ImprovementImpacts'
 export {Login, Signup} from './auth-form'
 
 export {default as LandingPage} from './landing-page'

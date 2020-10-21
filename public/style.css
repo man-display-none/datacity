@@ -2,13 +2,6 @@ body {
   font-family: sans-serif;
 }
 
-/* #app {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start + safe;
-  align-items: stretch;
-} */
-
 .key {
   position: absolute;
   background-color: whitesmoke;
@@ -55,29 +48,6 @@ a {
 a:hover {
   text-decoration: none;
   color: white;
-}
-
-.card {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-}
-.card-group {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-}
-.building-info {
-  display: flex;
-  flex-direction: row;
-}
-.simulator {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-.improvement-options {
-  display: block;
 }
 
 .score {
