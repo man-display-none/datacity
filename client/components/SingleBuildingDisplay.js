@@ -5,6 +5,7 @@ import BuildingModel from './BuildingModel'
 import ImprovementSimulator from './ImprovementSimulator'
 import {updatedInfo, updatedModel} from '../store/buildingInfo'
 import {getGraphInfo} from '../store/graphData'
+import './singleBuildingDisplay.css'
 
 class SingleBuildingDisplay extends Component {
   constructor() {
@@ -97,6 +98,7 @@ class SingleBuildingDisplay extends Component {
     })
   }
   render() {
+    console.log(this.props)
     return (
       <div className="card-group">
         <div className="model-info">
@@ -171,11 +173,14 @@ class SingleBuildingDisplay extends Component {
               </label>
             </div>
           </form>
-        </div>
-        <div
-          style={{width: '60rem', border: '1px solid grey', height: '30rem'}}
-        >
-          <Graph data={this.state.chartData} id={this.props.match.params.id} />
+          <div
+            style={{width: '60rem', border: '1px solid grey', height: '30rem'}}
+          >
+            <Graph
+              data={this.state.chartData}
+              id={this.props.match.params.id}
+            />
+          </div>
         </div>
       </div>
     )

@@ -42,13 +42,21 @@ const LandingPage = props => {
       console.log('prop', props.filter)
       if (props.filter.id) {
         if (props.filter.value[2] === '') {
+          spinnerContainerRef.current.className = 'spinner-border'
           map.setFilter('footprint', [
             'all',
             ['<', ['get', props.filter.id[0]], Number(props.filter.value[0])],
             ['<', ['get', props.filter.id[1]], Number(props.filter.value[1])],
             ['<', ['get', props.filter.id[3]], Number(props.filter.value[3])]
           ])
+          map.on('sourcedata', function(e) {
+            if (e.isSourceLoaded) {
+              spinnerContainerRef.current.className = 'dontShow'
+            }
+          })
+          console.log(map.loaded())
         } else if (props.filter.value[2] === 'Other') {
+          spinnerContainerRef.current.className = 'spinner-border'
           map.setFilter('footprint', [
             'all',
             ['<', ['get', props.filter.id[0]], Number(props.filter.value[0])],
@@ -59,7 +67,13 @@ const LandingPage = props => {
             ['!=', ['get', props.filter.id[2]], 'Hotel'],
             ['<', ['get', props.filter.id[3]], Number(props.filter.value[3])]
           ])
+          map.on('sourcedata', function(e) {
+            if (e.isSourceLoaded) {
+              spinnerContainerRef.current.className = 'dontShow'
+            }
+          })
         } else {
+          spinnerContainerRef.current.className = 'spinner-border'
           map.setFilter('footprint', [
             'all',
             ['<', ['get', props.filter.id[0]], Number(props.filter.value[0])],
@@ -67,6 +81,11 @@ const LandingPage = props => {
             ['==', ['get', props.filter.id[2]], props.filter.value[2]],
             ['<', ['get', props.filter.id[3]], Number(props.filter.value[3])]
           ])
+          map.on('sourcedata', function(e) {
+            if (e.isSourceLoaded) {
+              spinnerContainerRef.current.className = 'dontShow'
+            }
+          })
         }
       }
 
@@ -145,7 +164,6 @@ async function fetchData(base_bbl) {
     total_ghg_emissions_metric,
     water_use_all_water_sources
   } = bldg[bldg.length - 1]
-
   //check if values are 'number strings' or not and then add
   const totalUse = arr => {
     let total = 0
