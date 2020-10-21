@@ -11,40 +11,44 @@ class SingleBuildingDisplay extends Component {
     super()
 
     this.energy = {
-      label: 'Energy Star Rating',
+      label: 'Energy Star Rating (grade 0-100)',
       backgroundColor: 'rgba(0,100,0,0)', //dark green
       borderColor: 'rgba(0,100,0,1)',
       borderWidth: 2,
-      data: []
-      // yAxisID: 'energy'
+      data: [],
+      yAxisID: 'energy'
     }
     this.fuel = {
-      label: 'Fuel',
+      label: 'Fuel (in tons)',
       backgroundColor: 'rgba(100,0,0,0)',
       borderColor: 'rgba(100,0,0,1)',
       borderWidth: 2,
-      data: []
+      data: [],
+      yAxisID: 'fuel'
     }
     this.electricity = {
-      label: 'Electricity Usage',
+      label: 'Electricity Usage (in Kwh)',
       backgroundColor: 'rgba(20,40,109,0)',
       borderColor: 'rgba(20,40,109,1)',
       borderWidth: 2,
-      data: []
+      data: [],
+      yAxisID: 'electricity'
     }
     this.emissions = {
-      label: 'emissions GHG',
+      label: 'Emissions GHG(in Kbtu)',
       backgroundColor: 'rgba(100,100,100,0)',
       borderColor: 'rgba(100,100,100,1)',
       borderWidth: 2,
-      data: []
+      data: [],
+      yAxisID: 'emissions'
     }
     this.normalized = {
-      label: 'Normalized Data',
+      label: 'Normalized Data (in Eui)',
       backgroundColor: 'rgba(20,40,109,0)',
       borderColor: 'rgba(20,40,109,1)',
       borderWidth: 2,
-      data: []
+      data: [],
+      yAxisID: 'normalized'
     }
     this.inputConditions = {
       energy: false,
@@ -68,14 +72,7 @@ class SingleBuildingDisplay extends Component {
     this.props.updateModel(buildingId)
     this.props.graphInfo(buildingId)
   }
-  // renderModel() {
-  //   return (
-  //     <section className="building-info">
-  //       <BuildingModel />
-  //       <ImprovementSimulator />
-  //     </section>
-  //   )
-  // }
+
   handleChange(e) {
     const currentState = this.state.chartData
     const formId = e.target.id
