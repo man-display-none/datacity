@@ -43,7 +43,6 @@ class Routes extends Component {
         <Route component={Login} />
         <Route component={BuildingInfo} />
         <Route component={BuildingModel} />
-        {/* <Route component={ImprovementSimulator} /> */}
       </Switch>
     )
   }

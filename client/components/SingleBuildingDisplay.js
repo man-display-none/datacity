@@ -6,6 +6,7 @@ import ImprovementSimulator from './ImprovementSimulator'
 import {updatedInfo, updatedModel} from '../store/buildingInfo'
 import {getGraphInfo} from '../store/graphData'
 import './singleBuildingDisplay.css'
+import ImprovementImpacts from './ImprovementImpacts'
 
 class SingleBuildingDisplay extends Component {
   constructor() {
@@ -101,14 +102,11 @@ class SingleBuildingDisplay extends Component {
     console.log(this.props)
     return (
       <div className="card-group">
-        <div className="model-info">
-          {this.props.buildingModel && (
-            <section className="building-info">
-              <BuildingModel buildingModel={this.props.buildingModel} />
-              <ImprovementSimulator buildingModel={this.props.buildingModel} />
-            </section>
-          )}
-        </div>
+        {this.props.buildingModel && (
+          <section className="building-info">
+            <ImprovementSimulator />
+          </section>
+        )}
         <div className="card">
           <form>
             <h3>Graph Options</h3>
