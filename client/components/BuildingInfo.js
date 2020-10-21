@@ -15,7 +15,7 @@ class BuildingInfo extends React.Component {
     this.formatStreetAddress = this.formatStreetAddress.bind(this)
     this.toTitleCase = this.toTitleCase.bind(this)
   }
-  toTitleCase = function(str) {
+  toTitleCase(str) {
     if (typeof str === 'undefined') return
     return str.toLowerCase().replace(/(?:^|\s|\/|\-)\w/g, function(match) {
       return match.toUpperCase()

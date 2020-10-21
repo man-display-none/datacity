@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useRef} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
@@ -9,6 +9,8 @@ import './navbar.css'
 const Navbar = ({handleClick, isLoggedIn, filterClick}) => {
   let [rangeId, setRangeId] = useState()
   let [rangeVal, setRangeVal] = useState()
+  // let [showDropdown, setShowDropdown] = useState(false)
+  const dropDownRef = useRef(null)
   const handleFilter = e => {
     e.preventDefault()
     filterClick({
@@ -16,7 +18,16 @@ const Navbar = ({handleClick, isLoggedIn, filterClick}) => {
       value: rangeVal
     })
   }
-
+  const toggleDropdown = () => {
+    dropDownRef.current.className = 'dropdown-menu show'
+    const show = (dropDownRef.current.className = 'dropdown-menu show')
+    if (show === 'dropdown-menu show') {
+      return (dropDownRef.current.className = 'dropdown-menu')
+    } else {
+      console.log(show)
+      return show
+    }
+  }
   return (
     <div className="navdiv">
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -89,7 +100,7 @@ const Navbar = ({handleClick, isLoggedIn, filterClick}) => {
             <Dropdown.Toggle variant="success" id="dropdown-basic">
               Filter By
             </Dropdown.Toggle>
-            <Dropdown.Menu>
+            <Dropdown.Menu ref={dropDownRef}>
               <Accordion defaultActiveKey="0">
                 <Card>
                   <Accordion.Toggle as={Card.Header} eventKey="0">
@@ -228,6 +239,13 @@ const Navbar = ({handleClick, isLoggedIn, filterClick}) => {
                         onClick={() => setRangeId(null)}
                       >
                         Reset
+                      </Button>
+                      <Button
+                        id="dropdown-basic-button"
+                        title="Dropdown button"
+                        onClick={toggleDropdown}
+                      >
+                        close
                       </Button>
                     </div>
                   </form>
