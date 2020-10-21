@@ -15,8 +15,7 @@ class SingleBuildingDisplay extends Component {
       backgroundColor: 'rgba(0,100,0,.2)', //dark green
       borderColor: 'rgba(0,100,0,1)',
       borderWidth: 2,
-      data: [],
-      yAxisID: 'energy'
+      data: []
     }
     this.fuel = {
       label: 'Fuel',
@@ -27,7 +26,7 @@ class SingleBuildingDisplay extends Component {
     }
     this.electricity = {
       label: 'Electricity Usage',
-      backgroundColor: 'rgba(20,40,109,1)',
+      backgroundColor: 'rgba(20,40,109,.2)',
       borderColor: 'rgba(20,40,109,1)',
       borderWidth: 2,
       data: []
@@ -37,8 +36,7 @@ class SingleBuildingDisplay extends Component {
       backgroundColor: 'rgba(100,100,100,.2)',
       borderColor: 'rgba(100,100,100,1)',
       borderWidth: 2,
-      data: [],
-      yAxisID: 'emissions'
+      data: []
     }
     this.normalized = {
       label: 'Normalized Data',
@@ -81,13 +79,15 @@ class SingleBuildingDisplay extends Component {
     const currentState = this.state.chartData
     const formId = e.target.id
     let placeholder = []
-    console.log('onChange')
+    console.log('on change', this.props)
     this.inputConditions[formId] = !this.inputConditions[formId]
     let inputConditionalsArray = Object.keys(this.inputConditions)
     if (this.props.graphData !== undefined) {
       this.energy.data = this.props.graphData.energyRating
       this.emissions.data = this.props.graphData.ghgEmissions
-      this.electricity.data = this.props.graphData.electrictyUsage
+      this.electricity.data = this.props.graphData.electricityUsage
+      this.fuel.data = this.props.graphData.fuelUsage
+      this.normalized.data = this.props.graphData.normalizedUsage
     }
     for (let i = 0; i < inputConditionalsArray.length; i++) {
       if (this.inputConditions[inputConditionalsArray[i]] == true) {

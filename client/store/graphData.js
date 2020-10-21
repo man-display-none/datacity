@@ -14,7 +14,7 @@ export const getEnergyRating = energyData => {
     energyData
   }
 }
-export const getElectricyUsage = electricityData => {
+export const getElectricityUsage = electricityData => {
   return {
     type: GOT_ELECTRICITY_USAGE,
     electricityData
@@ -60,34 +60,51 @@ export const getGraphInfo = baseBbl => {
       // )
 
       const allData = [data2016[0], data2017[0], data2018[0], data2019[0]]
-      const dispatchData = (data, key) => {
-        // let x = Object.from(...args)
-        // console.log(x)
-        data.map(value => {
-          let result = 0
-          if (
-            value === undefined ||
-            value === 'Not Available' ||
-            value == null
-          ) {
-            return result
+      const dispatchData = (data, keyArray) => {
+        return data.map(value => {
+          let sum = 0
+          if (value === undefined) {
+            return 0
           } else {
-            return +value[key]
+            for (let i = 0; i < keyArray.length; i++) {
+              if (value[keyArray[i]] !== 'Not Available')
+                sum += +value[keyArray[i]]
+            }
+            return sum
           }
         })
       }
-      dispatch(getEnergyRating(dispatchData(allData, 'energy_star_score')))
+
+      dispatch(getEnergyRating(dispatchData(allData, ['energy_star_score'])))
       dispatch(
-        getEmissionsUsage(dispatchData(allData, 'total_ghg_emissions_metric'))
+        getEmissionsUsage(dispatchData(allData, ['total_ghg_emissions_metric']))
       )
       dispatch(
-        getElectricyUsage(
-          dispatchData(allData, 'electricity_use_grid_purchase')
+        getElectricityUsage(
+          dispatchData(allData, [
+            'electricity_use_grid_purchase',
+            'electricity_use_grid_purchase_1'
+          ])
         )
       )
+      const allFuelsArray = [
+        'fuel_oil_1_use_kbtu',
+        'fuel_oil_2_use_kbtu',
+        'fuel_oil_4_use_kbtu',
+        'fuel_oil_5_6_use_kbtu',
+        'diesel_2_use_kbtu',
+        'kerosene_use_kbtu',
+        'propane_use_kbtu',
+        'district_steam_use_kbtu',
+        'natural_gas_use_kbtu'
+      ]
 
-      //   dispatch(getFuelUsage())
-      //   dispatch(getNormalizedUsage())
+      dispatch(getFuelUsage(dispatchData(allData, allFuelsArray)))
+      dispatch(
+        getNormalizedUsage(
+          dispatchData(allData, ['weather_normalized_site_eui'])
+        )
+      )
     } catch (error) {
       console.log(error)
     }
