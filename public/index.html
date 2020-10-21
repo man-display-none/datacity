@@ -30,21 +30,28 @@
       crossorigin="anonymous"
     ></script>
     <link rel="stylesheet" href="/style.css" />
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="/manifest.json" />
+    <link
+      rel="stylesheet"
+      href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.css"
+      type="text/css"
+    />
     <script defer src="/bundle.js"></script>
     <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.min.js"></script>
     <script>
-          if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('service-worker.js')
-        .then(registration => {
-          console.log('Service Worker is registered', registration);
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker
+            .register('service-worker.js')
+            .then(registration => {
+              console.log('Service Worker is registered', registration)
+            })
+            .catch(err => {
+              console.error('Registration failed:', err)
+            })
         })
-        .catch(err => {
-          console.error('Registration failed:', err);
-        });
-      });
-    }
+      }
     </script>
   </head>
   <body>
