@@ -108,14 +108,7 @@ const LandingPage = props => {
           })
         }
       }
-      geocoder.on('result', function(e) {
-        const point = e.result.center
-        console.log('result', point)
-        const footprint = map.queryRenderedFeatures(point, ['footprint'])
-        console.log('footprint', footprint)
-      })
       map.on('click', 'footprint', async function(e) {
-        console.log('on click', e.features)
         const {
           base_bbl,
           energy_star_score,
