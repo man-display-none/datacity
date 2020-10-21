@@ -27,9 +27,29 @@ const LandingPage = props => {
       center: [-73.967516, 40.751108],
       zoom: 12,
       minZoom: 12,
-      maxZoom: 14,
+      maxZoom: 16,
       maxBounds: bounds
     })
+
+    const geocoder = new MapboxGeocoder({
+      accessToken: mapboxgl.accessToken,
+      placeholder: 'Enter the address',
+      marker: false,
+      mapboxgl: mapboxgl,
+      zoom: 16,
+      countries: 'us',
+      filter: function(item) {
+        return item.context
+          .map(function(i) {
+            return i.id.split('.').shift() === 'region' && i.text === 'New York'
+          })
+          .reduce(function(acc, cur) {
+            return acc || cur
+          })
+      }
+    })
+
+    document.getElementById('geocoder').appendChild(geocoder.onAdd(map))
 
     mapContainerRef.current.className = 'mapContainer'
     mapContainerRef.current.style.visibility = 'visible'
@@ -88,8 +108,14 @@ const LandingPage = props => {
           })
         }
       }
-
+      geocoder.on('result', function(e) {
+        const point = e.result.center
+        console.log('result', point)
+        const footprint = map.queryRenderedFeatures(point, ['footprint'])
+        console.log('footprint', footprint)
+      })
       map.on('click', 'footprint', async function(e) {
+        console.log('on click', e.features)
         const {
           base_bbl,
           energy_star_score,
