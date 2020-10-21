@@ -1,4 +1,5 @@
 .custom-modal {
+  width: 70%;
   position: absolute;
   top: calc(1.2% + 76px);
   bottom: 1.2%;
@@ -9,4 +10,23 @@
 .modal-content {
   height: 100%;
   overflow: auto;
+}
+
+.modal-header {
+  background-color: #3d5c3d;
+}
+
+.modal-header {
+  color: gray;
+}
+
+.card-header {
+  background-color: gray;
+}
+.card-header:hover {
+  background-color: #009900;
+}
+
+.btn-secondary:hover {
+  background-color: #e62e00;
 }

@@ -2,24 +2,93 @@ import React, {useRef, useEffect} from 'react'
 import ReactDOM from 'react-dom'
 import axios from 'axios'
 import mapboxgl from 'mapbox-gl'
+import Spinner from 'react-bootstrap/Spinner'
+import './landing-page.css'
 import BuildingInfo from './BuildingInfo'
+import {connect} from 'react-redux'
 
 //hide access token
 mapboxgl.accessToken =
   'pk.eyJ1IjoiamVmZi0wMjI4IiwiYSI6ImNrZzZ4ZW5kbzAxc2cydG16a2syZWh5eW4ifQ.AFSJlXJOrlrnjsLHBCfpbw'
-const LandingPage = () => {
+const LandingPage = props => {
   const mapContainerRef = useRef(null)
+  const staticContainerRef = useRef(null)
+  const spinnerContainerRef = useRef(null)
   const markerRef = useRef(new mapboxgl.Marker({scale: 0.8}))
+  const bounds = [
+    [-74.2911533975789, 40.494789727940045], //SW
+    [-73.6231598800014, 41.055125778277535] //NE
+  ]
+
   useEffect(() => {
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
       style: 'mapbox://styles/jeff-0228/ckg744a7n171519noe3lc32jf',
       center: [-73.967516, 40.751108],
-      zoom: 12
+      zoom: 12,
+      minZoom: 12,
+      maxZoom: 14,
+      maxBounds: bounds
     })
 
+    mapContainerRef.current.className = 'mapContainer'
+    mapContainerRef.current.style.visibility = 'visible'
+
+    //[-73.967516, 40.751108]
     map.on('load', function() {
-      // map.setFilter('footprint', ['>', ['get', 'cnstrct_yr'], 2000])
+      staticContainerRef.current.className = 'dontShow'
+      spinnerContainerRef.current.className = 'dontShow'
+      console.log('A load event occurred.')
+      console.log('prop', props.filter)
+      if (props.filter.id) {
+        if (props.filter.value[2] === '') {
+          spinnerContainerRef.current.className = 'spinner-border'
+          map.setFilter('footprint', [
+            'all',
+            ['<', ['get', props.filter.id[0]], Number(props.filter.value[0])],
+            ['<', ['get', props.filter.id[1]], Number(props.filter.value[1])],
+            ['<', ['get', props.filter.id[3]], Number(props.filter.value[3])]
+          ])
+          map.on('sourcedata', function(e) {
+            if (e.isSourceLoaded) {
+              spinnerContainerRef.current.className = 'dontShow'
+            }
+          })
+          console.log(map.loaded())
+        } else if (props.filter.value[2] === 'Other') {
+          spinnerContainerRef.current.className = 'spinner-border'
+          map.setFilter('footprint', [
+            'all',
+            ['<', ['get', props.filter.id[0]], Number(props.filter.value[0])],
+            ['<', ['get', props.filter.id[1]], Number(props.filter.value[1])],
+            ['!=', ['get', props.filter.id[2]], 'Multifamily Housing'],
+            ['!=', ['get', props.filter.id[2]], 'Office'],
+            ['!=', ['get', props.filter.id[2]], 'K-12 School'],
+            ['!=', ['get', props.filter.id[2]], 'Hotel'],
+            ['<', ['get', props.filter.id[3]], Number(props.filter.value[3])]
+          ])
+          map.on('sourcedata', function(e) {
+            if (e.isSourceLoaded) {
+              spinnerContainerRef.current.className = 'dontShow'
+            }
+          })
+        } else {
+          spinnerContainerRef.current.className = 'spinner-border'
+          map.setFilter('footprint', [
+            'all',
+            ['<', ['get', props.filter.id[0]], Number(props.filter.value[0])],
+            ['<', ['get', props.filter.id[1]], Number(props.filter.value[1])],
+            ['==', ['get', props.filter.id[2]], props.filter.value[2]],
+            ['<', ['get', props.filter.id[3]], Number(props.filter.value[3])]
+          ])
+          map.on('sourcedata', function(e) {
+            if (e.isSourceLoaded) {
+              spinnerContainerRef.current.className = 'dontShow'
+            }
+          })
+        }
+      }
+
       map.on('click', 'footprint', async function(e) {
         const {
           base_bbl,
@@ -42,7 +111,6 @@ const LandingPage = () => {
             dof_gross_floor_area_ft
           }
         }
-        console.log(newBuilding)
         //use e.features[0].properties.base_bbl for axios calls
         const popupNode = document.createElement('div')
         ReactDOM.render(<BuildingInfo info={newBuilding} />, popupNode)
@@ -53,7 +121,9 @@ const LandingPage = () => {
   })
   return (
     <div>
+      <Spinner ref={spinnerContainerRef} animation="border" />
       <div ref={mapContainerRef} className="mapContainer" />
+      <div ref={staticContainerRef} className="staticImg" />
       <div className="color-key">
         <div className="key">
           <div className="key-text"> Energy Star Score</div>
@@ -94,7 +164,6 @@ async function fetchData(base_bbl) {
     total_ghg_emissions_metric,
     water_use_all_water_sources
   } = bldg[bldg.length - 1]
-
   //check if values are 'number strings' or not and then add
   const totalUse = arr => {
     let total = 0
@@ -137,4 +206,9 @@ async function fetchData(base_bbl) {
   return building
 }
 
-export default LandingPage
+const mapState = state => {
+  return {
+    filter: state.filter
+  }
+}
+export default connect(mapState, null)(LandingPage)
