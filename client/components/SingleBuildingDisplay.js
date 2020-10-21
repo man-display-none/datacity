@@ -27,7 +27,7 @@ class SingleBuildingDisplay extends Component {
     }
     this.electricity = {
       label: 'Electricity Usage',
-      backgroundColor: 'rgba(20,40,109,.2)',
+      backgroundColor: 'rgba(20,40,109,0)',
       borderColor: 'rgba(20,40,109,1)',
       borderWidth: 2,
       data: []
