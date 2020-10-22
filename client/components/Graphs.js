@@ -23,7 +23,8 @@ export default class Graphs extends React.Component {
             fontSize: 20
           },
           legend: {
-            display: true
+            display: true,
+            position: 'right'
           },
           scales: {
             yAxes: [
@@ -31,27 +32,41 @@ export default class Graphs extends React.Component {
                 id: 'energy',
                 type: 'linear',
                 display: energy,
-                labelString: 'EnergyStar Score'
+                ticks: {
+                  fontColor: 'green'
+                }
               },
               {
                 id: 'fuel',
                 type: 'linear',
-                display: fuel
+                display: fuel,
+                ticks: {
+                  fontColor: 'red'
+                }
               },
               {
                 id: 'electricity',
                 type: 'linear',
-                display: electricity
+                display: electricity,
+                ticks: {
+                  fontColor: 'blue'
+                }
               },
               {
                 id: 'emissions',
                 type: 'linear',
-                display: emissions
+                display: emissions,
+                ticks: {
+                  fontColor: 'grey'
+                }
               },
               {
                 id: 'normalized',
                 type: 'linear',
-                display: normalized
+                display: normalized,
+                ticks: {
+                  fontColor: 'purple'
+                }
               }
             ]
           }
