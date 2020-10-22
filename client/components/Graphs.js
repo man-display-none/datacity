@@ -4,6 +4,14 @@ import {Line} from 'react-chartjs-2'
 
 export default class Graphs extends React.Component {
   render() {
+    console.log(this.props)
+    const {
+      energy,
+      fuel,
+      normalized,
+      electricity,
+      emissions
+    } = this.props.inputConditions
     const id = this.props.id
     return (
       <Line
@@ -15,34 +23,50 @@ export default class Graphs extends React.Component {
             fontSize: 20
           },
           legend: {
-            display: true
+            display: true,
+            position: 'right'
           },
           scales: {
             yAxes: [
               {
                 id: 'energy',
                 type: 'linear',
-                display: true
+                display: energy,
+                ticks: {
+                  fontColor: 'green'
+                }
               },
               {
                 id: 'fuel',
                 type: 'linear',
-                display: true
+                display: fuel,
+                ticks: {
+                  fontColor: 'red'
+                }
               },
               {
                 id: 'electricity',
                 type: 'linear',
-                display: true
+                display: electricity,
+                ticks: {
+                  fontColor: 'blue'
+                }
               },
               {
                 id: 'emissions',
                 type: 'linear',
-                display: true
+                display: emissions,
+                ticks: {
+                  fontColor: 'grey'
+                }
               },
               {
                 id: 'normalized',
                 type: 'linear',
-                display: true
+                display: normalized,
+                ticks: {
+                  fontColor: 'purple'
+                }
               }
             ]
           }
