@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react'
+import React, {useState, useRef, useLayoutEffect} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
@@ -9,9 +9,46 @@ import './navbar.css'
 const Navbar = ({handleClick, isLoggedIn, filterClick}) => {
   let [rangeId, setRangeId] = useState()
   let [rangeVal, setRangeVal] = useState()
-  let [showDropdown, setShowDropdown] = useState(true)
+  let [showDropdown, setShowDropdown] = useState(false)
   const filterBtnRef = useRef(null)
   const dropDownRef = useRef(null)
+  const toggleDropdownRef = useRef(null)
+
+  const toggleDropdown = () => {
+    dropDownRef.current.className = 'dropdown-menu show'
+    filterBtnRef.current.className = 'filter-button show dropdown'
+
+    if (!showDropdown) {
+      setShowDropdown(true)
+
+      dropDownRef.current.className = 'dropdown-menu show'
+
+      filterBtnRef.current.className = 'filter-button show dropdown'
+    } else {
+      setShowDropdown(false)
+
+      dropDownRef.current.className = 'dontShow'
+      dropDownRef.current.className = 'dropdown-menu'
+
+      filterBtnRef.current.className = 'filter-button dropdown'
+    }
+  }
+  useLayoutEffect(() => {
+    const {current} = toggleDropdownRef
+    const objKeys = Object.keys(current)
+    if (!showDropdown) {
+      let key = objKeys[1]
+      if (current[key]) {
+        const value = current[key]
+        const nestedObjKeys = Object.keys(value)
+        const ariaExpanded = nestedObjKeys[2]
+        console.log(ariaExpanded)
+        if (nestedObjKeys[ariaExpanded]) {
+          nestedObjKeys[ariaExpanded] = true
+        }
+      }
+    }
+  })
 
   const handleFilter = e => {
     e.preventDefault()
@@ -20,21 +57,7 @@ const Navbar = ({handleClick, isLoggedIn, filterClick}) => {
       value: rangeVal
     })
   }
-  const toggleDropdown = () => {
-    // dropDownRef.current.className = 'dropdown-menu show'
-    // filterBtnRef.current.className = "filter-button show dropdown"
-    if (!showDropdown) {
-      setShowDropdown(true)
 
-      dropDownRef.current.className = 'dropdown-menu.show'
-      filterBtnRef.current.className = 'filter-button.show.dropdown'
-    } else {
-      setShowDropdown(false)
-      dropDownRef.current.className = 'dontShow'
-      dropDownRef.current.className = 'dropdown-menu'
-      filterBtnRef.current.className = 'filter-button dropdown'
-    }
-  }
   return (
     <div className="navdiv">
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -105,6 +128,7 @@ const Navbar = ({handleClick, isLoggedIn, filterClick}) => {
         <div className="btn-group">
           <Dropdown ref={filterBtnRef} className="filter-button">
             <Dropdown.Toggle
+              ref={toggleDropdownRef}
               variant="success"
               id="dropdown-basic"
               aria-expanded={showDropdown}
@@ -254,7 +278,7 @@ const Navbar = ({handleClick, isLoggedIn, filterClick}) => {
                       <Button
                         id="dropdown-basic-button"
                         title="Dropdown button"
-                        onClick={toggleDropdown}
+                        onClick={() => toggleDropdown()}
                       >
                         close
                       </Button>
