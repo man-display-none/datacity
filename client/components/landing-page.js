@@ -150,7 +150,7 @@ const LandingPage = props => {
             <li className="min"> 0 </li>
             <li className="max"> 100 </li>
             <li className="legend">
-              <div className="graph">
+              <div className="graph-mapbox">
                 <div className="continuous"></div>
                 <div className="prompt">
                   Click on a building for more information
