@@ -72,9 +72,10 @@ export const updatedModel = bbl => {
           district_steam_use_kbtu
         ]) || 'Not Available'
 
-      const totalWater = Number(water_use_all_water_sources) || 'Not Available'
+      const totalWater =
+        totalUse([water_use_all_water_sources]) || 'Not Available'
 
-      const ghg = Number(total_ghg_emissions_metric) || 'Not Available'
+      const ghg = totalUse([total_ghg_emissions_metric]) || 'Not Available'
 
       const buildingModel = new Building(
         totalElectricity,
