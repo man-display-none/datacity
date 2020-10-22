@@ -13,23 +13,23 @@ class SingleBuildingDisplay extends Component {
     this.energy = {
       label: 'Energy Star Rating (grade 0-100)',
       backgroundColor: 'rgba(0,100,0,0)', //dark green
-      borderColor: 'rgba(0,100,0,1)',
+      borderColor: 'green',
       borderWidth: 2,
       data: [],
       yAxisID: 'energy'
     }
     this.fuel = {
-      label: 'Fuel (in tons)',
+      label: 'Fuel (in Kbtu)',
       backgroundColor: 'rgba(100,0,0,0)',
-      borderColor: 'rgba(100,0,0,1)',
+      borderColor: 'red',
       borderWidth: 2,
       data: [],
       yAxisID: 'fuel'
     }
     this.electricity = {
-      label: 'Electricity Usage (in Kwh)',
+      label: 'Electricity Usage (in kWh)',
       backgroundColor: 'rgba(20,40,109,0)',
-      borderColor: 'rgba(20,40,109,1)',
+      borderColor: 'blue',
       borderWidth: 2,
       data: [],
       yAxisID: 'electricity'
@@ -37,15 +37,15 @@ class SingleBuildingDisplay extends Component {
     this.emissions = {
       label: 'Emissions GHG(in Kbtu)',
       backgroundColor: 'rgba(100,100,100,0)',
-      borderColor: 'rgba(100,100,100,1)',
+      borderColor: 'grey',
       borderWidth: 2,
       data: [],
       yAxisID: 'emissions'
     }
     this.normalized = {
-      label: 'Normalized Data (in Eui)',
+      label: 'Normalized Data (in EUI)',
       backgroundColor: 'rgba(20,40,109,0)',
-      borderColor: 'rgba(20,40,109,1)',
+      borderColor: 'purple',
       borderWidth: 2,
       data: [],
       yAxisID: 'normalized'
@@ -98,13 +98,13 @@ class SingleBuildingDisplay extends Component {
   }
   render() {
     return (
-      <div className="card-group">
+      <div className="single-page">
         {this.props.buildingModel && (
           <section className="building-info">
             <ImprovementSimulator />
           </section>
         )}
-        <div className="card">
+        <div className="graph">
           <form>
             <h3>Graph Options</h3>
             <div className="form-check form-inline">
@@ -174,6 +174,7 @@ class SingleBuildingDisplay extends Component {
             <Graph
               data={this.state.chartData}
               id={this.props.match.params.id}
+              inputConditions={this.inputConditions}
             />
           </div>
         </div>
