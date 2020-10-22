@@ -7,7 +7,9 @@ const Building = db.define('buildings', {
   borough: Sequelize.STRING,
   dof_gross_floor_area_ft: Sequelize.STRING,
   largest_property_use_type: Sequelize.STRING,
-  energy_star_score: Sequelize.STRING
+  energy_star_score: Sequelize.INTEGER,
+  weather_normalized_site_eui: Sequelize.INTEGER,
+  grade: Sequelize.ENUM('A', 'B', 'C', 'D', 'F')
 })
 
 module.exports = Building

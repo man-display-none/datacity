@@ -1,12 +1,10 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import Graph from './Graphs'
-import BuildingModel from './BuildingModel'
 import ImprovementSimulator from './ImprovementSimulator'
 import {updatedInfo, updatedModel} from '../store/buildingInfo'
 import {getGraphInfo} from '../store/graphData'
 import './singleBuildingDisplay.css'
-import ImprovementImpacts from './ImprovementImpacts'
 
 class SingleBuildingDisplay extends Component {
   constructor() {
@@ -99,7 +97,6 @@ class SingleBuildingDisplay extends Component {
     })
   }
   render() {
-    console.log(this.props)
     return (
       <div className="card-group">
         {this.props.buildingModel && (
@@ -186,7 +183,6 @@ class SingleBuildingDisplay extends Component {
 }
 
 const mapState = state => {
-  console.log(state)
   return {
     buildingData: state.buildingInfoReducer.buildingData,
     buildingModel: state.buildingInfoReducer.buildingModel,
