@@ -19,7 +19,7 @@ class SingleBuildingDisplay extends Component {
       yAxisID: 'energy'
     }
     this.fuel = {
-      label: 'Fuel (in Kbtu)',
+      label: 'Fuel (Kbtu)',
       backgroundColor: 'rgba(100,0,0,0)',
       borderColor: 'red',
       borderWidth: 2,
@@ -27,7 +27,7 @@ class SingleBuildingDisplay extends Component {
       yAxisID: 'fuel'
     }
     this.electricity = {
-      label: 'Electricity Usage (in kWh)',
+      label: 'Electricity (kWh)',
       backgroundColor: 'rgba(20,40,109,0)',
       borderColor: 'blue',
       borderWidth: 2,
@@ -35,7 +35,7 @@ class SingleBuildingDisplay extends Component {
       yAxisID: 'electricity'
     }
     this.emissions = {
-      label: 'Emissions GHG(in Kbtu)',
+      label: 'GHG Emissions (Tons)',
       backgroundColor: 'rgba(100,100,100,0)',
       borderColor: 'grey',
       borderWidth: 2,
@@ -43,7 +43,7 @@ class SingleBuildingDisplay extends Component {
       yAxisID: 'emissions'
     }
     this.normalized = {
-      label: 'Normalized Data (in EUI)',
+      label: 'Weather Normalized Energy Use Intensity (EUI)',
       backgroundColor: 'rgba(20,40,109,0)',
       borderColor: 'purple',
       borderWidth: 2,
