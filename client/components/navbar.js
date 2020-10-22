@@ -9,8 +9,10 @@ import './navbar.css'
 const Navbar = ({handleClick, isLoggedIn, filterClick}) => {
   let [rangeId, setRangeId] = useState()
   let [rangeVal, setRangeVal] = useState()
-  // let [showDropdown, setShowDropdown] = useState(false)
+  let [showDropdown, setShowDropdown] = useState(true)
+  const filterBtnRef = useRef(null)
   const dropDownRef = useRef(null)
+
   const handleFilter = e => {
     e.preventDefault()
     filterClick({
@@ -19,13 +21,18 @@ const Navbar = ({handleClick, isLoggedIn, filterClick}) => {
     })
   }
   const toggleDropdown = () => {
-    dropDownRef.current.className = 'dropdown-menu show'
-    const show = (dropDownRef.current.className = 'dropdown-menu show')
-    if (show === 'dropdown-menu show') {
-      return (dropDownRef.current.className = 'dropdown-menu')
+    // dropDownRef.current.className = 'dropdown-menu show'
+    // filterBtnRef.current.className = "filter-button show dropdown"
+    if (!showDropdown) {
+      setShowDropdown(true)
+
+      dropDownRef.current.className = 'dropdown-menu.show'
+      filterBtnRef.current.className = 'filter-button.show.dropdown'
     } else {
-      console.log(show)
-      return show
+      setShowDropdown(false)
+      dropDownRef.current.className = 'dontShow'
+      dropDownRef.current.className = 'dropdown-menu'
+      filterBtnRef.current.className = 'filter-button dropdown'
     }
   }
   return (
@@ -96,8 +103,12 @@ const Navbar = ({handleClick, isLoggedIn, filterClick}) => {
           )}
         </div>
         <div className="btn-group">
-          <Dropdown className="filter-button">
-            <Dropdown.Toggle variant="success" id="dropdown-basic">
+          <Dropdown ref={filterBtnRef} className="filter-button">
+            <Dropdown.Toggle
+              variant="success"
+              id="dropdown-basic"
+              aria-expanded={showDropdown}
+            >
               Filter By
             </Dropdown.Toggle>
             <Dropdown.Menu ref={dropDownRef}>

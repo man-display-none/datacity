@@ -45,3 +45,7 @@
 .max {
   float: right;
 }
+
+.dontShow {
+  visibility: hidden;
+}
