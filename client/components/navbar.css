@@ -13,6 +13,14 @@
   padding-bottom: 0px;
   padding-top: 0px;
 }
+
+.card .card-header {
+  background-color: white;
+}
+.card .card-header:hover {
+  background-color: #cccccc;
+}
+
 .card-body {
   padding: 10px;
 }
