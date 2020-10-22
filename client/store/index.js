@@ -5,8 +5,14 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 import user from './user'
 import filter from './filter'
 import buildingInfoReducer from './buildingInfo'
+import graphInfoReducer from './graphData'
 
-const reducer = combineReducers({user, buildingInfoReducer, filter})
+const reducer = combineReducers({
+  user,
+  buildingInfoReducer,
+  filter,
+  graphInfo: graphInfoReducer
+})
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 )
