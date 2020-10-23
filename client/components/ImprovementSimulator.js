@@ -28,6 +28,8 @@ class ImprovementSimulator extends Component {
       roofInsulationInstalled: false,
       vfdInstalled: false,
       windowsInstalled: false,
+      toiletsInstalled: false,
+      heatingTuned: false,
       unRendered: true
     }
     this.lightingImprovement = this.lightingImprovement.bind(this)
@@ -37,6 +39,8 @@ class ImprovementSimulator extends Component {
     this.roofInsulation = this.roofInsulation.bind(this)
     this.vfd = this.vfd.bind(this)
     this.windows = this.windows.bind(this)
+    this.toilets = this.toilets.bind(this)
+    this.heatingTune = this.heatingTune.bind(this)
     this.reset = this.reset.bind(this)
   }
   componentDidMount() {
@@ -120,13 +124,14 @@ class ImprovementSimulator extends Component {
     }
   }
   lowFlow() {
-    const {electricity, fuel, emissions, cost} = this.state
+    const {electricity, fuel, emissions, cost, water} = this.state
     if (this.state.lowFlowInstalled === false) {
       this.setState({
         electricity: electricity * 0.93,
         fuel: fuel * 0.93,
         emissions: emissions * 0.93,
         cost: cost * 0.93,
+        water: water * 0.93,
         lowFlowInstalled: true
       })
     } else {
@@ -135,6 +140,7 @@ class ImprovementSimulator extends Component {
         fuel: fuel / 0.93,
         emissions: emissions / 0.93,
         cost: cost / 0.93,
+        water: water / 0.93,
         lowFlowInstalled: false
       })
     }
@@ -199,6 +205,40 @@ class ImprovementSimulator extends Component {
       })
     }
   }
+  toilets() {
+    const {water} = this.state
+    if (this.state.toiletsInstalled === false) {
+      this.setState({
+        water: water * 0.9,
+        toiletsInstalled: true
+      })
+    } else {
+      this.setState({
+        water: water / 0.9,
+        toiletsInstalled: false
+      })
+    }
+  }
+  heatingTune() {
+    const {electricity, fuel, emissions, cost} = this.state
+    if (this.state.heatingTuned === false) {
+      this.setState({
+        electricity: electricity * 0.98,
+        fuel: fuel * 0.98,
+        emissions: emissions * 0.98,
+        cost: cost * 0.98,
+        heatingTuned: true
+      })
+    } else {
+      this.setState({
+        electricity: electricity / 0.98,
+        fuel: fuel / 0.98,
+        emissions: emissions / 0.98,
+        cost: cost / 0.98,
+        heatingTuned: false
+      })
+    }
+  }
   async reset() {
     document.getElementById('lighting').checked = false
     document.getElementById('airsealing').checked = false
@@ -207,6 +247,8 @@ class ImprovementSimulator extends Component {
     document.getElementById('roof-insulation').checked = false
     document.getElementById('VFD').checked = false
     document.getElementById('windows').checked = false
+    document.getElementById('toilets').checked = false
+    document.getElementById('heating-tune').checked = false
     await this.setState({
       unRendered: true,
       lightingChecked: false,
@@ -224,52 +266,58 @@ class ImprovementSimulator extends Component {
     return (
       <div className="simulator">
         <Container>
-          <Row>
-            <Col>
-              <BuildingModel />
-            </Col>
-            <Col>
-              <div className="projected">
-                <h3>Projected Total Use</h3>
-                <h5>
-                  Electricity:{' '}
-                  {isNaN(electricity)
-                    ? 'Not Available'
-                    : electricity.toFixed(0) + '  kWh'}
-                </h5>
-                <h5>
-                  Fuel:{' '}
-                  {isNaN(fuel) ? 'Not Available' : fuel.toFixed(0) + ' Kbtu'}
-                </h5>
-                <h5>
-                  Water:{' '}
-                  {isNaN(water)
-                    ? 'Not Available'
-                    : water.toFixed(0) + ' Gallons'}
-                </h5>
-                <h5>
-                  GHG Emissions:{' '}
-                  {isNaN(emissions)
-                    ? 'Not Available'
-                    : emissions.toFixed(0) + ' Tons'}
-                </h5>
-                <h5>Total cost: {formatter.format(cost).slice(0, -3)}</h5>
-              </div>
-            </Col>
-            <Col>
-              <ImprovementImpacts changes={this.state} />
-            </Col>
-          </Row>
+          <div className="data-row">
+            <div className="data-row">
+              <Col>
+                <BuildingModel />
+              </Col>
+            </div>
+            <div className="data-row">
+              <Col>
+                <div className="projected">
+                  <h3>Projected Total Use</h3>
+                  <h5>
+                    Electricity:{' '}
+                    {isNaN(electricity)
+                      ? 'Not Available'
+                      : electricity.toFixed(0) + '  kWh'}
+                  </h5>
+                  <h5>
+                    Fuel:{' '}
+                    {isNaN(fuel) ? 'Not Available' : fuel.toFixed(0) + ' Kbtu'}
+                  </h5>
+                  <h5>
+                    Water:{' '}
+                    {isNaN(water)
+                      ? 'Not Available'
+                      : water.toFixed(0) + ' Gallons'}
+                  </h5>
+                  <h5>
+                    GHG Emissions:{' '}
+                    {isNaN(emissions)
+                      ? 'Not Available'
+                      : emissions.toFixed(0) + ' Tons'}
+                  </h5>
+                  <h5>Total cost: {formatter.format(cost).slice(0, -3)}</h5>
+                </div>
+              </Col>
+            </div>
+            <div className="data-row">
+              <Col>
+                <ImprovementImpacts changes={this.state} />
+              </Col>
+            </div>
+          </div>
           <div className="my-5"></div>
           <div className="row">
             <div className="col-12">
               <form className="improvement-options">
-                <div className="row">
+                <div className="data-row row">
                   <h3 className="col-3">Improvement Options</h3>
                   <div className="col-9">
                     <div className="row">
                       <div className="col-4 ">
-                        <div className="d-flex align-items-center">
+                        <div className="d-flex align-items-center check-pad">
                           <input
                             name="lighting"
                             type="checkbox"
@@ -281,7 +329,7 @@ class ImprovementSimulator extends Component {
                         </div>
                       </div>
                       <div className="col-4 ">
-                        <div className="d-flex align-items-center">
+                        <div className="d-flex align-items-center check-pad">
                           <input
                             name="airsealing"
                             type="checkbox"
@@ -293,7 +341,7 @@ class ImprovementSimulator extends Component {
                         </div>
                       </div>
                       <div className="col-4 ">
-                        <div className="d-flex align-items-center">
+                        <div className="d-flex align-items-center check-pad">
                           <input
                             name="solar"
                             type="checkbox"
@@ -305,7 +353,7 @@ class ImprovementSimulator extends Component {
                         </div>
                       </div>
                       <div className="col-4 ">
-                        <div className="d-flex align-items-center">
+                        <div className="d-flex align-items-center check-pad">
                           <input
                             name="lowflow"
                             type="checkbox"
@@ -313,11 +361,23 @@ class ImprovementSimulator extends Component {
                             onChange={this.lowFlow}
                             className="mr-2"
                           />
-                          <label>Install lowflow faucets + showerheads</label>
+                          <label>Install lowflow fixtures</label>
                         </div>
                       </div>
                       <div className="col-4 ">
-                        <div className="d-flex align-items-center">
+                        <div className="d-flex align-items-center check-pad">
+                          <input
+                            name="toilets"
+                            type="checkbox"
+                            id="toilets"
+                            onChange={this.toilets}
+                            className="mr-2"
+                          />
+                          <label>Install lowflow toilets</label>
+                        </div>
+                      </div>
+                      <div className="col-4 ">
+                        <div className="d-flex align-items-center check-pad">
                           <input
                             name="roof-insulation"
                             type="checkbox"
@@ -329,7 +389,7 @@ class ImprovementSimulator extends Component {
                         </div>
                       </div>
                       <div className="col-4 ">
-                        <div className="d-flex align-items-center">
+                        <div className="d-flex align-items-center check-pad">
                           <input
                             name="VFD"
                             type="checkbox"
@@ -341,7 +401,7 @@ class ImprovementSimulator extends Component {
                         </div>
                       </div>
                       <div className="col-4 ">
-                        <div className="d-flex align-items-center">
+                        <div className="d-flex align-items-center check-pad">
                           <input
                             name="windows"
                             type="checkbox"
@@ -352,15 +412,29 @@ class ImprovementSimulator extends Component {
                           <label>Replace windows</label>
                         </div>
                       </div>
+                      <div className="col-4 ">
+                        <div className="d-flex align-items-center check-pad">
+                          <input
+                            name="heating-tune"
+                            type="checkbox"
+                            id="heating-tune"
+                            onChange={this.heatingTune}
+                            className="mr-2"
+                          />
+                          <label>Clean + Tune Heating Sys.</label>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  <button
-                    className="d-block m-auto btn btn-primary"
-                    type="button"
-                    onClick={this.reset}
-                  >
-                    Reset
-                  </button>
+                  <div className="button-pad">
+                    <button
+                      className="d-block m-auto btn btn-primary"
+                      type="button"
+                      onClick={this.reset}
+                    >
+                      Reset
+                    </button>
+                  </div>
                 </div>
               </form>
             </div>

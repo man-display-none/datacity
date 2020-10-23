@@ -4,20 +4,51 @@
   border: none;
   border-radius: 4px;
 }
-
+label {
+  margin-bottom: 0px;
+}
 .single-page {
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
+.check-pad {
+  margin-bottom: 1%;
+}
 .graph {
   display: flex;
+  flex-direction: row;
   justify-content: center;
+  padding-bottom: 1.5%;
+  padding-top: 2%;
+  border-top: 1px solid;
+  border-left: 1px solid;
+  border-right: 1px solid;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+.data-row {
+  display: flex;
+  justify-content: space-around;
+}
+.button-pad {
+  padding-top: 1.5%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .building-info {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  align-items: baseline;
+  padding-top: 1.5%;
+
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.container {
+  border-left: 1px solid;
+  border-right: 1px solid;
 }
 
 .simulator {

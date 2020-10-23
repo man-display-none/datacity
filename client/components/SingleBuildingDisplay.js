@@ -43,7 +43,7 @@ class SingleBuildingDisplay extends Component {
       yAxisID: 'emissions'
     }
     this.normalized = {
-      label: 'Weather Normalized Energy Use Intensity (EUI)',
+      label: 'Weather Normalized (EUI)',
       backgroundColor: 'rgba(20,40,109,0)',
       borderColor: 'purple',
       borderWidth: 2,
@@ -104,73 +104,73 @@ class SingleBuildingDisplay extends Component {
             <ImprovementSimulator />
           </section>
         )}
-        <div className="graph">
-          <form>
-            <h3>Graph Options</h3>
-            <div className="form-check form-inline">
-              <input
-                name="form-check-input"
-                type="checkbox"
-                value={this.energy}
-                onChange={this.handleChange}
-                id="energy"
-              />
-              <label className="form-check-label" htmlFor="Energy Rating">
-                Energy Rating
-              </label>
-            </div>
-            <div className="form-check form-inline">
-              <input
-                name="form-check-input"
-                type="checkbox"
-                value={this.electricity}
-                onChange={this.handleChange}
-                id="electricity"
-              />
-              <label className="form-check-label" htmlFor="Electricity Usage">
-                Electricity Usage
-              </label>
-            </div>
-            <div className="form-check form-inline">
-              <input
-                name="form-check-input"
-                type="checkbox"
-                value=""
-                onChange={this.handleChange}
-                id="fuel"
-              />
-              <label className="form-check-label" htmlFor="Fuel Usage">
-                Fuel Usage
-              </label>
-            </div>
-            <div className="form-check form-inline">
-              <input
-                name="form-check-input"
-                type="checkbox"
-                value={this.normalized}
-                onChange={this.handleChange}
-                id="normalized"
-              />
-              <label className="form-check-label" htmlFor="Normalized Usage">
-                Normalized Usage
-              </label>
-            </div>
-            <div className="form-check form-inline">
-              <input
-                name="form-check-input"
-                type="checkbox"
-                value={this.emissions}
-                onChange={this.handleChange}
-                id="emissions"
-              />
-              <label className="form-check-label" htmlFor="ghg emissions">
-                ghg emissions
-              </label>
-            </div>
-          </form>
-          <div
-            style={{width: '60rem', border: '1px solid grey', height: '30rem'}}
-          >
+        <div className="graph container">
+          <div className="graph-options">
+            <form>
+              <h3>Graph Options</h3>
+              <div className="form-check form-inline">
+                <input
+                  name="form-check-input"
+                  type="checkbox"
+                  value={this.energy}
+                  onChange={this.handleChange}
+                  id="energy"
+                />
+                <label className="form-check-label" htmlFor="Energy Rating">
+                  EnergyStar Score
+                </label>
+              </div>
+              <div className="form-check form-inline">
+                <input
+                  name="form-check-input"
+                  type="checkbox"
+                  value={this.electricity}
+                  onChange={this.handleChange}
+                  id="electricity"
+                />
+                <label className="form-check-label" htmlFor="Electricity Usage">
+                  Electricity Usage
+                </label>
+              </div>
+              <div className="form-check form-inline">
+                <input
+                  name="form-check-input"
+                  type="checkbox"
+                  value=""
+                  onChange={this.handleChange}
+                  id="fuel"
+                />
+                <label className="form-check-label" htmlFor="Fuel Usage">
+                  Fuel Usage
+                </label>
+              </div>
+              <div className="form-check form-inline">
+                <input
+                  name="form-check-input"
+                  type="checkbox"
+                  value={this.normalized}
+                  onChange={this.handleChange}
+                  id="normalized"
+                />
+                <label className="form-check-label" htmlFor="Normalized Usage">
+                  Normalized Energy Use
+                </label>
+              </div>
+              <div className="form-check form-inline">
+                <input
+                  name="form-check-input"
+                  type="checkbox"
+                  value={this.emissions}
+                  onChange={this.handleChange}
+                  id="emissions"
+                />
+                <label className="form-check-label" htmlFor="ghg emissions">
+                  GHG Emissions
+                </label>
+              </div>
+            </form>
+          </div>
+          <div style={{width: '55.4rem', height: '30rem'}}>
             <Graph
               data={this.state.chartData}
               id={this.props.match.params.id}
