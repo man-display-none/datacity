@@ -267,40 +267,46 @@ class ImprovementSimulator extends Component {
       <div className="simulator">
         <Container>
           <div className="data-row">
-            <Col>
-              <BuildingModel />
-            </Col>
-            <Col>
-              <div className="projected">
-                <h3>Projected Total Use</h3>
-                <h5>
-                  Electricity:{' '}
-                  {isNaN(electricity)
-                    ? 'Not Available'
-                    : electricity.toFixed(0) + '  kWh'}
-                </h5>
-                <h5>
-                  Fuel:{' '}
-                  {isNaN(fuel) ? 'Not Available' : fuel.toFixed(0) + ' Kbtu'}
-                </h5>
-                <h5>
-                  Water:{' '}
-                  {isNaN(water)
-                    ? 'Not Available'
-                    : water.toFixed(0) + ' Gallons'}
-                </h5>
-                <h5>
-                  GHG Emissions:{' '}
-                  {isNaN(emissions)
-                    ? 'Not Available'
-                    : emissions.toFixed(0) + ' Tons'}
-                </h5>
-                <h5>Total cost: {formatter.format(cost).slice(0, -3)}</h5>
-              </div>
-            </Col>
-            <Col>
-              <ImprovementImpacts changes={this.state} />
-            </Col>
+            <div className="data-row">
+              <Col>
+                <BuildingModel />
+              </Col>
+            </div>
+            <div className="data-row">
+              <Col>
+                <div className="projected">
+                  <h3>Projected Total Use</h3>
+                  <h5>
+                    Electricity:{' '}
+                    {isNaN(electricity)
+                      ? 'Not Available'
+                      : electricity.toFixed(0) + '  kWh'}
+                  </h5>
+                  <h5>
+                    Fuel:{' '}
+                    {isNaN(fuel) ? 'Not Available' : fuel.toFixed(0) + ' Kbtu'}
+                  </h5>
+                  <h5>
+                    Water:{' '}
+                    {isNaN(water)
+                      ? 'Not Available'
+                      : water.toFixed(0) + ' Gallons'}
+                  </h5>
+                  <h5>
+                    GHG Emissions:{' '}
+                    {isNaN(emissions)
+                      ? 'Not Available'
+                      : emissions.toFixed(0) + ' Tons'}
+                  </h5>
+                  <h5>Total cost: {formatter.format(cost).slice(0, -3)}</h5>
+                </div>
+              </Col>
+            </div>
+            <div className="data-row">
+              <Col>
+                <ImprovementImpacts changes={this.state} />
+              </Col>
+            </div>
           </div>
           <div className="my-5"></div>
           <div className="row">
