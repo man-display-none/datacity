@@ -1,6 +1,11 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import Container from 'react-bootstrap/Container'
 import {updatedInfo, updatedModel} from '../store/buildingInfo'
+import ImprovementImpacts from './ImprovementImpacts'
+import BuildingModel from './BuildingModel'
 
 const formatter = new Intl.NumberFormat('en-US', {
   style: 'currency',
@@ -38,7 +43,6 @@ class ImprovementSimulator extends Component {
     this.renderModel()
   }
   renderModel() {
-    console.log('impsim')
     const {
       electricityUse,
       fuelUse,
@@ -48,10 +52,10 @@ class ImprovementSimulator extends Component {
     } = this.props.buildingModel
     if (this.state.unRendered === true) {
       this.setState({
-        electricity: electricityUse,
-        fuel: fuelUse,
-        water: waterUse,
-        emissions: ghgEmissions,
+        electricity: isNaN(electricityUse) ? 'Not Available' : electricityUse,
+        fuel: isNaN(fuelUse) ? 'Not Available' : fuelUse,
+        water: isNaN(waterUse) ? 'Not Available' : waterUse,
+        emissions: isNaN(ghgEmissions) ? 'Not Available' : ghgEmissions,
         cost: totalEnergyCost,
         unRendered: false
       })
@@ -195,7 +199,7 @@ class ImprovementSimulator extends Component {
       })
     }
   }
-  reset() {
+  async reset() {
     document.getElementById('lighting').checked = false
     document.getElementById('airsealing').checked = false
     document.getElementById('solar').checked = false
@@ -203,74 +207,166 @@ class ImprovementSimulator extends Component {
     document.getElementById('roof-insulation').checked = false
     document.getElementById('VFD').checked = false
     document.getElementById('windows').checked = false
-    this.setState({
+    await this.setState({
       unRendered: true,
       lightingChecked: false,
       solarInstalled: false,
-      airSealed: false
+      airSealed: false,
+      lowFlowInstalled: false,
+      roofInsulationInstalled: false,
+      vfdInstalled: false,
+      windowsInstalled: false
     })
+    this.renderModel()
   }
   render() {
+    const {electricity, fuel, water, emissions, cost} = this.state
     return (
       <div className="simulator">
-        <div className="projected">
-          <h3>Projected</h3>
-          <h5>Electricity: {this.state.electricity.toFixed(0)} kWh</h5>
-          <h5>Fuel: {this.state.fuel.toFixed(0)} Kbtu</h5>
-          <h5>Water: {this.state.water.toFixed(0)} Gallons</h5>
-          <h5>GHG Emissions: {this.state.emissions.toFixed(0)} Tons</h5>
-          <h5>Total cost: {formatter.format(this.state.cost).slice(0, -3)}</h5>
-        </div>
-        <form className="improvement-options">
-          <h3>Improvement Options</h3>
-          <input
-            name="lighting"
-            type="checkbox"
-            id="lighting"
-            onChange={this.lightingImprovement}
-          />
-          <label>Lighting improvement</label>
-          <input
-            name="airsealing"
-            type="checkbox"
-            id="airsealing"
-            onChange={this.airSealing}
-          />
-          <label>Insulation improvement</label>
-          <input
-            name="solar"
-            type="checkbox"
-            id="solar"
-            onChange={this.solarInstall}
-          />
-          <label>Install solar</label>
-          <input
-            name="lowflow"
-            type="checkbox"
-            id="lowflow"
-            onChange={this.lowFlow}
-          />
-          <label>Install lowflow faucets + showerheads</label>
-          <input
-            name="roof-insulation"
-            type="checkbox"
-            id="roof-insulation"
-            onChange={this.roofInsulation}
-          />
-          <label>Improve roof insulation</label>
-          <input name="VFD" type="checkbox" id="VFD" onChange={this.vfd} />
-          <label>Improve motors/install VFDs</label>
-          <input
-            name="windows"
-            type="checkbox"
-            id="windows"
-            onChange={this.windows}
-          />
-          <label>Replace windows</label>
-          <button type="button" onClick={this.reset}>
-            Reset
-          </button>
-        </form>
+        <Container>
+          <Row>
+            <Col>
+              <BuildingModel />
+            </Col>
+            <Col>
+              <div className="projected">
+                <h3>Projected Total Use</h3>
+                <h5>
+                  Electricity:{' '}
+                  {isNaN(electricity)
+                    ? 'Not Available'
+                    : electricity.toFixed(0) + '  kWh'}
+                </h5>
+                <h5>
+                  Fuel:{' '}
+                  {isNaN(fuel) ? 'Not Available' : fuel.toFixed(0) + ' Kbtu'}
+                </h5>
+                <h5>
+                  Water:{' '}
+                  {isNaN(water)
+                    ? 'Not Available'
+                    : water.toFixed(0) + ' Gallons'}
+                </h5>
+                <h5>
+                  GHG Emissions:{' '}
+                  {isNaN(emissions)
+                    ? 'Not Available'
+                    : emissions.toFixed(0) + ' Tons'}
+                </h5>
+                <h5>Total cost: {formatter.format(cost).slice(0, -3)}</h5>
+              </div>
+            </Col>
+            <Col>
+              <ImprovementImpacts changes={this.state} />
+            </Col>
+          </Row>
+          <div className="my-5"></div>
+          <div className="row">
+            <div className="col-12">
+              <form className="improvement-options">
+                <div className="row">
+                  <h3 className="col-3">Improvement Options</h3>
+                  <div className="col-9">
+                    <div className="row">
+                      <div className="col-4 ">
+                        <div className="d-flex align-items-center">
+                          <input
+                            name="lighting"
+                            type="checkbox"
+                            id="lighting"
+                            onChange={this.lightingImprovement}
+                            className="mr-2"
+                          />
+                          <label>Lighting improvement</label>
+                        </div>
+                      </div>
+                      <div className="col-4 ">
+                        <div className="d-flex align-items-center">
+                          <input
+                            name="airsealing"
+                            type="checkbox"
+                            id="airsealing"
+                            onChange={this.airSealing}
+                            className="mr-2"
+                          />
+                          <label>Insulation improvement</label>
+                        </div>
+                      </div>
+                      <div className="col-4 ">
+                        <div className="d-flex align-items-center">
+                          <input
+                            name="solar"
+                            type="checkbox"
+                            id="solar"
+                            onChange={this.solarInstall}
+                            className="mr-2"
+                          />
+                          <label>Install solar</label>
+                        </div>
+                      </div>
+                      <div className="col-4 ">
+                        <div className="d-flex align-items-center">
+                          <input
+                            name="lowflow"
+                            type="checkbox"
+                            id="lowflow"
+                            onChange={this.lowFlow}
+                            className="mr-2"
+                          />
+                          <label>Install lowflow faucets + showerheads</label>
+                        </div>
+                      </div>
+                      <div className="col-4 ">
+                        <div className="d-flex align-items-center">
+                          <input
+                            name="roof-insulation"
+                            type="checkbox"
+                            id="roof-insulation"
+                            onChange={this.roofInsulation}
+                            className="mr-2"
+                          />
+                          <label>Improve roof insulation</label>
+                        </div>
+                      </div>
+                      <div className="col-4 ">
+                        <div className="d-flex align-items-center">
+                          <input
+                            name="VFD"
+                            type="checkbox"
+                            id="VFD"
+                            onChange={this.vfd}
+                            className="mr-2"
+                          />
+                          <label>Improve motors/install VFDs</label>
+                        </div>
+                      </div>
+                      <div className="col-4 ">
+                        <div className="d-flex align-items-center">
+                          <input
+                            name="windows"
+                            type="checkbox"
+                            id="windows"
+                            onChange={this.windows}
+                            className="mr-2"
+                          />
+                          <label>Replace windows</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    className="d-block m-auto btn btn-primary"
+                    type="button"
+                    onClick={this.reset}
+                  >
+                    Reset
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div className="my-5"></div>
+        </Container>
       </div>
     )
   }
