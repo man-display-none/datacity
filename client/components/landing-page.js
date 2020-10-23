@@ -48,8 +48,9 @@ const LandingPage = props => {
           })
       }
     })
-
-    document.getElementById('geocoder').appendChild(geocoder.onAdd(map))
+    if (!document.getElementById('geocoder').hasChildNodes()) {
+      document.getElementById('geocoder').appendChild(geocoder.onAdd(map))
+    }
 
     mapContainerRef.current.className = 'mapContainer'
     mapContainerRef.current.style.visibility = 'visible'
