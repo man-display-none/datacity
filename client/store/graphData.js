@@ -42,7 +42,7 @@ export const getGraphInfo = baseBbl => {
     try {
       //Promise.all()
       const {data: data2019} = await axios.get(
-        `https://data.cityofnewyork.us/resource/28fi-3us3.json?bbl_10_digits=${baseBbl}`
+        `https://data.cityofnewyork.us/resource/qb3v-bbre.json?bbl_10_digits=${baseBbl}`
       )
       const {data: data2018} = await axios.get(
         `https://data.cityofnewyork.us/resource/vdzd-yy49.json?bbl_10_digits=${baseBbl}`

@@ -8,7 +8,7 @@ router.post('/energy', async (req, res, next) => {
   try {
     //get all buildings with desired information from energy data
     const energyResponse = await axios.get(
-      'https://data.cityofnewyork.us/resource/28fi-3us3.json?$limit=30000&$select=energy_star_score,bbl_10_digits,borough,dof_gross_floor_area_ft,address_1_self_reported,largest_property_use_type'
+      'https://data.cityofnewyork.us/resource/qb3v-bbre.json?$limit=30000&$select=energy_star_score,bbl_10_digits,borough,dof_gross_floor_area_ft,address_1_self_reported,largest_property_use_type'
     )
 
     //add data to building table

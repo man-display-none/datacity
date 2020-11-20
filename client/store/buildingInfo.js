@@ -38,7 +38,7 @@ export const updatedModel = bbl => {
   return async dispatch => {
     try {
       const {data: buildData} = await axios.get(
-        `https://data.cityofnewyork.us/resource/28fi-3us3.json?bbl_10_digits=${bbl}`
+        `https://data.cityofnewyork.us/resource/qb3v-bbre.json?bbl_10_digits=${bbl}`
       )
       const {
         electricity_use_grid_purchase,
@@ -95,7 +95,7 @@ export const updatedInfo = bbl => {
   return async dispatch => {
     try {
       const {data: buildData} = await axios.get(
-        `https://data.cityofnewyork.us/resource/28fi-3us3.json?bbl_10_digits=${bbl}`
+        `https://data.cityofnewyork.us/resource/qb3v-bbre.json?bbl_10_digits=${bbl}`
       )
       dispatch(getBuildingInfo(buildData))
     } catch (error) {
