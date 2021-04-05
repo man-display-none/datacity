@@ -7,7 +7,9 @@ const db = new Sequelize(
   process.env.DATABASE_URL || `postgres://localhost:5432/${databaseName}`,
   {
     logging: false,
-    pool: {idle: 300000, acquire: 1200000}
+    ssl: true,
+    pool: {idle: 300000, acquire: 1200000},
+    dialectOptions: {ssl: true}
   }
 )
 module.exports = db
@@ -17,3 +19,10 @@ module.exports = db
 if (process.env.NODE_ENV === 'test') {
   after('close database connection', () => db.close())
 }
+/*
+ logging: false,
+    ssl: true,
+    dialectOptions: {
+      ssl: true
+    }
+*/
