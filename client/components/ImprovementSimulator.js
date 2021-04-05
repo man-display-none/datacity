@@ -44,6 +44,7 @@ class ImprovementSimulator extends Component {
     this.reset = this.reset.bind(this)
   }
   componentDidMount() {
+    console.log('componentDidMount')
     this.renderModel()
   }
   renderModel() {
