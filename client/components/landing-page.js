@@ -167,7 +167,7 @@ const LandingPage = props => {
 
 async function fetchData(base_bbl) {
   const {data: bldg} = await axios.get(
-    `https://data.cityofnewyork.us/resource/qb3v-bbre.json?bbl_10_digits=${base_bbl}`
+    `https://data.cityofnewyork.us/resource/8cfx-ij92.json?BASE_BBL=${base_bbl}`
   )
   //some multiple bbl results need to be accounted for
   //use last index from search results
