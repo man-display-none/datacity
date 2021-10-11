@@ -42,16 +42,17 @@ export const getGraphInfo = baseBbl => {
     try {
       //Promise.all()
       const {data: data2019} = await axios.get(
-        `https://data.cityofnewyork.us/resource/qb3v-bbre.json?bbl_10_digits=${baseBbl}`
+        `https://data.cityofnewyork.us/resource/wcm8-aq5w.json?nyc_borough_block_and_lot=${baseBbl}`
       )
+      console.log('2019 DATA', data2019)
       const {data: data2018} = await axios.get(
-        `https://data.cityofnewyork.us/resource/vdzd-yy49.json?bbl_10_digits=${baseBbl}`
+        `https://data.cityofnewyork.us/resource/4tys-3tzj.json?nyc_borough_block_and_lot=${baseBbl}`
       )
       const {data: data2017} = await axios.get(
-        `https://data.cityofnewyork.us/resource/n2mv-q2ia.json?bbl_10_digits=${baseBbl}`
+        `https://data.cityofnewyork.us/resource/4t62-jm4m.json?nyc_borough_block_and_lot=${baseBbl}`
       )
       const {data: data2016} = await axios.get(
-        `https://data.cityofnewyork.us/resource/8u86-bviy.json?bbl_10_digits=${baseBbl}`
+        `https://data.cityofnewyork.us/resource/utpj-74fz.json?nyc_borough_block_and_lot=${baseBbl}`
       )
       //const {data: data2015} = await axios.get(
       //   `https://data.cityofnewyork.us/resource/hypw-js3b.json?bbl_10_digits=${baseBbl}`

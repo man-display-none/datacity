@@ -34,12 +34,27 @@ const totalUse = arr => {
   return total
 }
 
+//function to return building data with un-hyphenated or hyphenated BBL
+async function testBBLs(bbl) {
+  let {data} = await axios.get(
+    `https://data.cityofnewyork.us/resource/wcm8-aq5w.json?nyc_borough_block_and_lot=${bbl}`
+  )
+  if (data.length) {
+    return data
+  } else {
+    //regex to insert BBl hyphens per BBL syntax (X-XXXXX-XXXX), if un-hyphenated BBL does not return building data
+    const bblWithHyphens = bbl.replace(/(\d{1})(\d{5})(\d{4})/, '$1-$2-$3')
+    let {data: betterData} = await axios.get(
+      `https://data.cityofnewyork.us/resource/wcm8-aq5w.json?nyc_borough_block_and_lot=${bblWithHyphens}`
+    )
+    return betterData
+  }
+}
+
 export const updatedModel = bbl => {
   return async dispatch => {
     try {
-      const {data: buildData} = await axios.get(
-        `https://data.cityofnewyork.us/resource/qb3v-bbre.json?bbl_10_digits=${bbl}`
-      )
+      const buildData = await testBBLs(bbl)
       const {
         electricity_use_grid_purchase,
         electricity_use_grid_purchase_1,
@@ -95,7 +110,7 @@ export const updatedInfo = bbl => {
   return async dispatch => {
     try {
       const {data: buildData} = await axios.get(
-        `https://data.cityofnewyork.us/resource/qb3v-bbre.json?bbl_10_digits=${bbl}`
+        `https://data.cityofnewyork.us/resource/wcm8-aq5w.json?nyc_borough_block_and_lot=${bbl}`
       )
       dispatch(getBuildingInfo(buildData))
     } catch (error) {
